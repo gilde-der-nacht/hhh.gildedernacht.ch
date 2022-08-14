@@ -1,12 +1,14 @@
 import type { Component } from "solid-js";
 import { createSignal, Match, Switch } from "solid-js";
-import type { PageType } from "./components/page/PageTypes";
-import { StartPage } from "./components/page/StartPage";
-import { Footer } from "./components/layout/Footer";
-import { Header } from "./components/layout/Header";
-import { Notification } from "./components/static/Notification";
+import type { PageType } from "@/page/PageTypes";
+import { StartPage } from "@/page/StartPage";
+import { Footer } from "@/layout/Footer";
+import { Header } from "@/layout/Header";
+import { Notification } from "@/static/Notification";
+import { NewOrderPage } from "@/page/NewOrderPage";
+import { NewLocationPage } from "@/page/NewLocationPage";
 
-const error = () => (
+const pageError = () => (
   <Notification color="danger">
     <div class="content">
       <p>Leider ist ein Fehler aufgetreten. Versuche die Seite neuzuladen. </p>
@@ -26,13 +28,15 @@ const App: Component = () => {
       <Header />
       <div>
         <div class="container p-5">
-          <Switch fallback={error()}>
+          <Switch fallback={pageError()}>
             <Match when={page() === "start"}>
-              <StartPage
-                startNewOrder={() => {
-                  setPage("newOrder");
-                }}
-              />
+              <StartPage link={setPage} />
+            </Match>
+            <Match when={page() === "newOrder"}>
+              <NewOrderPage link={setPage} />
+            </Match>
+            <Match when={page() === "newLocation"}>
+              <NewLocationPage link={setPage} />
             </Match>
           </Switch>
         </div>

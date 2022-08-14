@@ -1,12 +1,13 @@
 import { Component } from "solid-js";
-import { Button } from "../static/Button";
-import { IconLeft } from "../static/icons/IconLeft";
+import { Button } from "@/static/Button";
+import { IconLeft } from "@/static/icons/IconLeft";
+import type { PageType } from "./PageTypes";
 
-type StartPageProps = {
-  startNewOrder: () => void;
+type PageProps = {
+  link: (page: PageType) => void;
 };
 
-export const StartPage: Component<StartPageProps> = ({ startNewOrder }) => {
+export const StartPage: Component<PageProps> = ({ link }) => {
   return (
     <div class="hhh-spacer" style="--gap: 5rem;">
       <div>
@@ -17,7 +18,11 @@ export const StartPage: Component<StartPageProps> = ({ startNewOrder }) => {
           Starte eine neue Bestellung
         </h3>
         <div class="has-text-centered">
-          <Button color="success" onClick={startNewOrder}>
+          <Button
+            color="success"
+            outlined={true}
+            onClick={() => link("newOrder")}
+          >
             <IconLeft icon="plus">Neue Bestellung</IconLeft>
           </Button>
         </div>

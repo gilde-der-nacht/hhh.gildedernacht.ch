@@ -17,7 +17,16 @@ export type Order = {
   displayState: DisplayState;
 }
 
+export type Entry = {
+  id: string;
+  name: string;
+  menuItem: string;
+  comment: string;
+  orderId: string;
+}
+
 export type AppState = {
   restaurants: Restaurant[],
   orders: Order[],
+  entries: Entry[],
 }

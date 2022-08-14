@@ -65,6 +65,29 @@ const App: Component = () => {
         displayState: "open",
       },
     ],
+    entries: [
+      {
+        id: "1",
+        name: "Oliver",
+        comment: "This is a comment",
+        menuItem: "Pizza Hawaii",
+        orderId: "3",
+      },
+      {
+        id: "2",
+        name: "Oliver",
+        comment: "This is a comment",
+        menuItem: "Kebab",
+        orderId: "3",
+      },
+      {
+        id: "3",
+        name: "Oliver",
+        comment: "This is a comment",
+        menuItem: "Pizza Proscuttio",
+        orderId: "1",
+      },
+    ],
   });
 
   return (

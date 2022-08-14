@@ -1,12 +1,13 @@
-import type { Component } from "solid-js";
-import { createSignal, Match, Switch } from "solid-js";
-import type { PageType } from "@/page/PageTypes";
-import { StartPage } from "@/page/StartPage";
 import { Footer } from "@/layout/Footer";
 import { Header } from "@/layout/Header";
-import { Notification } from "@/static/Notification";
-import { NewOrderPage } from "@/page/NewOrderPage";
 import { NewLocationPage } from "@/page/NewLocationPage";
+import { NewOrderPage } from "@/page/NewOrderPage";
+import type { PageType } from "@/page/PageTypes";
+import { StartPage } from "@/page/StartPage";
+import { Notification } from "@/static/Notification";
+import type { Component } from "solid-js";
+import { createSignal, Match, Switch } from "solid-js";
+import type { AppState } from "StateType";
 
 const pageError = () => (
   <Notification color="danger">
@@ -22,6 +23,18 @@ const pageError = () => (
 
 const App: Component = () => {
   const [page, setPage] = createSignal<PageType>("start");
+  const [state, setState] = createSignal<AppState>({
+    restaurants: [
+      {
+        label: "Dieci Luzern",
+        menu: "https://www.dieci.ch/de/",
+      },
+      {
+        label: "Kebab und Pizza Haus Ebikon",
+        menu: "https://www.just-eat.ch/speisekarte/kebab-und-pizza-haus",
+      },
+    ],
+  });
 
   return (
     <div class="hhh-body">
@@ -33,7 +46,7 @@ const App: Component = () => {
               <StartPage link={setPage} />
             </Match>
             <Match when={page() === "newOrder"}>
-              <NewOrderPage link={setPage} />
+              <NewOrderPage link={setPage} restaurants={state().restaurants} />
             </Match>
             <Match when={page() === "newLocation"}>
               <NewLocationPage link={setPage} />

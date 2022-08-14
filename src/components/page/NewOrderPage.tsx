@@ -5,11 +5,15 @@ import { Input } from "@/static/forms/Input";
 import { NumberInput } from "@/static/forms/NumberInput";
 import { IconLeft } from "@/static/icons/IconLeft";
 import type { Component } from "solid-js";
+import { Restaurant } from "StateType";
 import type { PageType } from "./PageTypes";
 
-type PageProps = { link: (page: PageType) => void };
+type PageProps = {
+  link: (page: PageType) => void;
+  restaurants: Restaurant[];
+};
 
-export const NewOrderPage: Component<PageProps> = ({ link }) => {
+export const NewOrderPage: Component<PageProps> = ({ link, restaurants }) => {
   return (
     <div class="hhh-spacer">
       <h3 class="title is-3 has-text-centered">Neue Bestellung</h3>
@@ -24,7 +28,10 @@ export const NewOrderPage: Component<PageProps> = ({ link }) => {
           startValue={60}
           helptext="Wie lange haben die anderen Personen Zeit ihre Bestellung einzugeben."
         />
-        <LocationDropdown newLocation={() => link("newLocation")} />
+        <LocationDropdown
+          newLocation={() => link("newLocation")}
+          restaurants={restaurants}
+        />
         <div
           class="pt-5 is-flex is-flex-wrap-wrap is-justify-content-space-evenly"
           style="gap: 1rem;"

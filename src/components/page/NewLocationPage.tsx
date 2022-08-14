@@ -18,7 +18,7 @@ export const NewLocationPage: Component<PageProps> = ({ link }) => {
           helptext="Der Name des Restaurants, der überall verwendet wird."
         />
         <Input
-          label="Link"
+          label="Menülink"
           placeholder="https://..."
           helptext="Unter welchem Link das Menü des Restaurants eingesehen werden kann."
         />

@@ -12,17 +12,17 @@ export const AddEntry: Component = () => {
         <Input
           label="Besteller"
           placeholder="Dein Name"
-          helptext="Damit wir wissen, wer diesen Eintrag erstellt hat und für das Essen bezahlt."
+          helpText="Damit wir wissen, wer diesen Eintrag erstellt hat und für das Essen bezahlt."
         />
         <Input
           label="Menüeintrag"
           placeholder="z.B. Pizza XY, Kebap Döner"
-          helptext="Bitte verwende den selben Namen, wie auf der Menüseite."
+          helpText="Bitte verwende den selben Namen, wie auf der Menüseite."
         />
         <Input
           label="Kommentar"
           placeholder="z.B. Kleine Pizza, Jogurtsauce"
-          helptext="Es können nur Wünsche berücksichtig werden, die das Restaurant auch zulässt. Wenn du Infos weglässt (z.B. die Grösse der Pizza), gehen wir von den Standardeinstellungen aus."
+          helpText="Es können nur Wünsche berücksichtig werden, die das Restaurant auch zulässt. Wenn du Infos weglässt (z.B. die Grösse der Pizza), gehen wir von den Standardeinstellungen aus."
         />
         <Button color="success" onClick={() => {}}>
           <IconLeft icon="check">Eintrag hinzufügen</IconLeft>

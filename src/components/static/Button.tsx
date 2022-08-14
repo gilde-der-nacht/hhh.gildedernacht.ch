@@ -5,7 +5,7 @@ type ButtonProps = {
   outlined?: boolean;
   size?: "normal" | "large";
   children: JSX.Element;
-  onClick: () => void;
+  onClick: (e: Event) => void;
 };
 
 export const Button: Component<ButtonProps> = ({

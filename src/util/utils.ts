@@ -40,3 +40,7 @@ export const getCountdown = (date: DateTime, timeWindow: number, now: DateTime):
   }
   return `<1 Minute`;
 }
+
+export const isEmpty = (s: string): boolean => {
+  return s.trim().length === 0;
+}

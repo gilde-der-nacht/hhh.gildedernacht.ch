@@ -25,7 +25,7 @@ export const NewOrderPage: Component<PageProps> = ({ link, restaurants }) => {
         <Input
           label="Besteller"
           placeholder="Dein Name"
-          helptext="Damit alle wissen, wer diese Bestellung abschickt."
+          helpText="Damit alle wissen, wer diese Bestellung abschickt."
         />
         <NumberInput
           label="Zeitfenster (in Minuten)"

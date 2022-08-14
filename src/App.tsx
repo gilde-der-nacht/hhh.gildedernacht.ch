@@ -1,10 +1,14 @@
 import type { Component } from "solid-js";
+import { Footer } from "./compontents/static/Footer";
+import { Header } from "./compontents/static/Header";
 
 const App: Component = () => {
   return (
-    <header>
-      <h1>Hungry Hungry Hippos</h1>
-    </header>
+    <div class="hhh-body">
+      <Header />
+      <div class="container"></div>
+      <Footer />
+    </div>
   );
 };
 

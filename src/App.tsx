@@ -88,6 +88,7 @@ const App: Component = () => {
             </Match>
             <Match when={page() === "orderDetails"}>
               <OrderDetailsPage
+                state={state()}
                 link={setPage}
                 fallback={pageError}
                 activeOrder={getActiveOrder(activeOrder(), state().orders)}

@@ -18,6 +18,10 @@ export const NewOrderPage: Component<PageProps> = ({ link, restaurants }) => {
     <div class="hhh-spacer">
       <h3 class="title is-3 has-text-centered">Neue Bestellung</h3>
       <Form>
+        <LocationDropdown
+          newLocation={() => link("newLocation")}
+          restaurants={restaurants}
+        />
         <Input
           label="Besteller"
           placeholder="Dein Name"
@@ -27,10 +31,6 @@ export const NewOrderPage: Component<PageProps> = ({ link, restaurants }) => {
           label="Zeitfenster (in Minuten)"
           startValue={60}
           helptext="Wie lange haben die anderen Personen Zeit ihre Bestellung einzugeben."
-        />
-        <LocationDropdown
-          newLocation={() => link("newLocation")}
-          restaurants={restaurants}
         />
         <div
           class="pt-5 is-flex is-flex-wrap-wrap is-justify-content-space-evenly"

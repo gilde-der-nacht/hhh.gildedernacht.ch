@@ -34,7 +34,7 @@ export const StartPage: Component<PageProps> = ({
         <div class="has-text-centered">
           <Button
             color="success"
-            outlined={true}
+            size="large"
             onClick={() => link("newOrder")}
           >
             <IconLeft icon="plus">Neue Bestellung</IconLeft>

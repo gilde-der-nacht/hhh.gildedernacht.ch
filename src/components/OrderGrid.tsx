@@ -1,6 +1,8 @@
 import { Grid } from "@/layout/Grid";
-import { getRestaurant } from "@util/utils";
+import { formatDate, getCountdown, getRestaurant } from "@util/utils";
+import type { DateTime } from "luxon";
 import type { Component } from "solid-js";
+import { Show } from "solid-js";
 import type { AppState, DisplayState } from "StateType";
 import type { PageType } from "./page/PageTypes";
 
@@ -9,6 +11,7 @@ type Props = {
   filter: DisplayState;
   setActiveOrder: (id: string) => void;
   link: (page: PageType) => void;
+  now: DateTime;
 };
 
 export const OrderGrid: Component<Props> = ({
@@ -16,6 +19,7 @@ export const OrderGrid: Component<Props> = ({
   filter,
   setActiveOrder,
   link,
+  now,
 }) => {
   return (
     <Grid
@@ -33,11 +37,17 @@ export const OrderGrid: Component<Props> = ({
       {(item) => {
         const restaurant = getRestaurant(item.restaurantId, state.restaurants);
         return (
-          <>
-            <h4 class="title is-4">{restaurant.label}</h4>
+          <div class="content">
+            <h4 class="title is-4 m-0">{restaurant.label}</h4>
             <p>{item.name}</p>
-            <p>{item.timestamp.toISOTime()}</p>
-          </>
+            <Show
+              when={getCountdown(item.timestamp, item.timeWindow, now) !== null}
+            >
+              <strong class="has-text-danger">
+                Noch {getCountdown(item.timestamp, item.timeWindow, now)}
+              </strong>
+            </Show>
+          </div>
         );
       }}
     </Grid>

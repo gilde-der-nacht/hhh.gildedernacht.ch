@@ -1,6 +1,7 @@
 import { OrderGrid } from "@/OrderGrid";
 import { Button } from "@/static/Button";
 import { IconLeft } from "@/static/icons/IconLeft";
+import type { DateTime } from "luxon";
 import { Component } from "solid-js";
 import type { AppState } from "StateType";
 import type { PageType } from "./PageTypes";
@@ -9,12 +10,14 @@ type PageProps = {
   state: AppState;
   setActiveOrder: (id: string) => void;
   link: (page: PageType) => void;
+  now: DateTime;
 };
 
 export const StartPage: Component<PageProps> = ({
   state,
   link,
   setActiveOrder,
+  now,
 }) => {
   return (
     <div class="hhh-spacer" style="--gap: 5rem;">
@@ -25,6 +28,7 @@ export const StartPage: Component<PageProps> = ({
           filter="open"
           link={link}
           setActiveOrder={setActiveOrder}
+          now={now}
         />
       </div>
       <div>
@@ -32,11 +36,7 @@ export const StartPage: Component<PageProps> = ({
           Starte eine neue Bestellung
         </h3>
         <div class="has-text-centered">
-          <Button
-            color="success"
-            size="large"
-            onClick={() => link("newOrder")}
-          >
+          <Button color="success" size="large" onClick={() => link("newOrder")}>
             <IconLeft icon="plus">Neue Bestellung</IconLeft>
           </Button>
         </div>
@@ -50,6 +50,7 @@ export const StartPage: Component<PageProps> = ({
           filter="closed"
           link={link}
           setActiveOrder={setActiveOrder}
+          now={now}
         />
       </div>
     </div>

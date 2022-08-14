@@ -26,6 +26,7 @@ const pageError = () => (
 const App: Component = () => {
   const [page, setPage] = createSignal<PageType>("start");
   const [activeOrder, setActiveOrder] = createSignal("");
+  const [now, setNow] = createSignal(DateTime.now());
   const [state, setState] = createSignal<AppState>({
     restaurants: [
       {
@@ -44,7 +45,7 @@ const App: Component = () => {
         id: "1",
         name: "Oliver",
         restaurantId: "1",
-        timestamp: DateTime.fromISO("2017-05-15T08:30:00"),
+        timestamp: DateTime.fromISO("2022-08-14T20:06:00"),
         timeWindow: 60,
         displayState: "open",
       },
@@ -52,7 +53,7 @@ const App: Component = () => {
         id: "2",
         name: "Oliver asd fasdf as",
         restaurantId: "1",
-        timestamp: DateTime.fromISO("2017-05-15T08:30:00"),
+        timestamp: DateTime.fromISO("2021-08-14T19:08:08"),
         timeWindow: 60,
         displayState: "closed",
       },
@@ -60,7 +61,7 @@ const App: Component = () => {
         id: "3",
         name: "Oliver asd a",
         restaurantId: "2",
-        timestamp: DateTime.fromISO("2017-05-15T08:30:00"),
+        timestamp: DateTime.fromISO("2022-08-14T18:35:00"),
         timeWindow: 120,
         displayState: "open",
       },
@@ -101,6 +102,7 @@ const App: Component = () => {
                 state={state()}
                 link={setPage}
                 setActiveOrder={setActiveOrder}
+                now={now()}
               />
             </Match>
             <Match when={page() === "newOrder"}>

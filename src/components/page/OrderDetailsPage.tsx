@@ -1,7 +1,8 @@
+import { AddEntry } from "@/AddEntry";
 import { Button } from "@/static/Button";
 import { IconLeft } from "@/static/icons/IconLeft";
 import { getRestaurant } from "@util/utils";
-import { Component, For, JSX } from "solid-js";
+import { Component, For, JSX, Show } from "solid-js";
 import type { AppState, Order } from "StateType";
 import type { PageType } from "./PageTypes";
 
@@ -23,7 +24,7 @@ export const OrderDetailsPage: Component<PageProps> = ({
   }
   const entries = state.entries.filter((e) => e.orderId === activeOrder.id);
   return (
-    <div class="hhh-spacer">
+    <div class="hhh-spacer" style="--gap: 5rem;">
       <div>
         <h3 class="title is-3 has-text-centered">
           {getRestaurant(activeOrder.restaurantId, state.restaurants)?.label}
@@ -31,8 +32,10 @@ export const OrderDetailsPage: Component<PageProps> = ({
         <h4 class="subtitle is-4 has-text-centered">{activeOrder.name}</h4>
       </div>
       <div>
-        <h4 class="title is-4 has-text-centered">Einträge ({entries.length})</h4>
-        <div class="hhh-spacer">
+        <h4 class="title is-4 has-text-centered">
+          Einträge ({entries.length})
+        </h4>
+        <div class="hhh-spacer" style="--gap: 1rem;">
           <For each={entries}>
             {(entry) => (
               <div class="card">
@@ -48,6 +51,9 @@ export const OrderDetailsPage: Component<PageProps> = ({
           </For>
         </div>
       </div>
+      <Show when={activeOrder.displayState === "open"}>
+        <AddEntry />
+      </Show>
       <div
         class="pt-5 is-flex is-flex-wrap-wrap is-justify-content-space-evenly"
         style="gap: 1rem;"

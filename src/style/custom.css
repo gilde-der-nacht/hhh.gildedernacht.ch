@@ -1,3 +1,7 @@
+:root {
+  font-size: calc(0.8rem + 0.5vw);
+}
+
 #root {
   min-height: 100vh;
   min-height: -webkit-fill-available;
@@ -8,4 +12,9 @@
   grid-template-rows: max-content 1fr max-content;
   min-height: 100vh;
   min-height: -webkit-fill-available;
+}
+
+.hhh-spacer {
+  display: grid;
+  gap: var(--gap, 1rem);
 }

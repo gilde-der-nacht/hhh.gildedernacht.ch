@@ -1,4 +1,6 @@
-export const Header = () => {
+import type { Component } from "solid-js";
+
+export const Header: Component = () => {
   return (
     <header class="hero is-info">
       <div class="hero-body">

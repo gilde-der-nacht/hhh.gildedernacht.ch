@@ -1,0 +1,20 @@
+{
+    "name": "Hungry Hungry Hippos",
+    "build": {
+        "dockerfile": "./Dockerfile.dev"
+    },
+    "settings": {
+        "terminal.integrated.profiles.linux": {
+            "ash": {
+                "path": "/bin/ash"
+            }
+        }
+    },
+    "extensions": [
+        "oderwat.indent-rainbow",
+        "coenraads.bracket-pair-colorizer-2",
+        "formulahendry.auto-rename-tag",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+    ]
+}

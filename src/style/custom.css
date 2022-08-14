@@ -18,3 +18,10 @@
   display: grid;
   gap: var(--gap, 1rem);
 }
+
+.hhh-grid {
+  max-inline-size: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: 1.75rem;
+}

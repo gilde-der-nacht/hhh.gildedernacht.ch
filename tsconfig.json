@@ -14,7 +14,8 @@
     "baseUrl": "./src/",
     "paths": {
       "@/*": ["components/*"],
-      "@style/*": ["style/*"]
+      "@style/*": ["style/*"],
+      "@util/*": ["util/*"]
     }
   }
 }

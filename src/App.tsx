@@ -2,11 +2,13 @@ import { Footer } from "@/layout/Footer";
 import { Header } from "@/layout/Header";
 import { NewLocationPage } from "@/page/NewLocationPage";
 import { NewOrderPage } from "@/page/NewOrderPage";
+import { OrderDetailsPage } from "@/page/OrderDetailsPage";
 import type { PageType } from "@/page/PageTypes";
 import { StartPage } from "@/page/StartPage";
 import { Notification } from "@/static/Notification";
-import type { Component } from "solid-js";
-import { createSignal, Match, Switch } from "solid-js";
+import { getActiveOrder } from "@util/utils";
+import { DateTime } from "luxon";
+import { Component, createSignal, Match, Switch } from "solid-js";
 import type { AppState } from "StateType";
 
 const pageError = () => (
@@ -23,15 +25,44 @@ const pageError = () => (
 
 const App: Component = () => {
   const [page, setPage] = createSignal<PageType>("start");
+  const [activeOrder, setActiveOrder] = createSignal("");
   const [state, setState] = createSignal<AppState>({
     restaurants: [
       {
+        id: "1",
         label: "Dieci Luzern",
         menu: "https://www.dieci.ch/de/",
       },
       {
+        id: "2",
         label: "Kebab und Pizza Haus Ebikon",
         menu: "https://www.just-eat.ch/speisekarte/kebab-und-pizza-haus",
+      },
+    ],
+    orders: [
+      {
+        id: "1",
+        name: "Oliver",
+        restaurantId: "1",
+        timestamp: DateTime.fromISO("2017-05-15T08:30:00"),
+        timeWindow: 60,
+        displayState: "open",
+      },
+      {
+        id: "2",
+        name: "Oliver asd fasdf as",
+        restaurantId: "1",
+        timestamp: DateTime.fromISO("2017-05-15T08:30:00"),
+        timeWindow: 60,
+        displayState: "closed",
+      },
+      {
+        id: "3",
+        name: "Oliver asd a",
+        restaurantId: "2",
+        timestamp: DateTime.fromISO("2017-05-15T08:30:00"),
+        timeWindow: 120,
+        displayState: "open",
       },
     ],
   });
@@ -43,13 +74,24 @@ const App: Component = () => {
         <div class="container p-5">
           <Switch fallback={pageError()}>
             <Match when={page() === "start"}>
-              <StartPage link={setPage} />
+              <StartPage
+                state={state()}
+                link={setPage}
+                setActiveOrder={setActiveOrder}
+              />
             </Match>
             <Match when={page() === "newOrder"}>
               <NewOrderPage link={setPage} restaurants={state().restaurants} />
             </Match>
             <Match when={page() === "newLocation"}>
               <NewLocationPage link={setPage} />
+            </Match>
+            <Match when={page() === "orderDetails"}>
+              <OrderDetailsPage
+                link={setPage}
+                fallback={pageError}
+                activeOrder={getActiveOrder(activeOrder(), state().orders)}
+              />
             </Match>
           </Switch>
         </div>

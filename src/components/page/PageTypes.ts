@@ -1,1 +1,1 @@
-export type PageType = "start" | "newOrder" | "newLocation";
+export type PageType = "start" | "newOrder" | "newLocation" | "orderDetails";

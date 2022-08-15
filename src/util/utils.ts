@@ -1,10 +1,10 @@
 import { DateTime } from "luxon";
 import type { Order, Restaurant } from "StateType";
 
-export const getRestaurant = (id: string, restaurants: Restaurant[]): Restaurant => {
+export const getRestaurant = (id: string, restaurants: Restaurant[]): Restaurant | null => {
   const found = restaurants.filter(r => r.id === id);
   if (found.length === 0) {
-    throw new Error("Restaurant with id " + id + " not found.");
+    return null;
   }
   return found[0];
 }

@@ -6,18 +6,14 @@ type InputProps = {
   helptext: string;
 };
 
-export const NumberInput: Component<InputProps> = ({
-  label,
-  startValue,
-  helptext,
-}) => {
+export const NumberInput: Component<InputProps> = (props) => {
   return (
     <div class="field">
-      <label class="label">{label}</label>
+      <label class="label">{props.label}</label>
       <div class="control">
-        <input class="input" type="number" value={startValue} />
+        <input class="input" type="number" value={props.startValue} />
       </div>
-      <p class="help">{helptext}</p>
+      <p class="help">{props.helptext}</p>
     </div>
   );
 };

@@ -32,14 +32,14 @@ const App: Component = () => {
   const [state, setState] = createSignal<AppState>({
     restaurants: [
       {
-        id: "1",
+        id: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2c",
         label: "Dieci Luzern",
         menu: "https://www.dieci.ch/de/",
         active: true,
         timestamp: DateTime.now(),
       },
       {
-        id: "2",
+        id: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2d",
         label: "Kebab und Pizza Haus Ebikon",
         menu: "https://www.just-eat.ch/speisekarte/kebab-und-pizza-haus",
         active: true,
@@ -50,7 +50,7 @@ const App: Component = () => {
       {
         id: "1",
         name: "Oliver",
-        restaurantId: "1",
+        restaurantId: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2d",
         timestamp: DateTime.fromISO("2022-08-14T20:06:00"),
         timeWindow: 60,
         displayState: "open",
@@ -59,7 +59,7 @@ const App: Component = () => {
       {
         id: "2",
         name: "Oliver asd fasdf as",
-        restaurantId: "1",
+        restaurantId: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2c",
         timestamp: DateTime.fromISO("2021-08-14T19:08:08"),
         timeWindow: 60,
         displayState: "closed",
@@ -68,7 +68,7 @@ const App: Component = () => {
       {
         id: "3",
         name: "Oliver asd a",
-        restaurantId: "2",
+        restaurantId: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2c",
         timestamp: DateTime.fromISO("2022-08-14T18:35:00"),
         timeWindow: 120,
         displayState: "open",

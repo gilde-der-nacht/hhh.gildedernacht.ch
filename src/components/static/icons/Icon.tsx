@@ -6,10 +6,10 @@ type IconProps = {
   icon: IconType;
 };
 
-export const Icon: Component<IconProps> = ({ icon }) => {
+export const Icon: Component<IconProps> = (props) => {
   return (
     <span class="icon">
-      <i class={`fas fa-${icon}`}></i>
+      <i class={`fas fa-${props.icon}`}></i>
     </span>
   );
 };

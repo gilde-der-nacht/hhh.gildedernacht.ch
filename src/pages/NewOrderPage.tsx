@@ -13,14 +13,14 @@ type PageProps = {
   restaurants: Restaurant[];
 };
 
-export const NewOrderPage: Component<PageProps> = ({ link, restaurants }) => {
+export const NewOrderPage: Component<PageProps> = (props) => {
   return (
     <div class="hhh-spacer">
       <h3 class="title is-3 has-text-centered">Neue Bestellung</h3>
       <Form>
         <LocationDropdown
-          newLocation={() => link("newLocation")}
-          restaurants={restaurants.filter((r) => r.active)}
+          newLocation={() => props.link("newLocation")}
+          restaurants={props.restaurants.filter((r) => r.active)}
         />
         <Input
           label="Besteller"
@@ -40,11 +40,15 @@ export const NewOrderPage: Component<PageProps> = ({ link, restaurants }) => {
             color="danger"
             outlined={true}
             size="large"
-            onClick={() => link("start")}
+            onClick={() => props.link("start")}
           >
             <IconLeft icon="trash">Bestellung abbrechen</IconLeft>
           </Button>
-          <Button color="success" size="large" onClick={() => link("start")}>
+          <Button
+            color="success"
+            size="large"
+            onClick={() => props.link("start")}
+          >
             <IconLeft icon="check">Bestellung aktivieren</IconLeft>
           </Button>
         </div>

@@ -7,10 +7,10 @@ type IconLeftProps = {
   children: JSX.Element;
 };
 
-export const IconLeft: Component<IconLeftProps> = ({ icon, children }) => {
+export const IconLeft: Component<IconLeftProps> = (props) => {
   return (
     <>
-      <Icon icon={icon} /> <span>{children}</span>
+      <Icon icon={props.icon} /> <span>{props.children}</span>
     </>
   );
 };

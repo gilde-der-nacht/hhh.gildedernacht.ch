@@ -13,22 +13,17 @@ type PageProps = {
   now: DateTime;
 };
 
-export const StartPage: Component<PageProps> = ({
-  state,
-  link,
-  setActiveOrder,
-  now,
-}) => {
+export const StartPage: Component<PageProps> = (props) => {
   return (
     <div class="hhh-spacer" style="--gap: 5rem;">
       <div>
         <h3 class="title is-3 has-text-centered">Aktive Bestellungen</h3>
         <OrderGrid
-          state={state}
+          state={props.state}
           filter="open"
-          link={link}
-          setActiveOrder={setActiveOrder}
-          now={now}
+          link={props.link}
+          setActiveOrder={props.setActiveOrder}
+          now={props.now}
         />
       </div>
       <div>
@@ -36,7 +31,11 @@ export const StartPage: Component<PageProps> = ({
           Starte eine neue Bestellung
         </h3>
         <div class="has-text-centered">
-          <Button color="success" size="large" onClick={() => link("newOrder")}>
+          <Button
+            color="success"
+            size="large"
+            onClick={() => props.link("newOrder")}
+          >
             <IconLeft icon="plus">Neue Bestellung</IconLeft>
           </Button>
         </div>
@@ -46,11 +45,11 @@ export const StartPage: Component<PageProps> = ({
           Abgeschlossene Bestellungen
         </h3>
         <OrderGrid
-          state={state}
+          state={props.state}
           filter="closed"
-          link={link}
-          setActiveOrder={setActiveOrder}
-          now={now}
+          link={props.link}
+          setActiveOrder={props.setActiveOrder}
+          now={props.now}
         />
       </div>
     </div>

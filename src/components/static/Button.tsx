@@ -8,20 +8,14 @@ type ButtonProps = {
   onClick: (e: Event) => void;
 };
 
-export const Button: Component<ButtonProps> = ({
-  color = "primary",
-  outlined = false,
-  size = "normal",
-  children,
-  onClick,
-}) => {
+export const Button: Component<ButtonProps> = (props) => {
   return (
     <button
-      class={`button is-${color} ${outlined ? "is-outlined" : ""}
-      ${size === "large" ? "is-medium" : ""}`}
-      onClick={onClick}
+      class={`button is-${props.color} ${props.outlined ? "is-outlined" : ""}
+      ${props.size === "large" ? "is-medium" : ""}`}
+      onClick={props.onClick}
     >
-      {children}
+      {props.children}
     </button>
   );
 };

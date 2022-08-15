@@ -7,16 +7,14 @@ type GridProps<T> = {
   children: (item: T) => JSX.Element;
 };
 
-export const Grid = <T,>({
-  each,
-  children,
-  footer = () => [],
-}: GridProps<T>): JSX.Element => {
+export const Grid = <T,>(props: GridProps<T>): JSX.Element => {
   return (
     <div class="hhh-grid">
-      <For each={each}>
+      <For each={props.each}>
         {(item) => (
-          <GridElement footer={footer(item)}>{children(item)}</GridElement>
+          <GridElement footer={props.footer && props.footer(item)}>
+            {props.children(item)}
+          </GridElement>
         )}
       </For>
     </div>
@@ -30,16 +28,13 @@ type GridElementProps = {
   children: JSX.Element;
 };
 
-const GridElement: Component<GridElementProps> = ({
-  children,
-  footer = [],
-}) => {
+const GridElement: Component<GridElementProps> = (props) => {
   return (
     <div class="card">
-      <div class="card-content">{children}</div>
-      <Show when={footer.length > 0}>
+      <div class="card-content">{props.children}</div>
+      <Show when={props.footer && props.footer.length > 0}>
         <footer class="card-footer"></footer>
-        <For each={footer}>
+        <For each={props.footer}>
           {(entry) => (
             <a class="card-footer-item" onClick={entry.onClick}>
               {entry.label}

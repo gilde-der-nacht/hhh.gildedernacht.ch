@@ -14,23 +14,27 @@ type PageProps = {
   link: (page: PageType) => void;
 };
 
-export const OrderDetailsPage: Component<PageProps> = ({
-  state,
-  activeOrder,
-  fallback,
-  link,
-}) => {
-  if (activeOrder === null) {
-    return fallback;
+export const OrderDetailsPage: Component<PageProps> = (props) => {
+  if (props.activeOrder === null) {
+    return props.fallback;
   }
-  const entries = state.entries.filter((e) => e.orderId === activeOrder.id);
+  const entries = props.state.entries.filter(
+    (e) => e.orderId === props.activeOrder?.id
+  );
   return (
     <div class="hhh-spacer" style="--gap: 5rem;">
       <div>
         <h3 class="title is-3 has-text-centered">
-          {getRestaurant(activeOrder.restaurantId, state.restaurants)?.label}
+          {
+            getRestaurant(
+              props.activeOrder.restaurantId,
+              props.state.restaurants
+            )?.label
+          }
         </h3>
-        <h4 class="subtitle is-4 has-text-centered">{activeOrder.name}</h4>
+        <h4 class="subtitle is-4 has-text-centered">
+          {props.activeOrder.name}
+        </h4>
       </div>
       <div>
         <h4 class="title is-4 has-text-centered">
@@ -48,7 +52,7 @@ export const OrderDetailsPage: Component<PageProps> = ({
           </For>
         </div>
       </div>
-      <Show when={activeOrder.displayState === "open"}>
+      <Show when={props.activeOrder.displayState === "open"}>
         <AddEntry />
       </Show>
       <div
@@ -59,7 +63,7 @@ export const OrderDetailsPage: Component<PageProps> = ({
           color="danger"
           outlined={true}
           size="large"
-          onClick={() => link("start")}
+          onClick={() => props.link("start")}
         >
           <IconLeft icon="arrow-left">Zurück</IconLeft>
         </Button>

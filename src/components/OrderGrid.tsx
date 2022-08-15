@@ -14,37 +14,37 @@ type Props = {
   now: DateTime;
 };
 
-export const OrderGrid: Component<Props> = ({
-  state,
-  filter,
-  setActiveOrder,
-  link,
-  now,
-}) => {
+export const OrderGrid: Component<Props> = (props) => {
   return (
     <Grid
-      each={state.orders.filter((o) => o.displayState === filter)}
+      each={props.state.orders.filter((o) => o.displayState === props.filter)}
       footer={(item) => [
         {
           label: "Bestellung anzeigen",
           onClick: () => {
-            setActiveOrder(item.id);
-            link("orderDetails");
+            props.setActiveOrder(item.id);
+            props.link("orderDetails");
           },
         },
       ]}
     >
       {(item) => {
-        const restaurant = getRestaurant(item.restaurantId, state.restaurants);
+        const restaurant = getRestaurant(
+          item.restaurantId,
+          props.state.restaurants
+        );
         return (
           <div class="content">
-            <h4 class="title is-4 m-0">{restaurant.label}</h4>
+            <h4 class="title is-4 m-0">{restaurant?.label}</h4>
             <p>{item.name}</p>
             <Show
-              when={getCountdown(item.timestamp, item.timeWindow, now) !== null}
+              when={
+                getCountdown(item.timestamp, item.timeWindow, props.now) !==
+                null
+              }
             >
               <strong class="has-text-danger">
-                Noch {getCountdown(item.timestamp, item.timeWindow, now)}
+                Noch {getCountdown(item.timestamp, item.timeWindow, props.now)}
               </strong>
             </Show>
           </div>

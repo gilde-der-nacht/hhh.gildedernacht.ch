@@ -4,6 +4,6 @@ type FormProps = {
   children: JSX.Element;
 };
 
-export const Form: Component<FormProps> = ({ children }) => {
-  return <form action="">{children}</form>;
+export const Form: Component<FormProps> = (props) => {
+  return <form action="">{props.children}</form>;
 };

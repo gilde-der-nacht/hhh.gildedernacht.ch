@@ -63,6 +63,7 @@ export const NewLocationPage: Component<PageProps> = ({ link }) => {
                   await saveNewRestaurant({
                     label: restaurant(),
                     menu: menulink(),
+                    active: true,
                   });
                 } finally {
                   link("newOrder");

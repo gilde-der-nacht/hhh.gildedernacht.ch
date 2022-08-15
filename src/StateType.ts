@@ -6,6 +6,7 @@ export type Restaurant = {
   id: string;
   label: string;
   menu: string;
+  active: boolean;
 }
 
 export type Order = {
@@ -15,6 +16,7 @@ export type Order = {
   timeWindow: number;
   restaurantId: string;
   displayState: DisplayState;
+  active: boolean;
 }
 
 export type Entry = {
@@ -23,6 +25,7 @@ export type Entry = {
   menuItem: string;
   comment: string;
   orderId: string;
+  active: boolean;
 }
 
 export type AppState = {

@@ -6,6 +6,7 @@ import { OrderDetailsPage } from "@/page/OrderDetailsPage";
 import type { PageType } from "@/page/PageTypes";
 import { StartPage } from "@/page/StartPage";
 import { Notification } from "@/static/Notification";
+import { loadServerData } from "@util/api";
 import { getActiveOrder } from "@util/utils";
 import { DateTime } from "luxon";
 import { Component, createSignal, Match, Switch } from "solid-js";
@@ -33,11 +34,13 @@ const App: Component = () => {
         id: "1",
         label: "Dieci Luzern",
         menu: "https://www.dieci.ch/de/",
+        active: true,
       },
       {
         id: "2",
         label: "Kebab und Pizza Haus Ebikon",
         menu: "https://www.just-eat.ch/speisekarte/kebab-und-pizza-haus",
+        active: true,
       },
     ],
     orders: [
@@ -48,6 +51,7 @@ const App: Component = () => {
         timestamp: DateTime.fromISO("2022-08-14T20:06:00"),
         timeWindow: 60,
         displayState: "open",
+        active: true,
       },
       {
         id: "2",
@@ -56,6 +60,7 @@ const App: Component = () => {
         timestamp: DateTime.fromISO("2021-08-14T19:08:08"),
         timeWindow: 60,
         displayState: "closed",
+        active: true,
       },
       {
         id: "3",
@@ -64,6 +69,7 @@ const App: Component = () => {
         timestamp: DateTime.fromISO("2022-08-14T18:35:00"),
         timeWindow: 120,
         displayState: "open",
+        active: true,
       },
     ],
     entries: [
@@ -73,6 +79,7 @@ const App: Component = () => {
         comment: "This is a comment",
         menuItem: "Pizza Hawaii",
         orderId: "3",
+        active: true,
       },
       {
         id: "2",
@@ -80,6 +87,7 @@ const App: Component = () => {
         comment: "This is a comment",
         menuItem: "Kebab",
         orderId: "3",
+        active: true,
       },
       {
         id: "3",
@@ -87,9 +95,12 @@ const App: Component = () => {
         comment: "This is a comment",
         menuItem: "Pizza Proscuttio",
         orderId: "1",
+        active: true,
       },
     ],
   });
+
+  loadServerData();
 
   return (
     <div class="hhh-body">

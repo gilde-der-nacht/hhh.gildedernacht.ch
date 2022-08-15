@@ -120,7 +120,10 @@ const App: Component = () => {
               <NewOrderPage link={setPage} restaurants={state().restaurants} />
             </Match>
             <Match when={page() === "newLocation"}>
-              <NewLocationPage link={setPage} />
+              <NewLocationPage
+                link={setPage}
+                restaurants={state().restaurants}
+              />
             </Match>
             <Match when={page() === "orderDetails"}>
               <OrderDetailsPage

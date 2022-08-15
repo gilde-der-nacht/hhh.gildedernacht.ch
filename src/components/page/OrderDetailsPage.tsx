@@ -1,5 +1,6 @@
 import { AddEntry } from "@/AddEntry";
 import { Button } from "@/static/Button";
+import { Card } from "@/static/Card";
 import { IconLeft } from "@/static/icons/IconLeft";
 import { getRestaurant } from "@util/utils";
 import { Component, For, JSX, Show } from "solid-js";
@@ -38,15 +39,11 @@ export const OrderDetailsPage: Component<PageProps> = ({
         <div class="hhh-spacer" style="--gap: 1rem;">
           <For each={entries}>
             {(entry) => (
-              <div class="card">
-                <div class="card-content">
-                  <div class="content">
-                    <h5 class="m-0">{entry.menuItem}</h5>
-                    <p>{entry.name}</p>
-                    <p class="is-italic">{entry.comment}</p>
-                  </div>
-                </div>
-              </div>
+              <Card>
+                <h5 class="m-0">{entry.menuItem}</h5>
+                <p>{entry.name}</p>
+                <p class="is-italic">{entry.comment}</p>
+              </Card>
             )}
           </For>
         </div>

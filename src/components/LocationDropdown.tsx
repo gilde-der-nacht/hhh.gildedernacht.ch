@@ -1,7 +1,7 @@
+import { Button } from "@components/static/Button";
+import { Dropdown } from "@components/static/forms/Dropdown";
+import { IconLeft } from "@components/static/icons/IconLeft";
 import type { Component } from "solid-js";
-import { Button } from "@/static/Button";
-import { Dropdown } from "@/static/forms/Dropdown";
-import { IconLeft } from "@/static/icons/IconLeft";
 import { Restaurant } from "StateType";
 
 type LocationDropdownProps = {

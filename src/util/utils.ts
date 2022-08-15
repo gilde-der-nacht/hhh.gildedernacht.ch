@@ -1,4 +1,4 @@
-import { DateTime, Interval } from "luxon";
+import { DateTime } from "luxon";
 import type { Order, Restaurant } from "StateType";
 
 export const getRestaurant = (id: string, restaurants: Restaurant[]): Restaurant => {

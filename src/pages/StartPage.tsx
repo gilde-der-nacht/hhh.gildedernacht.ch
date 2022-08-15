@@ -1,6 +1,6 @@
-import { OrderGrid } from "@/OrderGrid";
-import { Button } from "@/static/Button";
-import { IconLeft } from "@/static/icons/IconLeft";
+import { OrderGrid } from "@components/OrderGrid";
+import { Button } from "@components/static/Button";
+import { IconLeft } from "@components/static/icons/IconLeft";
 import type { DateTime } from "luxon";
 import { Component } from "solid-js";
 import type { AppState } from "StateType";

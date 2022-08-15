@@ -11,9 +11,9 @@ type cleanRestaurant = {
   };
 };
 
-const cleanUpRestaurant = (r: object, id: string, timestamp: DateTime): cleanRestaurant | null => {
-  if (r.hasOwnProperty("label") && r.hasOwnProperty("menu") && r.hasOwnProperty("active")) {
-    const { label, menu, active } = (r as { label: string, menu: string, active: boolean });
+const cleanUpRestaurant = (r: object, timestamp: DateTime): cleanRestaurant | null => {
+  if (r.hasOwnProperty("label") && r.hasOwnProperty("menu") && r.hasOwnProperty("active") && r.hasOwnProperty("id")) {
+    const { label, menu, active, id } = (r as { label: string, menu: string, active: boolean, id: string, });
     return {
       restaurant: {
         label,
@@ -25,22 +25,31 @@ const cleanUpRestaurant = (r: object, id: string, timestamp: DateTime): cleanRes
     };
   }
   return null;
-}
+};
 
+const filterNewest = (data: ResponseData[]): ResponseData[] => {
+  const map: { [_: string]: ResponseData } = {};
+  data.forEach(d => {
+    map[d.restaurant.id] = d;
+  });
+  return Object.values(map);
+};
 
-export const cleanUpResponseData = (data: { publicBody: string, identification: string, timestamp: string }[]): ResponseData[] => {
-  return data.map((d) => ({
-    data: JSON.parse(d.publicBody),
-    identification: d.identification,
-    timestamp: DateTime.fromISO(d.timestamp)
-  }))
-    .map(({ data, identification: id, timestamp }) => {
-      try {
-        if ((data as object).hasOwnProperty("restaurant")) {
-          return cleanUpRestaurant(data.restaurant, id, timestamp);
+export const cleanUpResponseData = (data: { publicBody: string, timestamp: string }[]): ResponseData[] => {
+  return filterNewest(
+    data.map((d) => ({
+      data: JSON.parse(d.publicBody),
+      timestamp: DateTime.fromISO(d.timestamp)
+    }))
+      .map(({ data, timestamp }) => {
+        try {
+          if ((data as object).hasOwnProperty("restaurant")) {
+            return cleanUpRestaurant(data.restaurant, timestamp);
+          }
+        } catch (_) {
+          return null;
         }
-      } catch (_) {
-        return null;
-      }
-    }).filter((d): d is ResponseData => d !== null);
+      })
+      .filter((d): d is ResponseData => d !== null)
+  );
 }

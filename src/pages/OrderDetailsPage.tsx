@@ -1,7 +1,7 @@
-import { AddEntry } from "@/AddEntry";
-import { Button } from "@/static/Button";
-import { Card } from "@/static/Card";
-import { IconLeft } from "@/static/icons/IconLeft";
+import { AddEntry } from "@components/AddEntry";
+import { Button } from "@components/static/Button";
+import { Card } from "@components/static/Card";
+import { IconLeft } from "@components/static/icons/IconLeft";
 import { getRestaurant } from "@util/utils";
 import { Component, For, JSX, Show } from "solid-js";
 import type { AppState, Order } from "StateType";

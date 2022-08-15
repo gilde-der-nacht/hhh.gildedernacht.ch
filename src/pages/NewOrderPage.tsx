@@ -1,9 +1,9 @@
-import { LocationDropdown } from "@/LocationDropdown";
-import { Button } from "@/static/Button";
-import { Form } from "@/static/forms/Form";
-import { Input } from "@/static/forms/Input";
-import { NumberInput } from "@/static/forms/NumberInput";
-import { IconLeft } from "@/static/icons/IconLeft";
+import { LocationDropdown } from "@components/LocationDropdown";
+import { Button } from "@components/static/Button";
+import { Form } from "@components/static/forms/Form";
+import { Input } from "@components/static/forms/Input";
+import { NumberInput } from "@components/static/forms/NumberInput";
+import { IconLeft } from "@components/static/icons/IconLeft";
 import type { Component } from "solid-js";
 import { Restaurant } from "StateType";
 import type { PageType } from "./PageTypes";
@@ -20,7 +20,7 @@ export const NewOrderPage: Component<PageProps> = ({ link, restaurants }) => {
       <Form>
         <LocationDropdown
           newLocation={() => link("newLocation")}
-          restaurants={restaurants}
+          restaurants={restaurants.filter((r) => r.active)}
         />
         <Input
           label="Besteller"

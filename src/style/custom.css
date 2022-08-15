@@ -25,3 +25,13 @@
   grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
   gap: 1.75rem;
 }
+
+.hhh-card-disabled {
+  background-color: white !important;
+  border-color: #fafafa !important;
+}
+
+.hhh-card-disabled > * > * {
+  text-decoration: line-through;
+  color: #dbdbdb;
+}

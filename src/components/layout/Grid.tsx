@@ -1,4 +1,5 @@
-import { Component, For, JSX, Show } from "solid-js";
+import type { Component, JSX } from "solid-js";
+import { For, Show } from "solid-js";
 
 type GridProps<T> = {
   each: readonly T[];

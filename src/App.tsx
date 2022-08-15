@@ -1,15 +1,16 @@
-import { Footer } from "@/layout/Footer";
-import { Header } from "@/layout/Header";
-import { NewLocationPage } from "@/page/NewLocationPage";
-import { NewOrderPage } from "@/page/NewOrderPage";
-import { OrderDetailsPage } from "@/page/OrderDetailsPage";
-import type { PageType } from "@/page/PageTypes";
-import { StartPage } from "@/page/StartPage";
-import { Notification } from "@/static/Notification";
+import { Footer } from "@components/layout/Footer";
+import { Header } from "@components/layout/Header";
+import { Notification } from "@components/static/Notification";
+import { NewLocationPage } from "@pages/NewLocationPage";
+import { NewOrderPage } from "@pages/NewOrderPage";
+import { OrderDetailsPage } from "@pages/OrderDetailsPage";
+import type { PageType } from "@pages/PageTypes";
+import { StartPage } from "@pages/StartPage";
 import { loadServerData } from "@util/api";
 import { getActiveOrder } from "@util/utils";
 import { DateTime } from "luxon";
-import { Component, createSignal, Match, Switch } from "solid-js";
+import type { Component } from "solid-js";
+import { createSignal, Match, Switch } from "solid-js";
 import type { AppState } from "StateType";
 
 const pageError = () => (

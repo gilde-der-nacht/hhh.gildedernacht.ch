@@ -1,9 +1,10 @@
-import { Button } from "@/static/Button";
-import { Card } from "@/static/Card";
-import { Form } from "@/static/forms/Form";
-import { Input } from "@/static/forms/Input";
-import { IconLeft } from "@/static/icons/IconLeft";
-import { saveNewRestaurant } from "@util/api";
+import { Button } from "@components/static/Button";
+import { Card } from "@components/static/Card";
+import { Form } from "@components/static/forms/Form";
+import { Input } from "@components/static/forms/Input";
+import { Icon } from "@components/static/icons/Icon";
+import { IconLeft } from "@components/static/icons/IconLeft";
+import { deactivateRestaurant, saveNewRestaurant } from "@util/api";
 import { isEmpty } from "@util/utils";
 import type { Component } from "solid-js";
 import { createSignal, For } from "solid-js";
@@ -82,9 +83,31 @@ export const NewLocationPage: Component<PageProps> = (props) => {
       <div>
         <h3 class="title is-3 has-text-centered">Restaurant Liste</h3>
         <div class="hhh-spacer" style="--gap: 1rem;">
-          <For each={props.restaurants}>
+          <For each={props.restaurants.filter((r) => r.active)}>
             {(restaurant) => (
-              <Card>
+              <Card isDisabled={!restaurant.active}>
+                <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
+                  <div>
+                    <h5 class="m-0">{restaurant.label}</h5>
+                    <p class="is-italic">
+                      <a href={restaurant.menu}>{restaurant.menu}</a>
+                    </p>
+                  </div>
+                  <Button
+                    color="danger"
+                    onClick={() => {
+                      deactivateRestaurant(restaurant);
+                    }}
+                  >
+                    <Icon icon="trash" />
+                  </Button>
+                </div>
+              </Card>
+            )}
+          </For>
+          <For each={props.restaurants.filter((r) => !r.active)}>
+            {(restaurant) => (
+              <Card isDisabled={!restaurant.active}>
                 <h5 class="m-0">{restaurant.label}</h5>
                 <p class="is-italic">{restaurant.menu}</p>
               </Card>

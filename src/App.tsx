@@ -105,7 +105,7 @@ const App: Component = () => {
     ],
   });
 
-  loadServerData();
+  loadServerData(setState);
 
   return (
     <div class="hhh-body">

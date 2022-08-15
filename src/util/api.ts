@@ -1,5 +1,6 @@
-import { DateTime } from "luxon";
-import { Restaurant } from "StateType";
+import type { Setter } from "solid-js";
+import type { AppState, Restaurant } from "StateType";
+import { preview } from "vite";
 import { cleanUpResponseData } from "./cleanup";
 
 const resourceUID = "ed28796bac34122c0d508c578915f9fc1ce53ef46789cdcf41a3dc8da76730f3";
@@ -26,9 +27,9 @@ export const saveNewRestaurant = async (restaurant: { label: string, menu: strin
   await post(JSON.stringify(entry));
 }
 
-export const loadServerData = async () => {
+export const loadServerData = async (setState: Setter<AppState>) => {
   const response = await get();
   const data = await response.json();
   const cleaned = cleanUpResponseData(data);
-  console.log(cleaned);
+  setState((prev) => ({ ...prev, restaurants: cleaned.map(c => c.restaurant) }));
 }

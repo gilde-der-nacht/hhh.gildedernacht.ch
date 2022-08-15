@@ -29,7 +29,11 @@ const cleanUpRestaurant = (r: object, id: string, timestamp: DateTime): cleanRes
 
 
 export const cleanUpResponseData = (data: { publicBody: string, identification: string, timestamp: string }[]): ResponseData[] => {
-  return data.map((d) => ({ data: JSON.parse(d.publicBody), identification: d.identification, timestamp: DateTime.fromISO(d.timestamp) }))
+  return data.map((d) => ({
+    data: JSON.parse(d.publicBody),
+    identification: d.identification,
+    timestamp: DateTime.fromISO(d.timestamp)
+  }))
     .map(({ data, identification: id, timestamp }) => {
       try {
         if ((data as object).hasOwnProperty("restaurant")) {

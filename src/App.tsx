@@ -35,12 +35,14 @@ const App: Component = () => {
         label: "Dieci Luzern",
         menu: "https://www.dieci.ch/de/",
         active: true,
+        timestamp: DateTime.now(),
       },
       {
         id: "2",
         label: "Kebab und Pizza Haus Ebikon",
         menu: "https://www.just-eat.ch/speisekarte/kebab-und-pizza-haus",
         active: true,
+        timestamp: DateTime.now(),
       },
     ],
     orders: [
@@ -80,6 +82,7 @@ const App: Component = () => {
         menuItem: "Pizza Hawaii",
         orderId: "3",
         active: true,
+        timestamp: DateTime.now(),
       },
       {
         id: "2",
@@ -88,6 +91,7 @@ const App: Component = () => {
         menuItem: "Kebab",
         orderId: "3",
         active: true,
+        timestamp: DateTime.now(),
       },
       {
         id: "3",
@@ -96,6 +100,7 @@ const App: Component = () => {
         menuItem: "Pizza Proscuttio",
         orderId: "1",
         active: true,
+        timestamp: DateTime.now(),
       },
     ],
   });

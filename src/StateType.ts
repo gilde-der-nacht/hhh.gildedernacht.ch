@@ -3,10 +3,11 @@ import type { DateTime } from "luxon";
 export type DisplayState = "open" | "closed" | "none";
 
 export type Restaurant = {
-  id: string;
   label: string;
   menu: string;
   active: boolean;
+  id: string;
+  timestamp: DateTime;
 }
 
 export type Order = {
@@ -26,6 +27,7 @@ export type Entry = {
   comment: string;
   orderId: string;
   active: boolean;
+  timestamp: DateTime;
 }
 
 export type AppState = {

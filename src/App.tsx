@@ -9,7 +9,7 @@ import { StartPage } from "@pages/StartPage";
 import { loadServerData } from "@util/api";
 import { getActiveOrder } from "@util/utils";
 import { DateTime } from "luxon";
-import { Component, createSignal, JSX } from "solid-js";
+import { Component, createEffect, createSignal, JSX } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { AppState } from "StateType";
 
@@ -31,35 +31,7 @@ const App: Component = () => {
   const [now, setNow] = createSignal(DateTime.now());
   const [state, setState] = createSignal<AppState>({
     restaurants: [],
-    orders: [
-      {
-        id: "1",
-        orderer: "Oliver",
-        restaurantId: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2d",
-        timestamp: DateTime.fromISO("2022-08-14T20:06:00"),
-        timeWindow: 60,
-        displayState: "open",
-        active: true,
-      },
-      {
-        id: "2",
-        orderer: "Oliver asd fasdf as",
-        restaurantId: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2c",
-        timestamp: DateTime.fromISO("2021-08-14T19:08:08"),
-        timeWindow: 60,
-        displayState: "closed",
-        active: true,
-      },
-      {
-        id: "3",
-        orderer: "Oliver asd a",
-        restaurantId: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2c",
-        timestamp: DateTime.fromISO("2022-08-14T18:35:00"),
-        timeWindow: 120,
-        displayState: "open",
-        active: true,
-      },
-    ],
+    orders: [],
     entries: [
       {
         id: "1",
@@ -91,6 +63,7 @@ const App: Component = () => {
     ],
   });
   loadServerData(setState);
+  createEffect(() => console.log(state()));
 
   const pages: { [_ in PageType]: () => JSX.Element } = {
     start: () => (

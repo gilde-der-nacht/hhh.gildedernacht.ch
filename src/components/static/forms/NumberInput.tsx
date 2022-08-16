@@ -1,19 +1,43 @@
-import { Component } from "solid-js";
+import { Component, mergeProps, Show } from "solid-js";
 
 type InputProps = {
   label: string;
   startValue: number;
   helptext: string;
+  error?: { status: boolean; text?: string };
+  setter?: (content: number) => void;
 };
 
 export const NumberInput: Component<InputProps> = (props) => {
+  const merged = mergeProps(
+    { error: { status: false, text: "" }, setter: () => {} },
+    props
+  );
+
   return (
     <div class="field">
-      <label class="label">{props.label}</label>
-      <div class="control">
-        <input class="input" type="number" value={props.startValue} />
+      <label class="label">{merged.label}</label>
+      <div
+        classList={{ control: true, "has-icons-right": merged.error.status }}
+      >
+        <input
+          classList={{ input: true, "is-danger": merged.error.status }}
+          type="number"
+          value={merged.startValue}
+          onInput={(e) =>
+            merged.setter(Number((e.target as HTMLInputElement).value))
+          }
+        />
+        <Show when={merged.error.status}>
+          <span class="icon is-small is-right">
+            <i class="fas fa-exclamation-triangle"></i>
+          </span>
+        </Show>
       </div>
-      <p class="help">{props.helptext}</p>
+      <Show when={merged.error.status}>
+        <p class="help is-danger">{merged.error.text}</p>
+      </Show>
+      <p class="help">{merged.helptext}</p>
     </div>
   );
 };

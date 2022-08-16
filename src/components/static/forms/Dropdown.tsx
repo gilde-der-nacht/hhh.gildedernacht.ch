@@ -1,16 +1,22 @@
-import { Component, For } from "solid-js";
+import { Component, For, mergeProps } from "solid-js";
 
 type DropdownProps = {
-  entries: string[];
+  hasErrors?: boolean;
+  entries: { label: string; value: string }[];
+  updateValue: (value: string) => void;
 };
 
 export const Dropdown: Component<DropdownProps> = (props) => {
+  const merged = mergeProps({ hasErrors: false }, props);
+
+  const onChange = (e: Event) =>
+    merged.updateValue((e.target as HTMLSelectElement).value);
   return (
     <div class="control">
-      <div class="select">
-        <select>
-          <For each={props.entries}>
-            {(entry) => <option>{entry}</option>}
+      <div classList={{ select: true, "is-danger": props.hasErrors }}>
+        <select onChange={onChange}>
+          <For each={merged.entries}>
+            {(entry) => <option value={entry.value}>{entry.label}</option>}
           </For>
         </select>
       </div>

@@ -34,7 +34,7 @@ const App: Component = () => {
     orders: [
       {
         id: "1",
-        name: "Oliver",
+        orderer: "Oliver",
         restaurantId: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2d",
         timestamp: DateTime.fromISO("2022-08-14T20:06:00"),
         timeWindow: 60,
@@ -43,7 +43,7 @@ const App: Component = () => {
       },
       {
         id: "2",
-        name: "Oliver asd fasdf as",
+        orderer: "Oliver asd fasdf as",
         restaurantId: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2c",
         timestamp: DateTime.fromISO("2021-08-14T19:08:08"),
         timeWindow: 60,
@@ -52,7 +52,7 @@ const App: Component = () => {
       },
       {
         id: "3",
-        name: "Oliver asd a",
+        orderer: "Oliver asd a",
         restaurantId: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2c",
         timestamp: DateTime.fromISO("2022-08-14T18:35:00"),
         timeWindow: 120,
@@ -63,7 +63,7 @@ const App: Component = () => {
     entries: [
       {
         id: "1",
-        name: "Oliver",
+        eater: "Oliver",
         comment: "This is a comment",
         menuItem: "Pizza Hawaii",
         orderId: "3",
@@ -72,7 +72,7 @@ const App: Component = () => {
       },
       {
         id: "2",
-        name: "Oliver",
+        eater: "Oliver",
         comment: "This is a comment",
         menuItem: "Kebab",
         orderId: "3",
@@ -81,7 +81,7 @@ const App: Component = () => {
       },
       {
         id: "3",
-        name: "Oliver",
+        eater: "Oliver",
         comment: "This is a comment",
         menuItem: "Pizza Proscuttio",
         orderId: "1",

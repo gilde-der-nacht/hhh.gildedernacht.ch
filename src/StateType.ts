@@ -12,7 +12,7 @@ export type Restaurant = {
 
 export type Order = {
   id: string;
-  name: string;
+  orderer: string;
   timestamp: DateTime;
   timeWindow: number;
   restaurantId: string;
@@ -22,7 +22,7 @@ export type Order = {
 
 export type Entry = {
   id: string;
-  name: string;
+  eater: string;
   menuItem: string;
   comment: string;
   orderId: string;

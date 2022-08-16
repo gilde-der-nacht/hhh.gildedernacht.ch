@@ -20,9 +20,15 @@ const get = async (): Promise<Response> => {
   return await fetch(`https://api.gildedernacht.ch/resources/${resourceUID}/entries`, { method: "GET", mode: "cors", });
 }
 
-export const saveNewRestaurant = async (restaurant: { label: string, menu: string, active: boolean, }) => {
+export const saveNewRestaurant = async (restaurant: { label: string, menu: string }) => {
   const id = crypto.randomUUID();
-  const entry: OlympEntry = { identification: id, publicBody: JSON.stringify({ restaurant: { ...restaurant, id } }), privateBody: JSON.stringify({}) };
+  const entry: OlympEntry = { identification: id, publicBody: JSON.stringify({ restaurant: { ...restaurant, active: true, id } }), privateBody: JSON.stringify({}) };
+  await post(JSON.stringify(entry));
+}
+
+export const saveNewOrder = async (order: { restaurantId: string, orderer: string, timeWindow: number }) => {
+  const id = crypto.randomUUID();
+  const entry: OlympEntry = { identification: id, publicBody: JSON.stringify({ order: { ...order, active: true, id } }), privateBody: JSON.stringify({}) };
   await post(JSON.stringify(entry));
 }
 

@@ -22,6 +22,17 @@ export const NewLocationPage: Component<PageProps> = (props) => {
 
   const activeRestaurants = () => props.restaurants.filter((r) => r.active);
 
+  const formSubmit = async (e: Event) => {
+    e.preventDefault();
+    setActiveValidation(true);
+    if (restaurant().trim().length !== 0 && menulink().trim().length !== 0) {
+      await saveNewRestaurant({
+        label: restaurant(),
+        menu: menulink(),
+      });
+    }
+  };
+
   return (
     <div class="hhh-spacer" style="--gap: 5rem;">
       <div>
@@ -59,24 +70,7 @@ export const NewLocationPage: Component<PageProps> = (props) => {
             >
               <IconLeft icon="arrow-left">Zurück</IconLeft>
             </Button>
-            <Button
-              color="success"
-              large={true}
-              onClick={async (e) => {
-                e.preventDefault();
-                setActiveValidation(true);
-                if (
-                  restaurant().trim().length !== 0 &&
-                  menulink().trim().length !== 0
-                ) {
-                  await saveNewRestaurant({
-                    label: restaurant(),
-                    menu: menulink(),
-                    active: true,
-                  });
-                }
-              }}
-            >
+            <Button color="success" large={true} onClick={formSubmit}>
               <IconLeft icon="check">Restaurant hinzufügen</IconLeft>
             </Button>
           </div>

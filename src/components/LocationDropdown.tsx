@@ -1,31 +1,41 @@
-import { Button } from "@components/static/Button";
 import { Dropdown } from "@components/static/forms/Dropdown";
-import { IconLeft } from "@components/static/icons/IconLeft";
-import { Component, Show } from "solid-js";
+import { Component, JSX, mergeProps, Show } from "solid-js";
 import { Restaurant } from "StateType";
 
 type LocationDropdownProps = {
   activeRestaurants: Restaurant[];
-  newLocation: () => void;
+  setter: (id: string) => void;
+  error?: { status: boolean; text?: string };
+  children: JSX.Element;
 };
 
 export const LocationDropdown: Component<LocationDropdownProps> = (props) => {
+  const merged = mergeProps({ error: { status: false, text: "" } }, props);
+
   return (
     <div class="field">
       <label class="label">Restaurant</label>
       <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
         <Show
-          when={props.activeRestaurants.length > 0}
+          when={merged.activeRestaurants.length > 0}
           fallback={
             <span class="is-italic">Noch kein Restaurant erfasst.</span>
           }
         >
-          <Dropdown entries={props.activeRestaurants.map((r) => r.label)} />
+          <Dropdown
+            entries={merged.activeRestaurants.map((r) => ({
+              label: r.label,
+              value: r.id,
+            }))}
+            updateValue={merged.setter}
+            hasErrors={merged.error.status}
+          />
         </Show>
-        <Button color="success" outlined={true} onClick={props.newLocation}>
-          <IconLeft icon="plus">Neues Restaurant</IconLeft>
-        </Button>
+        {merged.children}
       </div>
+      <Show when={merged.error.status}>
+        <p class="help is-danger">{merged.error.text}</p>
+      </Show>
       <p class="help">Wähle ein Restaurant aus oder füge ein neues hinzu.</p>
     </div>
   );

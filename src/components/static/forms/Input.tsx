@@ -24,9 +24,7 @@ export const Input: Component<InputProps> = (props) => {
           classList={{ input: true, "is-danger": merged.error.status }}
           type="text"
           placeholder={merged.placeholder}
-          onInput={(e) =>
-            merged.setter && merged.setter((e.target as HTMLInputElement).value)
-          }
+          onInput={(e) => merged.setter((e.target as HTMLInputElement).value)}
         />
         <Show when={merged.error.status}>
           <span class="icon is-small is-right">

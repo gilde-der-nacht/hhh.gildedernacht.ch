@@ -18,9 +18,8 @@ export const OrderDetailsPage: Component<PageProps> = (props) => {
   if (props.activeOrder === null) {
     return props.fallback;
   }
-  const entries = props.state.entries.filter(
-    (e) => e.orderId === props.activeOrder?.id
-  );
+  const entries = () =>
+    props.state.entries.filter((e) => e.orderId === props.activeOrder?.id);
   return (
     <div class="hhh-spacer" style="--gap: 5rem;">
       <div>
@@ -41,7 +40,7 @@ export const OrderDetailsPage: Component<PageProps> = (props) => {
           Einträge ({entries.length})
         </h4>
         <div class="hhh-spacer" style="--gap: 1rem;">
-          <Index each={entries}>
+          <Index each={entries()}>
             {(entry) => (
               <Card>
                 <h5 class="m-0">{entry().menuItem}</h5>

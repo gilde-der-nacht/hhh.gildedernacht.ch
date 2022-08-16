@@ -9,7 +9,8 @@ import { StartPage } from "@pages/StartPage";
 import { loadServerData } from "@util/api";
 import { getActiveOrder } from "@util/utils";
 import { DateTime } from "luxon";
-import { Component, createSignal, Match, Switch } from "solid-js";
+import { Component, createSignal, JSX } from "solid-js";
+import { Dynamic } from "solid-js/web";
 import { AppState } from "StateType";
 
 const pageError = () => (
@@ -29,22 +30,7 @@ const App: Component = () => {
   const [activeOrder, setActiveOrder] = createSignal("");
   const [now, setNow] = createSignal(DateTime.now());
   const [state, setState] = createSignal<AppState>({
-    restaurants: [
-      {
-        id: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2c",
-        label: "Dieci Luzern",
-        menu: "https://www.dieci.ch/de/",
-        active: true,
-        timestamp: DateTime.now(),
-      },
-      {
-        id: "a730c359-b2b0-48bd-9bc4-e18fbbba2d2d",
-        label: "Kebab und Pizza Haus Ebikon",
-        menu: "https://www.just-eat.ch/speisekarte/kebab-und-pizza-haus",
-        active: true,
-        timestamp: DateTime.now(),
-      },
-    ],
+    restaurants: [],
     orders: [
       {
         id: "1",
@@ -104,41 +90,39 @@ const App: Component = () => {
       },
     ],
   });
-
   loadServerData(setState);
+
+  const pages: { [_ in PageType]: () => JSX.Element } = {
+    start: () => (
+      <StartPage
+        state={state()}
+        link={setPage}
+        setActiveOrder={setActiveOrder}
+        now={now()}
+      />
+    ),
+    newOrder: () => (
+      <NewOrderPage link={setPage} restaurants={state().restaurants} />
+    ),
+    newLocation: () => (
+      <NewLocationPage link={setPage} restaurants={state().restaurants} />
+    ),
+    orderDetails: () => (
+      <OrderDetailsPage
+        state={state()}
+        link={setPage}
+        fallback={pageError}
+        activeOrder={getActiveOrder(activeOrder(), state().orders)}
+      />
+    ),
+  };
 
   return (
     <div class="hhh-body">
       <Header />
       <div>
         <div class="container p-5">
-          <Switch fallback={pageError()}>
-            <Match when={page() === "start"}>
-              <StartPage
-                state={state()}
-                link={setPage}
-                setActiveOrder={setActiveOrder}
-                now={now()}
-              />
-            </Match>
-            <Match when={page() === "newOrder"}>
-              <NewOrderPage link={setPage} restaurants={state().restaurants} />
-            </Match>
-            <Match when={page() === "newLocation"}>
-              <NewLocationPage
-                link={setPage}
-                restaurants={state().restaurants}
-              />
-            </Match>
-            <Match when={page() === "orderDetails"}>
-              <OrderDetailsPage
-                state={state()}
-                link={setPage}
-                fallback={pageError}
-                activeOrder={getActiveOrder(activeOrder(), state().orders)}
-              />
-            </Match>
-          </Switch>
+          <Dynamic component={pages[page()]} />
         </div>
       </div>
       <Footer />

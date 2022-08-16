@@ -5,7 +5,7 @@ import { Input } from "@components/static/forms/Input";
 import { NumberInput } from "@components/static/forms/NumberInput";
 import { IconLeft } from "@components/static/icons/IconLeft";
 import type { Component } from "solid-js";
-import { Restaurant } from "StateType";
+import type { Restaurant } from "StateType";
 import type { PageType } from "./PageTypes";
 
 type PageProps = {
@@ -14,13 +14,15 @@ type PageProps = {
 };
 
 export const NewOrderPage: Component<PageProps> = (props) => {
+  const activeRestaurants = () => props.restaurants.filter((r) => r.active);
+
   return (
     <div class="hhh-spacer">
       <h3 class="title is-3 has-text-centered">Neue Bestellung</h3>
       <Form>
         <LocationDropdown
           newLocation={() => props.link("newLocation")}
-          restaurants={props.restaurants.filter((r) => r.active)}
+          activeRestaurants={activeRestaurants()}
         />
         <Input
           label="Besteller"
@@ -42,14 +44,14 @@ export const NewOrderPage: Component<PageProps> = (props) => {
             size="large"
             onClick={() => props.link("start")}
           >
-            <IconLeft icon="trash">Bestellung abbrechen</IconLeft>
+            <IconLeft icon="arrow-left">Zurück</IconLeft>
           </Button>
           <Button
             color="success"
             size="large"
             onClick={() => props.link("start")}
           >
-            <IconLeft icon="check">Bestellung aktivieren</IconLeft>
+            <IconLeft icon="check">Bestellung starten</IconLeft>
           </Button>
         </div>
       </Form>

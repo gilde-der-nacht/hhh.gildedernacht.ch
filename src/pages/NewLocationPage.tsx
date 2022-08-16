@@ -6,7 +6,7 @@ import { Icon } from "@components/static/icons/Icon";
 import { IconLeft } from "@components/static/icons/IconLeft";
 import { deactivateRestaurant, saveNewRestaurant } from "@util/api";
 import { isEmpty } from "@util/utils";
-import { Component, createSignal, Index } from "solid-js";
+import { Component, createSignal, For } from "solid-js";
 import { Restaurant } from "StateType";
 import { PageType } from "./PageTypes";
 
@@ -86,20 +86,20 @@ export const NewLocationPage: Component<PageProps> = (props) => {
       <div>
         <h3 class="title is-3 has-text-centered">Restaurant Liste</h3>
         <div class="hhh-spacer" style="--gap: 1rem;">
-          <Index each={activeRestaurants()}>
+          <For each={activeRestaurants()}>
             {(restaurant) => (
-              <Card isDisabled={!restaurant().active}>
+              <Card isDisabled={!restaurant.active}>
                 <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
                   <div>
-                    <h5 class="m-0">{restaurant().label}</h5>
+                    <h5 class="m-0">{restaurant.label}</h5>
                     <p class="is-italic">
-                      <a href={restaurant().menu}>{restaurant().menu}</a>
+                      <a href={restaurant.menu}>{restaurant.menu}</a>
                     </p>
                   </div>
                   <Button
                     color="danger"
                     onClick={() => {
-                      deactivateRestaurant(restaurant());
+                      deactivateRestaurant(restaurant);
                     }}
                   >
                     <Icon icon="trash" />
@@ -107,15 +107,15 @@ export const NewLocationPage: Component<PageProps> = (props) => {
                 </div>
               </Card>
             )}
-          </Index>
-          <Index each={inactiveRestaurants()}>
+          </For>
+          <For each={inactiveRestaurants()}>
             {(restaurant) => (
-              <Card isDisabled={!restaurant().active}>
-                <h5 class="m-0">{restaurant().label}</h5>
-                <p class="is-italic">{restaurant().menu}</p>
+              <Card isDisabled={!restaurant.active}>
+                <h5 class="m-0">{restaurant.label}</h5>
+                <p class="is-italic">{restaurant.menu}</p>
               </Card>
             )}
-          </Index>
+          </For>
         </div>
       </div>
     </div>

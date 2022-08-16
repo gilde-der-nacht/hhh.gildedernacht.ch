@@ -3,7 +3,7 @@ import { Button } from "@components/static/Button";
 import { Card } from "@components/static/Card";
 import { IconLeft } from "@components/static/icons/IconLeft";
 import { getRestaurant } from "@util/utils";
-import { Component, Index, JSX, Show } from "solid-js";
+import { Component, For, JSX, Show } from "solid-js";
 import { AppState, Order } from "StateType";
 import { PageType } from "./PageTypes";
 
@@ -40,15 +40,15 @@ export const OrderDetailsPage: Component<PageProps> = (props) => {
           Einträge ({entries.length})
         </h4>
         <div class="hhh-spacer" style="--gap: 1rem;">
-          <Index each={entries()}>
+          <For each={entries()}>
             {(entry) => (
               <Card>
-                <h5 class="m-0">{entry().menuItem}</h5>
-                <p>{entry().name}</p>
-                <p class="is-italic">{entry().comment}</p>
+                <h5 class="m-0">{entry.menuItem}</h5>
+                <p>{entry.name}</p>
+                <p class="is-italic">{entry.comment}</p>
               </Card>
             )}
-          </Index>
+          </For>
         </div>
       </div>
       <Show when={props.activeOrder.displayState === "open"}>

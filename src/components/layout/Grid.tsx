@@ -1,4 +1,4 @@
-import { Component, Index, JSX, mergeProps, Show } from "solid-js";
+import { Component, For, JSX, mergeProps, Show } from "solid-js";
 
 type GridProps<T> = {
   each: readonly T[];
@@ -17,7 +17,7 @@ export const Grid = <T,>(props: GridProps<T>): JSX.Element => {
             {merged.children(item)}
           </GridElement>
         )}
-      </Index>
+      </For>
     </div>
   );
 };
@@ -39,11 +39,11 @@ const GridElement: Component<GridElementProps> = (props) => {
         <footer class="card-footer"></footer>
         <For each={merged.footer}>
           {(entry) => (
-            <a class="card-footer-item" onClick={entry().onClick}>
-              {entry().label}
+            <a class="card-footer-item" onClick={entry.onClick}>
+              {entry.label}
             </a>
           )}
-        </Index>
+        </For>
       </Show>
     </div>
   );

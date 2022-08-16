@@ -42,13 +42,10 @@ export const cleanUpResponseData = (data: { publicBody: string, timestamp: strin
       timestamp: DateTime.fromISO(d.timestamp)
     }))
       .map(({ data, timestamp }) => {
-        try {
-          if ((data as object).hasOwnProperty("restaurant")) {
-            return cleanUpRestaurant(data.restaurant, timestamp);
-          }
-        } catch (_) {
-          return null;
+        if ((data as object).hasOwnProperty("restaurant")) {
+          return cleanUpRestaurant(data.restaurant, timestamp);
         }
+        return null;
       })
       .filter((d): d is ResponseData => d !== null)
   );

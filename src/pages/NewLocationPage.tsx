@@ -55,14 +55,14 @@ export const NewLocationPage: Component<PageProps> = (props) => {
             <Button
               color="danger"
               outlined={true}
-              size="large"
+              large={true}
               onClick={() => props.link("newOrder")}
             >
               <IconLeft icon="arrow-left">Zurück</IconLeft>
             </Button>
             <Button
               color="success"
-              size="large"
+              large={true}
               onClick={async (e) => {
                 e.preventDefault();
                 setActiveValidation(true);

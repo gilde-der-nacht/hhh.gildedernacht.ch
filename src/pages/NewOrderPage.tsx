@@ -41,14 +41,14 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           <Button
             color="danger"
             outlined={true}
-            size="large"
+            large={true}
             onClick={() => props.link("start")}
           >
             <IconLeft icon="arrow-left">Zurück</IconLeft>
           </Button>
           <Button
             color="success"
-            size="large"
+            large={true}
             onClick={() => props.link("start")}
           >
             <IconLeft icon="check">Bestellung starten</IconLeft>

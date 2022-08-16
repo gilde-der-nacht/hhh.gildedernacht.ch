@@ -1,4 +1,4 @@
-import { Component, JSX } from "solid-js";
+import { Component, JSX, mergeProps } from "solid-js";
 
 type CardProps = {
   isDisabled?: boolean;
@@ -6,10 +6,12 @@ type CardProps = {
 };
 
 export const Card: Component<CardProps> = (props) => {
+  const merged = mergeProps({ isDisabled: false }, props);
+
   return (
-    <div class={`card ${props.isDisabled === true ? "hhh-card-disabled" : ""}`}>
+    <div classList={{ card: true, "hhh-card-disabled": merged.isDisabled }}>
       <div class="card-content">
-        <div class="content">{props.children}</div>
+        <div class="content">{merged.children}</div>
       </div>
     </div>
   );

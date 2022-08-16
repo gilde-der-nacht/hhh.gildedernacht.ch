@@ -1,4 +1,4 @@
-import { Component, Show } from "solid-js";
+import { Component, mergeProps, Show } from "solid-js";
 
 type InputProps = {
   label: string;
@@ -9,28 +9,35 @@ type InputProps = {
 };
 
 export const Input: Component<InputProps> = (props) => {
+  const merged = mergeProps(
+    { error: { status: false, text: "" }, setter: () => {} },
+    props
+  );
+
   return (
     <div class="field">
-      <label class="label">{props.label}</label>
-      <div class={`control ${props.error?.status ? "has-icons-right" : ""}`}>
+      <label class="label">{merged.label}</label>
+      <div
+        classList={{ control: true, "has-icons-right": merged.error.status }}
+      >
         <input
-          class={`input ${props.error?.status ? "is-danger" : ""}`}
+          classList={{ input: true, "is-danger": merged.error.status }}
           type="text"
-          placeholder={props.placeholder}
+          placeholder={merged.placeholder}
           onInput={(e) =>
-            props.setter && props.setter((e.target as HTMLInputElement).value)
+            merged.setter && merged.setter((e.target as HTMLInputElement).value)
           }
         />
-        <Show when={props.error?.status}>
+        <Show when={merged.error.status}>
           <span class="icon is-small is-right">
             <i class="fas fa-exclamation-triangle"></i>
           </span>
         </Show>
       </div>
-      <Show when={props.error?.status}>
-        <p class="help is-danger">{props.error?.text}</p>
+      <Show when={merged.error.status}>
+        <p class="help is-danger">{merged.error.text}</p>
       </Show>
-      <p class="help">{props.helpText}</p>
+      <p class="help">{merged.helpText}</p>
     </div>
   );
 };

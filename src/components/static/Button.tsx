@@ -1,21 +1,30 @@
-import { Component, JSX } from "solid-js";
+import { Component, JSX, mergeProps } from "solid-js";
 
 type ButtonProps = {
   color?: "primary" | "success" | "danger";
   outlined?: boolean;
-  size?: "normal" | "large";
-  children: JSX.Element;
+  large?: boolean;
   onClick: (e: Event) => void;
+  children: JSX.Element;
 };
 
 export const Button: Component<ButtonProps> = (props) => {
+  const merged = mergeProps(
+    { color: "primary", outlined: false, large: false },
+    props
+  );
+
   return (
     <button
-      class={`button is-${props.color} ${props.outlined ? "is-outlined" : ""}
-      ${props.size === "large" ? "is-medium" : ""}`}
-      onClick={props.onClick}
+      classList={{
+        button: true,
+        [`is-${merged.color}`]: true,
+        "is-outlined": merged.outlined,
+        "is-medium": merged.large,
+      }}
+      onClick={merged.onClick}
     >
-      {props.children}
+      {merged.children}
     </button>
   );
 };

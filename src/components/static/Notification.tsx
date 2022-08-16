@@ -7,7 +7,13 @@ type NotificationProps = {
 
 export const Notification: Component<NotificationProps> = (props) => {
   return (
-    <div class={`notification is-${props.color} is-light`}>
+    <div
+      classList={{
+        notification: true,
+        [`is-${props.color}`]: true,
+        "is-light": true,
+      }}
+    >
       {props.children}
     </div>
   );

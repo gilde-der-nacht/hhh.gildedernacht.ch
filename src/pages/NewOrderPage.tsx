@@ -4,9 +4,9 @@ import { Form } from "@components/static/forms/Form";
 import { Input } from "@components/static/forms/Input";
 import { NumberInput } from "@components/static/forms/NumberInput";
 import { IconLeft } from "@components/static/icons/IconLeft";
-import type { Component } from "solid-js";
-import type { Restaurant } from "StateType";
-import type { PageType } from "./PageTypes";
+import { Component } from "solid-js";
+import { Restaurant } from "StateType";
+import { PageType } from "./PageTypes";
 
 type PageProps = {
   link: (page: PageType) => void;

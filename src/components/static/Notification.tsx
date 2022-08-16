@@ -1,4 +1,4 @@
-import type { Component, JSX } from "solid-js";
+import { Component, JSX } from "solid-js";
 
 type NotificationProps = {
   color: "danger";

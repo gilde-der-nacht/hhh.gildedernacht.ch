@@ -1,4 +1,4 @@
-import type { Component } from "solid-js";
+import { Component } from "solid-js";
 
 export const Footer: Component = () => {
   return (

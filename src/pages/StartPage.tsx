@@ -1,10 +1,10 @@
 import { OrderGrid } from "@components/OrderGrid";
 import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/IconLeft";
-import type { DateTime } from "luxon";
+import { DateTime } from "luxon";
 import { Component } from "solid-js";
-import type { AppState } from "StateType";
-import type { PageType } from "./PageTypes";
+import { AppState } from "StateType";
+import { PageType } from "./PageTypes";
 
 type PageProps = {
   state: AppState;

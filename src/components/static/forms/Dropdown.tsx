@@ -1,5 +1,4 @@
-import { For } from "solid-js";
-import type { Component } from "solid-js";
+import { Component, Index } from "solid-js";
 
 type DropdownProps = {
   entries: string[];
@@ -10,7 +9,9 @@ export const Dropdown: Component<DropdownProps> = (props) => {
     <div class="control">
       <div class="select">
         <select>
-          <For each={props.entries}>{(entry) => <option>{entry}</option>}</For>
+          <Index each={props.entries}>
+            {(entry) => <option>{entry()}</option>}
+          </Index>
         </select>
       </div>
     </div>

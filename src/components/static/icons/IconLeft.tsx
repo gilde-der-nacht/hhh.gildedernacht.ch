@@ -1,6 +1,5 @@
-import type { Component, JSX } from "solid-js";
-import type { IconType } from "./Icon";
-import { Icon } from "./Icon";
+import { Component, JSX } from "solid-js";
+import { Icon, IconType } from "./Icon";
 
 type IconLeftProps = {
   icon: IconType;

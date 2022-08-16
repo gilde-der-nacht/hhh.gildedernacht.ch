@@ -1,5 +1,4 @@
-import type { Component } from "solid-js";
-import { Show } from "solid-js";
+import { Component, Show } from "solid-js";
 
 type InputProps = {
   label: string;

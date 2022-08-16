@@ -4,14 +4,13 @@ import { Notification } from "@components/static/Notification";
 import { NewLocationPage } from "@pages/NewLocationPage";
 import { NewOrderPage } from "@pages/NewOrderPage";
 import { OrderDetailsPage } from "@pages/OrderDetailsPage";
-import type { PageType } from "@pages/PageTypes";
+import { PageType } from "@pages/PageTypes";
 import { StartPage } from "@pages/StartPage";
 import { loadServerData } from "@util/api";
 import { getActiveOrder } from "@util/utils";
 import { DateTime } from "luxon";
-import type { Component } from "solid-js";
-import { createSignal, Match, Switch } from "solid-js";
-import type { AppState } from "StateType";
+import { Component, createSignal, Match, Switch } from "solid-js";
+import { AppState } from "StateType";
 
 const pageError = () => (
   <Notification color="danger">

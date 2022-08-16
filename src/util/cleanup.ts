@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import type { ResponseData } from "./api";
+import { ResponseData } from "./api";
 
 type cleanRestaurant = {
   restaurant: {

@@ -1,4 +1,4 @@
-import type { Component } from "solid-js";
+import { Component } from "solid-js";
 import { Button } from "./static/Button";
 import { Form } from "./static/forms/Form";
 import { Input } from "./static/forms/Input";

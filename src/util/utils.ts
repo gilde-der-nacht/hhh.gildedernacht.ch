@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import type { Order, Restaurant } from "StateType";
+import { Order, Restaurant } from "StateType";
 
 export const getRestaurant = (id: string, restaurants: Restaurant[]): Restaurant | null => {
   const found = restaurants.filter(r => r.id === id);

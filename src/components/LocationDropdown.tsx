@@ -1,9 +1,8 @@
 import { Button } from "@components/static/Button";
 import { Dropdown } from "@components/static/forms/Dropdown";
 import { IconLeft } from "@components/static/icons/IconLeft";
-import type { Component } from "solid-js";
-import { Show } from "solid-js";
-import type { Restaurant } from "StateType";
+import { Component, Show } from "solid-js";
+import { Restaurant } from "StateType";
 
 type LocationDropdownProps = {
   activeRestaurants: Restaurant[];

@@ -1,10 +1,9 @@
 import { Grid } from "@components/layout/Grid";
-import type { PageType } from "@pages/PageTypes";
+import { PageType } from "@pages/PageTypes";
 import { getCountdown, getRestaurant } from "@util/utils";
-import type { DateTime } from "luxon";
-import type { Component } from "solid-js";
-import { Show } from "solid-js";
-import type { AppState, DisplayState } from "StateType";
+import { DateTime } from "luxon";
+import { Component, Show } from "solid-js";
+import { AppState, DisplayState } from "StateType";
 
 type Props = {
   state: AppState;

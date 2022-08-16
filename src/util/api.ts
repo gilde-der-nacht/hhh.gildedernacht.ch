@@ -1,5 +1,5 @@
-import type { Setter } from "solid-js";
-import type { AppState, Restaurant } from "StateType";
+import { Setter } from "solid-js";
+import { AppState, Restaurant } from "StateType";
 import { cleanUpResponseData } from "./cleanup";
 
 const resourceUID = "ed28796bac34122c0d508c578915f9fc1ce53ef46789cdcf41a3dc8da76730f3";

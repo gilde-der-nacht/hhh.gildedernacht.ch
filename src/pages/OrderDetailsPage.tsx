@@ -32,7 +32,7 @@ export const OrderDetailsPage: Component<PageProps> = (props) => {
           }
         </h3>
         <h4 class="subtitle is-4 has-text-centered">
-          {props.activeOrder.name}
+          {props.activeOrder.orderer}
         </h4>
       </div>
       <div>
@@ -44,7 +44,7 @@ export const OrderDetailsPage: Component<PageProps> = (props) => {
             {(entry) => (
               <Card>
                 <h5 class="m-0">{entry.menuItem}</h5>
-                <p>{entry.name}</p>
+                <p>{entry.eater}</p>
                 <p class="is-italic">{entry.comment}</p>
               </Card>
             )}

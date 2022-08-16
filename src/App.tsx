@@ -119,7 +119,7 @@ const App: Component = () => {
 
   return (
     <div class="hhh-body">
-      <Header />
+      <Header link={setPage} />
       <div>
         <div class="container p-5">
           <Dynamic component={pages[page()]} />

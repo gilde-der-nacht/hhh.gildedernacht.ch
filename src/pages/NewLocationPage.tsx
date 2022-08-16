@@ -21,7 +21,6 @@ export const NewLocationPage: Component<PageProps> = (props) => {
   const [activeValidation, setActiveValidation] = createSignal(false);
 
   const activeRestaurants = () => props.restaurants.filter((r) => r.active);
-  const inactiveRestaurants = () => props.restaurants.filter((r) => !r.active);
 
   return (
     <div class="hhh-spacer" style="--gap: 5rem;">
@@ -105,14 +104,6 @@ export const NewLocationPage: Component<PageProps> = (props) => {
                     <Icon icon="trash" />
                   </Button>
                 </div>
-              </Card>
-            )}
-          </For>
-          <For each={inactiveRestaurants()}>
-            {(restaurant) => (
-              <Card isDisabled={!restaurant.active}>
-                <h5 class="m-0">{restaurant.label}</h5>
-                <p class="is-italic">{restaurant.menu}</p>
               </Card>
             )}
           </For>

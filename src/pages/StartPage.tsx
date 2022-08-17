@@ -41,9 +41,10 @@ export const StartPage: Component<PageProps> = (props) => {
         </div>
       </div>
       <div>
-        <h3 class="title is-3 has-text-centered">
+        <h3 class="title is-3 has-text-centered m-0">
           Abgeschlossene Bestellungen
         </h3>
+        <p class="has-text-centered is-italic">die Bestellungen der letzten 24 Stunden</p>
         <OrderGrid
           state={props.state}
           filter="closed"

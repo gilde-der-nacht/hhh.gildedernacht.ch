@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import { DisplayState } from "StateType";
 import { ResponseData } from "./api";
 
 type CleanRestaurant = {
@@ -19,6 +20,7 @@ type CleanOrder = {
     active: boolean;
     id: string;
     timestamp: DateTime;
+    displayState: DisplayState;
   };
 };
 
@@ -74,6 +76,7 @@ const cleanUpOrder = (o: object, timestamp: DateTime): CleanOrder | null => {
         active,
         id,
         timestamp,
+        displayState: "open",
       },
     };
   }

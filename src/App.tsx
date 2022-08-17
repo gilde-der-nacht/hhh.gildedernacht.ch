@@ -8,7 +8,7 @@ import { StartPage } from "@pages/StartPage";
 import { loadServerData } from "@util/api";
 import { getActiveOrder } from "@util/utils";
 import { DateTime } from "luxon";
-import { Component, createEffect, createSignal, JSX } from "solid-js";
+import { Component, createSignal, JSX } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { AppState } from "StateType";
 

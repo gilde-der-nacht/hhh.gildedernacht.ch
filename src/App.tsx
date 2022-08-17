@@ -5,7 +5,7 @@ import {
   NewLocationPage,
   NewOrderPage,
   OrderDetailsPage,
-  StartPage
+  StartPage,
 } from "@pages/index";
 import { pageError, PageType } from "@pages/Router";
 import { loadServerData } from "@util/api";
@@ -25,13 +25,11 @@ const App: Component = () => {
     entries: [],
   });
 
-  onMount(async () => {
-    try {
-      await loadServerData(setState, now());
-    } catch (e) {
+  onMount(() => {
+    loadServerData(setState, now()).catch((e) => {
       console.error(e);
       setPage("networkError");
-    }
+    });
   });
 
   const pages: {

@@ -22,13 +22,16 @@ export const NewLocationPage: Component<PageProps> = (props) => {
 
   const activeRestaurants = () => props.restaurants.filter((r) => r.active);
 
-  const formSubmit = async (e: Event) => {
+  const formSubmit = (e: Event) => {
     e.preventDefault();
     setActiveValidation(true);
     if (restaurant().trim().length !== 0 && menulink().trim().length !== 0) {
-      await saveNewRestaurant({
+      saveNewRestaurant({
         label: restaurant(),
         menu: menulink(),
+      }).catch((e) => {
+        console.error(e);
+        props.link("networkError");
       });
     }
   };
@@ -91,9 +94,12 @@ export const NewLocationPage: Component<PageProps> = (props) => {
                   </div>
                   <Button
                     color="danger"
-                    onClick={() => {
-                      deactivateRestaurant(restaurant);
-                    }}
+                    onClick={() =>
+                      deactivateRestaurant(restaurant).catch((e) => {
+                        console.error(e);
+                        props.link("networkError");
+                      })
+                    }
                   >
                     <Icon icon="trash" />
                   </Button>

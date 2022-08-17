@@ -1,3 +1,4 @@
+import { PageType } from "@pages/Router";
 import { saveNewEntry } from "@util/api";
 import { isEmpty } from "@util/utils";
 import { Component, createSignal } from "solid-js";
@@ -6,7 +7,7 @@ import { Form } from "./static/forms/Form";
 import { Input } from "./static/forms/Input";
 import { IconLeft } from "./static/icons/IconLeft";
 
-type AddEntryProps = { orderId: string };
+type AddEntryProps = { orderId: string; link: (page: PageType) => void };
 
 export const AddEntry: Component<AddEntryProps> = (props) => {
   const [eater, setEater] = createSignal("");
@@ -14,15 +15,18 @@ export const AddEntry: Component<AddEntryProps> = (props) => {
   const [comment, setComment] = createSignal("");
   const [activeValidation, setActiveValidation] = createSignal(false);
 
-  const formSubmit = async (e: Event) => {
+  const formSubmit = (e: Event) => {
     e.preventDefault();
     setActiveValidation(true);
     if (!isEmpty(eater()) && !isEmpty(menuItem())) {
-      await saveNewEntry({
+      saveNewEntry({
         eater: eater(),
         menuItem: menuItem(),
         comment: comment(),
         orderId: props.orderId,
+      }).catch((e) => {
+        console.error(e);
+        props.link("networkError");
       });
     }
   };

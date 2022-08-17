@@ -11,8 +11,8 @@ import { Restaurant } from "StateType";
 import { PageType } from "./Router";
 
 type PageProps = {
-  link: (page: PageType) => void;
   restaurants: Restaurant[];
+  link: (page: PageType) => void;
 };
 
 const MIN_TIME_WINDOW_MIN = 10;
@@ -25,7 +25,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
 
   const activeRestaurants = () => props.restaurants.filter((r) => r.active);
 
-  const formSubmit = async (e: Event) => {
+  const formSubmit = (e: Event) => {
     e.preventDefault();
     setActiveValidation(true);
     if (
@@ -33,10 +33,13 @@ export const NewOrderPage: Component<PageProps> = (props) => {
       !isEmpty(orderer()) &&
       isValidTimeWindow(timeWindow())
     ) {
-      await saveNewOrder({
+      saveNewOrder({
         restaurantId: restaurantId(),
         orderer: orderer(),
         timeWindow: timeWindow(),
+      }).catch((e) => {
+        console.error(e);
+        props.link("networkError");
       });
     }
   };

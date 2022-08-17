@@ -3,8 +3,10 @@ import { DateTime } from "luxon";
 import { Setter } from "solid-js";
 import { AppState, Entry, Order, Restaurant } from "StateType";
 
-const Resource_UID =
+const RESOURCE_UID =
   "ed28796bac34122c0d508c578915f9fc1ce53ef46789cdcf41a3dc8da76730f3";
+
+const ENDPOINT = `https://api.gildedernacht.ch/resources/${RESOURCE_UID}/entries`;
 
 export const DATA_VERSION = 2;
 
@@ -64,21 +66,24 @@ const post = async (p: OlympEntry): Promise<Response> => {
     publicBody: JSON.stringify(p.publicBody),
   };
 
-  return fetch(
-    `https://api.gildedernacht.ch/resources/${Resource_UID}/entries`,
-    {
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify(body),
-    }
-  );
+  const response = await fetch(ENDPOINT, {
+    method: "POST",
+    mode: "cors",
+    body: JSON.stringify(body),
+  });
+
+  if (response.ok) {
+    return response;
+  }
+  throw new Error(response.statusText);
 };
 
 const get = async (): Promise<Response> => {
-  return await fetch(
-    `https://api.gildedernacht.ch/resources/${Resource_UID}/entries`,
-    { method: "GET", mode: "cors" }
-  );
+  const response = await fetch(ENDPOINT, { method: "GET", mode: "cors" });
+  if (response.ok) {
+    return response;
+  }
+  throw new Error(response.statusText);
 };
 
 export const saveNewRestaurant = async (restaurant: {

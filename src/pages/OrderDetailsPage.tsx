@@ -5,7 +5,7 @@ import { IconLeft } from "@components/static/icons/IconLeft";
 import { getRestaurant } from "@util/utils";
 import { Component, For, JSX, Show } from "solid-js";
 import { AppState, Order } from "StateType";
-import { PageType } from "./PageTypes";
+import { PageType } from "./Router";
 
 type PageProps = {
   state: AppState;

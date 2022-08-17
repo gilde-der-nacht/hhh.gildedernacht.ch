@@ -4,7 +4,7 @@ import { IconLeft } from "@components/static/icons/IconLeft";
 import { DateTime } from "luxon";
 import { Component } from "solid-js";
 import { AppState } from "StateType";
-import { PageType } from "./PageTypes";
+import { PageType } from "./Router";
 
 type PageProps = {
   state: AppState;

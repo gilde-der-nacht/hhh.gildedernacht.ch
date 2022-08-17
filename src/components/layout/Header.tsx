@@ -1,4 +1,4 @@
-import { PageType } from "@pages/PageTypes";
+import { PageType } from "@pages/Router";
 import { Component } from "solid-js";
 
 type HeaderProps = {

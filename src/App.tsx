@@ -4,7 +4,7 @@ import { Notification } from "@components/static/Notification";
 import { NewLocationPage } from "@pages/NewLocationPage";
 import { NewOrderPage } from "@pages/NewOrderPage";
 import { OrderDetailsPage } from "@pages/OrderDetailsPage";
-import { PageType } from "@pages/PageTypes";
+import { PageType } from "@pages/Router";
 import { StartPage } from "@pages/StartPage";
 import { loadServerData } from "@util/api";
 import { getActiveOrder } from "@util/utils";
@@ -65,7 +65,9 @@ const App: Component = () => {
   loadServerData(setState);
   createEffect(() => console.log(state()));
 
-  const pages: { [_ in PageType]: () => JSX.Element } = {
+  const pages: {
+    [_ in PageType]: () => JSX.Element;
+  } = {
     start: () => (
       <StartPage
         state={state()}

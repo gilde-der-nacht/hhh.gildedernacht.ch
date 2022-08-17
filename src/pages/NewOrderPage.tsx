@@ -8,7 +8,7 @@ import { saveNewOrder } from "@util/api";
 import { isEmpty } from "@util/utils";
 import { Component, createSignal, onMount } from "solid-js";
 import { Restaurant } from "StateType";
-import { PageType } from "./PageTypes";
+import { PageType } from "./Router";
 
 type PageProps = {
   link: (page: PageType) => void;

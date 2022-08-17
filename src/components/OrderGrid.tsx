@@ -1,5 +1,5 @@
 import { Grid } from "@components/layout/Grid";
-import { PageType } from "@pages/PageTypes";
+import { PageType } from "@pages/Router";
 import { getCountdown, getRestaurant } from "@util/utils";
 import { DateTime } from "luxon";
 import { Component, Show } from "solid-js";

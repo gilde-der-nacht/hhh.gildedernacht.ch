@@ -1,10 +1,9 @@
 import { Footer } from "@components/layout/Footer";
 import { Header } from "@components/layout/Header";
-import { Notification } from "@components/static/Notification";
 import { NewLocationPage } from "@pages/NewLocationPage";
 import { NewOrderPage } from "@pages/NewOrderPage";
 import { OrderDetailsPage } from "@pages/OrderDetailsPage";
-import { PageType } from "@pages/Router";
+import { pageError, PageType } from "@pages/Router";
 import { StartPage } from "@pages/StartPage";
 import { loadServerData } from "@util/api";
 import { getActiveOrder } from "@util/utils";
@@ -12,18 +11,6 @@ import { DateTime } from "luxon";
 import { Component, createEffect, createSignal, JSX } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { AppState } from "StateType";
-
-const pageError = () => (
-  <Notification color="danger">
-    <div class="content">
-      <p>Leider ist ein Fehler aufgetreten. Versuche die Seite neuzuladen. </p>
-      <p>
-        Erhältst du den Fehler erneut, schreibe uns bitte eine Nachricht per{" "}
-        <a href="https://gildedernacht.ch/kontakt/">Kontaktformular</a>.
-      </p>
-    </div>
-  </Notification>
-);
 
 const App: Component = () => {
   const [page, setPage] = createSignal<PageType>("start");

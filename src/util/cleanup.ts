@@ -168,19 +168,19 @@ export const cleanUpResponseData = (
   return filterNewest(
     data
       .map((d) => ({
-        data: JSON.parse(d.publicBody),
+        data: JSON.parse(d.publicBody) as ResponseData,
         timestamp: DateTime.fromISO(d.timestamp),
       }))
       .map((d) => ({ ...d, version: d.data.version }))
       .filter((d) => d.version === DATA_VERSION)
       .map(({ data, timestamp }) => {
-        if ((data as object).hasOwnProperty("restaurant")) {
+        if ("restaurant" in data) {
           return cleanUpRestaurant(data.restaurant, timestamp);
         }
-        if ((data as object).hasOwnProperty("order")) {
+        if ("order" in data) {
           return cleanUpOrder(data.order, timestamp, now);
         }
-        if ((data as object).hasOwnProperty("entry")) {
+        if ("entry" in data) {
           return cleanUpEntry(data.entry, timestamp);
         }
         return null;

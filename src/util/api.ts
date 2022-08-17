@@ -15,7 +15,6 @@ type RestaurantRequestData = {
     menu: string;
     active: boolean;
   };
-  version: number;
 };
 
 type OrderRequestData = {
@@ -26,7 +25,6 @@ type OrderRequestData = {
     timeWindow: number;
     active: boolean;
   };
-  version: number;
 };
 
 type EntryRequestData = {
@@ -37,12 +35,13 @@ type EntryRequestData = {
     menuItem: string;
     comment: string;
   };
-  version: number;
 };
 
 type OlympEntry = {
   identification: string;
-  publicBody: RestaurantRequestData | OrderRequestData | EntryRequestData;
+  publicBody: (RestaurantRequestData | OrderRequestData | EntryRequestData) & {
+    version: number;
+  };
   privateBody: {};
 };
 
@@ -52,10 +51,11 @@ type OlympEntryRequest = {
   privateBody: string;
 };
 
-export type ResponseData =
+export type ResponseData = (
   | { restaurant: Restaurant }
   | { order: Order }
-  | { entry: Entry };
+  | { entry: Entry }
+) & { version?: number };
 
 const post = async (p: OlympEntry): Promise<void> => {
   const body: OlympEntryRequest = {

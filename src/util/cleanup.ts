@@ -4,23 +4,35 @@ import { ResponseData } from "./api";
 
 type CleanRestaurant = {
   restaurant: {
+    id: string;
     label: string;
     menu: string;
     active: boolean;
-    id: string;
     timestamp: DateTime;
   };
 };
 
 type CleanOrder = {
   order: {
+    id: string;
     restaurantId: string;
     orderer: string;
     timeWindow: number;
     active: boolean;
-    id: string;
     timestamp: DateTime;
     displayState: DisplayState;
+  };
+};
+
+type CleanEntry = {
+  entry: {
+    id: string;
+    orderId: string;
+    eater: string;
+    menuItem: string;
+    comment: string;
+    active: boolean;
+    timestamp: DateTime;
   };
 };
 
@@ -100,6 +112,39 @@ const cleanUpOrder = (
   };
 };
 
+const cleanUpEntry = (e: object, timestamp: DateTime): CleanEntry | null => {
+  if (
+    !e.hasOwnProperty("orderId") ||
+    !e.hasOwnProperty("id") ||
+    !e.hasOwnProperty("eater") ||
+    !e.hasOwnProperty("menuItem") ||
+    !e.hasOwnProperty("comment") ||
+    !e.hasOwnProperty("active")
+  ) {
+    return null;
+  }
+
+  const { orderId, id, eater, menuItem, comment, active } = e as {
+    orderId: string;
+    id: string;
+    eater: string;
+    menuItem: string;
+    comment: string;
+    active: boolean;
+  };
+  return {
+    entry: {
+      orderId,
+      id,
+      eater,
+      menuItem,
+      comment,
+      active,
+      timestamp,
+    },
+  };
+};
+
 const filterNewest = (data: ResponseData[]): ResponseData[] => {
   const map: { [_: string]: ResponseData } = {};
   data.forEach((d) => {
@@ -108,6 +153,9 @@ const filterNewest = (data: ResponseData[]): ResponseData[] => {
     }
     if ("order" in d) {
       map[d.order.id] = d;
+    }
+    if ("entry" in d) {
+      map[d.entry.id] = d;
     }
   });
   return Object.values(map);
@@ -129,6 +177,9 @@ export const cleanUpResponseData = (
         }
         if ((data as object).hasOwnProperty("order")) {
           return cleanUpOrder(data.order, timestamp, now);
+        }
+        if ((data as object).hasOwnProperty("entry")) {
+          return cleanUpEntry(data.entry, timestamp);
         }
         return null;
       })

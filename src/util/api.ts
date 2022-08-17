@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { Setter } from "solid-js";
-import { AppState, Order, Restaurant } from "StateType";
+import { AppState, Entry, Order, Restaurant } from "StateType";
 import { cleanUpResponseData } from "./cleanup";
 
 const resourceUID =
@@ -12,7 +12,10 @@ type OlympEntry = {
   privateBody: string;
 };
 
-export type ResponseData = { restaurant: Restaurant } | { order: Order };
+export type ResponseData =
+  | { restaurant: Restaurant }
+  | { order: Order }
+  | { entry: Entry };
 
 const post = async (stringified: string): Promise<void> => {
   await fetch(`https://api.gildedernacht.ch/resources/${resourceUID}/entries`, {
@@ -91,13 +94,16 @@ export const loadServerData = async (
   const response = await get();
   const data = await response.json();
   const cleaned = cleanUpResponseData(data, now);
-  setState((prev) => ({
+  
+  setState(() => ({
     restaurants: cleaned
       .filter((c): c is { restaurant: Restaurant } => "restaurant" in c)
       .map((c) => c.restaurant),
     orders: cleaned
       .filter((o): o is { order: Order } => "order" in o)
       .map((o) => o.order),
-    entries: prev.entries,
+    entries: cleaned
+      .filter((e): e is { entry: Entry } => "entry" in e)
+      .map((e) => e.entry),
   }));
 };

@@ -19,35 +19,7 @@ const App: Component = () => {
   const [state, setState] = createSignal<AppState>({
     restaurants: [],
     orders: [],
-    entries: [
-      {
-        id: "1",
-        eater: "Oliver",
-        comment: "This is a comment",
-        menuItem: "Pizza Hawaii",
-        orderId: "3",
-        active: true,
-        timestamp: DateTime.now(),
-      },
-      {
-        id: "2",
-        eater: "Oliver",
-        comment: "This is a comment",
-        menuItem: "Kebab",
-        orderId: "3",
-        active: true,
-        timestamp: DateTime.now(),
-      },
-      {
-        id: "3",
-        eater: "Oliver",
-        comment: "This is a comment",
-        menuItem: "Pizza Proscuttio",
-        orderId: "1",
-        active: true,
-        timestamp: DateTime.now(),
-      },
-    ],
+    entries: [],
   });
   loadServerData(setState, now());
 

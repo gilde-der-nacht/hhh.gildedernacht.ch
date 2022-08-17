@@ -8,30 +8,30 @@ export type Restaurant = {
   active: boolean;
   id: string;
   timestamp: DateTime;
-}
+};
 
 export type Order = {
   id: string;
+  restaurantId: string;
   orderer: string;
   timestamp: DateTime;
   timeWindow: number;
-  restaurantId: string;
   displayState: DisplayState;
   active: boolean;
-}
+};
 
 export type Entry = {
   id: string;
+  orderId: string;
   eater: string;
   menuItem: string;
   comment: string;
-  orderId: string;
   active: boolean;
   timestamp: DateTime;
-}
+};
 
 export type AppState = {
-  restaurants: Restaurant[],
-  orders: Order[],
-  entries: Entry[],
-}
+  restaurants: Restaurant[];
+  orders: Order[];
+  entries: Entry[];
+};

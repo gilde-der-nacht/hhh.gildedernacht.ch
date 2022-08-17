@@ -29,58 +29,75 @@ const cleanUpRestaurant = (
   timestamp: DateTime
 ): CleanRestaurant | null => {
   if (
-    r.hasOwnProperty("label") &&
-    r.hasOwnProperty("menu") &&
-    r.hasOwnProperty("active") &&
-    r.hasOwnProperty("id")
+    !r.hasOwnProperty("label") ||
+    !r.hasOwnProperty("menu") ||
+    !r.hasOwnProperty("active") ||
+    !r.hasOwnProperty("id")
   ) {
-    const { label, menu, active, id } = r as {
-      label: string;
-      menu: string;
-      active: boolean;
-      id: string;
-    };
-    return {
-      restaurant: {
-        label,
-        menu,
-        active,
-        id,
-        timestamp,
-      },
-    };
+    return null;
   }
-  return null;
+
+  const { label, menu, active, id } = r as {
+    label: string;
+    menu: string;
+    active: boolean;
+    id: string;
+  };
+  return {
+    restaurant: {
+      label,
+      menu,
+      active,
+      id,
+      timestamp,
+    },
+  };
 };
 
-const cleanUpOrder = (o: object, timestamp: DateTime): CleanOrder | null => {
+const cleanUpOrder = (
+  o: object,
+  timestamp: DateTime,
+  now: DateTime
+): CleanOrder | null => {
   if (
-    o.hasOwnProperty("restaurantId") &&
-    o.hasOwnProperty("orderer") &&
-    o.hasOwnProperty("timeWindow") &&
-    o.hasOwnProperty("active") &&
-    o.hasOwnProperty("id")
+    !o.hasOwnProperty("restaurantId") ||
+    !o.hasOwnProperty("orderer") ||
+    !o.hasOwnProperty("timeWindow") ||
+    !o.hasOwnProperty("active") ||
+    !o.hasOwnProperty("id")
   ) {
-    const { restaurantId, orderer, timeWindow, active, id } = o as {
-      restaurantId: string;
-      orderer: string;
-      timeWindow: number;
-      active: boolean;
-      id: string;
-    };
-    return {
-      order: {
-        restaurantId,
-        orderer,
-        timeWindow,
-        active,
-        id,
-        timestamp,
-        displayState: "open",
-      },
-    };
+    return null;
   }
-  return null;
+
+  const { restaurantId, orderer, timeWindow, active, id } = o as {
+    restaurantId: string;
+    orderer: string;
+    timeWindow: number;
+    active: boolean;
+    id: string;
+  };
+
+  const delta = timestamp
+    .plus({ minutes: timeWindow })
+    .diff(now, ["hours", "minutes"])
+    .toObject() as {
+    hours: number;
+    minutes: number;
+  };
+  const displayState: DisplayState =
+    delta.minutes >= 0 ? "open" : delta.hours >= -24 ? "closed" : "none";
+
+  return {
+    order: {
+      restaurantId,
+      orderer,
+      timeWindow,
+      active,
+      id,
+      timestamp,
+      displayState,
+    },
+  };
 };
 
 const filterNewest = (data: ResponseData[]): ResponseData[] => {
@@ -97,7 +114,8 @@ const filterNewest = (data: ResponseData[]): ResponseData[] => {
 };
 
 export const cleanUpResponseData = (
-  data: { publicBody: string; timestamp: string }[]
+  data: { publicBody: string; timestamp: string }[],
+  now: DateTime
 ): ResponseData[] => {
   return filterNewest(
     data
@@ -110,7 +128,7 @@ export const cleanUpResponseData = (
           return cleanUpRestaurant(data.restaurant, timestamp);
         }
         if ((data as object).hasOwnProperty("order")) {
-          return cleanUpOrder(data.order, timestamp);
+          return cleanUpOrder(data.order, timestamp, now);
         }
         return null;
       })

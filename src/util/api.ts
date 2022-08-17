@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { Setter } from "solid-js";
 import { AppState, Order, Restaurant } from "StateType";
 import { cleanUpResponseData } from "./cleanup";
@@ -68,10 +69,13 @@ export const deactivateRestaurant = async (restaurant: Restaurant) => {
   await post(JSON.stringify(entry));
 };
 
-export const loadServerData = async (setState: Setter<AppState>) => {
+export const loadServerData = async (
+  setState: Setter<AppState>,
+  now: DateTime
+) => {
   const response = await get();
   const data = await response.json();
-  const cleaned = cleanUpResponseData(data);
+  const cleaned = cleanUpResponseData(data, now);
   setState((prev) => ({
     restaurants: cleaned
       .filter((c): c is { restaurant: Restaurant } => "restaurant" in c)
@@ -79,6 +83,6 @@ export const loadServerData = async (setState: Setter<AppState>) => {
     orders: cleaned
       .filter((o): o is { order: Order } => "order" in o)
       .map((o) => o.order),
-    entries: prev.entries
+    entries: prev.entries,
   }));
 };

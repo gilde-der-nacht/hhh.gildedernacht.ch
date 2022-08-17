@@ -49,8 +49,7 @@ const App: Component = () => {
       },
     ],
   });
-  loadServerData(setState);
-  createEffect(() => console.log(state()));
+  loadServerData(setState, now());
 
   const pages: {
     [_ in PageType]: () => JSX.Element;

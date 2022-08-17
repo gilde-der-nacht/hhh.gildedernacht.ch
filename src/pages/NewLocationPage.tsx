@@ -4,34 +4,32 @@ import { Form } from "@components/static/forms/Form";
 import { Input } from "@components/static/forms/Input";
 import { Icon } from "@components/static/icons/Icon";
 import { IconLeft } from "@components/static/icons/IconLeft";
-import { deactivateRestaurant, saveNewRestaurant } from "@util/api";
-import { isEmpty } from "@util/utils";
-import { Component, createSignal, For } from "solid-js";
-import { Restaurant } from "StateType";
-import { PageType } from "@pages/Router";
-
-type PageProps = {
-  restaurants: Restaurant[];
-  link: (page: PageType) => void;
-};
+import { PageProps } from "@pages/Router";
+import { isEmpty, isValidUrl } from "@util/utils";
+import { Component, createSignal, For, Show } from "solid-js";
 
 export const NewLocationPage: Component<PageProps> = (props) => {
   const [restaurant, setRestaurant] = createSignal("");
   const [menulink, setMenulink] = createSignal("");
+  const [comment, setComment] = createSignal("");
   const [activeValidation, setActiveValidation] = createSignal(false);
 
-  const activeRestaurants = () => props.restaurants.filter((r) => r.active);
+  const activeRestaurants = () =>
+    props.state.restaurants.filter((r) => r.status === "active");
+  const inactiveRestaurants = () =>
+    props.state.restaurants.filter((r) => r.status === "inactive");
 
   const formSubmit = (e: Event) => {
     e.preventDefault();
     setActiveValidation(true);
-    if (restaurant().trim().length !== 0 && menulink().trim().length !== 0) {
-      saveNewRestaurant({
+    if (!isEmpty(restaurant()) && isValidUrl(menulink())) {
+      props.API.saveNewRestaurant({
         label: restaurant(),
-        menu: menulink(),
+        menuLink: menulink(),
+        comment: comment(),
       }).catch((e) => {
         console.error(e);
-        props.link("networkError");
+        props.setPage("networkError");
       });
     }
   };
@@ -54,12 +52,19 @@ export const NewLocationPage: Component<PageProps> = (props) => {
           <Input
             label="Menülink"
             placeholder="https://..."
+            isUrl={true}
             helpText="Unter welchem Link das Menü des Restaurants eingesehen werden kann."
             error={{
-              status: activeValidation() && isEmpty(menulink()),
-              text: "Pflichtfeld",
+              status: activeValidation() && !isValidUrl(menulink()),
+              text: "Pflichtfeld, muss mit 'https://' starten.",
             }}
             setter={setMenulink}
+          />
+          <Input
+            label="Kommentar"
+            placeholder="kann leer gelassen werden"
+            required={false}
+            setter={setComment}
           />
           <div
             class="pt-5 is-flex is-flex-wrap-wrap is-justify-content-space-evenly"
@@ -69,46 +74,73 @@ export const NewLocationPage: Component<PageProps> = (props) => {
               color="danger"
               outlined={true}
               large={true}
-              onClick={() => props.link("newOrder")}
+              onClick={() => props.setPage("newOrder")}
             >
               <IconLeft icon="arrow-left">Zurück</IconLeft>
             </Button>
-            <Button color="success" large={true} onClick={formSubmit}>
+            <Button
+              color="success"
+              large={true}
+              onClick={formSubmit}
+              isSubmit={true}
+            >
               <IconLeft icon="check">Restaurant hinzufügen</IconLeft>
             </Button>
           </div>
         </Form>
       </div>
-      <div>
-        <h3 class="title is-3 has-text-centered">Restaurant Liste</h3>
-        <div class="hhh-spacer" style="--gap: 1rem;">
-          <For each={activeRestaurants()}>
-            {(restaurant) => (
-              <Card isDisabled={!restaurant.active}>
-                <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
-                  <div>
-                    <h5 class="m-0">{restaurant.label}</h5>
-                    <p class="is-italic">
-                      <a href={restaurant.menu}>{restaurant.menu}</a>
-                    </p>
+      <Show
+        when={
+          activeRestaurants().length > 0 || inactiveRestaurants().length > 0
+        }
+      >
+        <div>
+          <h3 class="title is-3 has-text-centered">Restaurant Liste</h3>
+          <div class="hhh-spacer" style="--gap: 1rem;">
+            <For each={activeRestaurants()}>
+              {(restaurant) => (
+                <Card isDisabled={false}>
+                  <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
+                    <div>
+                      <h5 class="m-0">{restaurant.label}</h5>
+                      <p class="is-italic">
+                        <a href={restaurant.menuLink}>{restaurant.menuLink}</a>
+                      </p>
+                    </div>
+                    <Button
+                      color="danger"
+                      onClick={() =>
+                        props.API.deactivateRestaurant(restaurant).catch(
+                          (e) => {
+                            console.error(e);
+                            props.setPage("networkError");
+                          }
+                        )
+                      }
+                    >
+                      <Icon icon="trash" />
+                    </Button>
                   </div>
-                  <Button
-                    color="danger"
-                    onClick={() =>
-                      deactivateRestaurant(restaurant).catch((e) => {
-                        console.error(e);
-                        props.link("networkError");
-                      })
-                    }
-                  >
-                    <Icon icon="trash" />
-                  </Button>
-                </div>
-              </Card>
-            )}
-          </For>
+                </Card>
+              )}
+            </For>
+            <For each={inactiveRestaurants()}>
+              {(restaurant) => (
+                <Card isDisabled={true}>
+                  <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
+                    <div>
+                      <h5 class="m-0">{restaurant.label}</h5>
+                      <p class="is-italic">
+                        <a href={restaurant.menuLink}>{restaurant.menuLink}</a>
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              )}
+            </For>
+          </div>
         </div>
-      </div>
+      </Show>
     </div>
   );
 };

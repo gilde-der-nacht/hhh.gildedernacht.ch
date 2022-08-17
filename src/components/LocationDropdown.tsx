@@ -1,9 +1,9 @@
 import { Dropdown } from "@components/static/forms/Dropdown";
+import { RestaurantState } from "@util/StateTypes";
 import { Component, JSX, mergeProps, Show } from "solid-js";
-import { Restaurant } from "StateType";
 
 type LocationDropdownProps = {
-  activeRestaurants: Restaurant[];
+  activeRestaurants: RestaurantState[];
   setter: (id: string) => void;
   error?: { status: boolean; text?: string };
   children: JSX.Element;

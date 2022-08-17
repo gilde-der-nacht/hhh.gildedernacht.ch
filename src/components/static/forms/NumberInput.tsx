@@ -23,9 +23,13 @@ export const NumberInput: Component<InputProps> = (props) => {
         <input
           classList={{ input: true, "is-danger": merged.error.status }}
           type="number"
+          min={0}
+          step={1}
           value={merged.startValue}
           onInput={(e) =>
-            merged.setter(Number((e.target as HTMLInputElement).value))
+            merged.setter(
+              Math.floor(Number((e.target as HTMLInputElement).value))
+            )
           }
         />
         <Show when={merged.error.status}>

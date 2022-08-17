@@ -1,42 +1,43 @@
 import { Grid } from "@components/layout/Grid";
-import { PageType } from "@pages/Router";
-import { getCountdown, getRestaurant } from "@util/utils";
-import { DateTime } from "luxon";
-import { Component, Show } from "solid-js";
-import { AppState, DisplayState } from "StateType";
+import { AppState, DerivedOrderStatus } from "@util/StateTypes";
+import { Component } from "solid-js";
 
 type Props = {
   state: AppState;
-  filter: DisplayState;
-  setActiveOrder: (id: string) => void;
-  link: (page: PageType) => void;
-  now: DateTime;
+  filter: DerivedOrderStatus;
 };
 
 export const OrderGrid: Component<Props> = (props) => {
+  const restaurantIds = () => props.state.restaurants.map((r) => r.id);
+  const orders = () =>
+    props.state.orders
+      .filter((o) => o.status === props.filter)
+      .filter((o) => restaurantIds().includes(o.restaurantId));
+
   return (
     <Grid
-      each={props.state.orders.filter((o) => o.displayState === props.filter)}
+      each={orders()}
       footer={(item) => [
         {
           label: "Bestellung anzeigen",
           onClick: () => {
-            props.setActiveOrder(item.id);
-            props.link("orderDetails");
+            console.log("tobedone");
           },
         },
       ]}
     >
       {(item) => {
-        const restaurant = getRestaurant(
-          item.restaurantId,
-          props.state.restaurants
+        const restaurant = props.state.restaurants.find(
+          (r) => r.id === item.restaurantId
         );
+        if (typeof restaurant === "undefined") {
+          throw new Error("This should not be able to happen!");
+        }
         return (
           <div class="content">
-            <h4 class="title is-4 m-0">{restaurant?.label}</h4>
+            <h4 class="title is-4 m-0">{restaurant.label}</h4>
             <p>{item.orderer}</p>
-            <Show
+            {/* <Show
               when={
                 getCountdown(item.timestamp, item.timeWindow, props.now) !==
                 null
@@ -45,7 +46,7 @@ export const OrderGrid: Component<Props> = (props) => {
               <strong class="has-text-danger">
                 Noch {getCountdown(item.timestamp, item.timeWindow, props.now)}
               </strong>
-            </Show>
+            </Show> */}
           </div>
         );
       }}

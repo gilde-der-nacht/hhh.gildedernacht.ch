@@ -3,14 +3,21 @@ import { Component, mergeProps, Show } from "solid-js";
 type InputProps = {
   label: string;
   placeholder: string;
-  helpText: string;
+  helpText?: string;
+  required?: boolean;
+  isUrl?: boolean;
   error?: { status: boolean; text?: string };
   setter?: (content: string) => void;
 };
 
 export const Input: Component<InputProps> = (props) => {
   const merged = mergeProps(
-    { error: { status: false, text: "" }, setter: () => {} },
+    {
+      error: { status: false, text: "" },
+      setter: () => {},
+      isUrl: false,
+      required: true,
+    },
     props
   );
 
@@ -22,8 +29,10 @@ export const Input: Component<InputProps> = (props) => {
       >
         <input
           classList={{ input: true, "is-danger": merged.error.status }}
-          type="text"
+          type={merged.isUrl ? "url" : "text"}
+          required={merged.required}
           placeholder={merged.placeholder}
+          pattern={merged.isUrl ? "https://.*" : ""}
           onInput={(e) => merged.setter((e.target as HTMLInputElement).value)}
         />
         <Show when={merged.error.status}>
@@ -35,7 +44,9 @@ export const Input: Component<InputProps> = (props) => {
       <Show when={merged.error.status}>
         <p class="help is-danger">{merged.error.text}</p>
       </Show>
-      <p class="help">{merged.helpText}</p>
+      <Show when={merged.helpText}>
+        <p class="help">{merged.helpText}</p>
+      </Show>
     </div>
   );
 };

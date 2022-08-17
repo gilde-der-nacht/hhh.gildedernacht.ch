@@ -4,26 +4,19 @@ import { Form } from "@components/static/forms/Form";
 import { Input } from "@components/static/forms/Input";
 import { NumberInput } from "@components/static/forms/NumberInput";
 import { IconLeft } from "@components/static/icons/IconLeft";
-import { saveNewOrder } from "@util/api";
+import { PageProps } from "@pages/Router";
 import { isEmpty } from "@util/utils";
 import { Component, createSignal, onMount } from "solid-js";
-import { Restaurant } from "StateType";
-import { PageType } from "./Router";
-
-type PageProps = {
-  restaurants: Restaurant[];
-  link: (page: PageType) => void;
-};
-
-const MIN_TIME_WINDOW_MIN = 10;
 
 export const NewOrderPage: Component<PageProps> = (props) => {
   const [restaurantId, setRestaurantId] = createSignal("");
   const [orderer, setOrderer] = createSignal("");
+  const [comment, setComment] = createSignal("");
   const [timeWindow, setTimeWindow] = createSignal(30);
   const [activeValidation, setActiveValidation] = createSignal(false);
 
-  const activeRestaurants = () => props.restaurants.filter((r) => r.active);
+  const activeRestaurants = () =>
+    props.state.restaurants.filter((r) => r.status === "active");
 
   const formSubmit = (e: Event) => {
     e.preventDefault();
@@ -33,21 +26,26 @@ export const NewOrderPage: Component<PageProps> = (props) => {
       !isEmpty(orderer()) &&
       isValidTimeWindow(timeWindow())
     ) {
-      saveNewOrder({
+      props.API.saveNewOrder({
         restaurantId: restaurantId(),
         orderer: orderer(),
+        comment: comment(),
         timeWindow: timeWindow(),
       }).catch((e) => {
         console.error(e);
-        props.link("networkError");
+        props.setPage("networkError");
       });
     }
   };
 
   const isValidTimeWindow = (time: number) =>
-    !isNaN(time) && time >= MIN_TIME_WINDOW_MIN;
+    !isNaN(time) && time >= 0
 
-  onMount(() => setRestaurantId(props.restaurants[0]?.id ?? ""));
+  onMount(() =>
+    setRestaurantId(
+      activeRestaurants().length > 0 ? activeRestaurants()[0].id : ""
+    )
+  );
 
   return (
     <div class="hhh-spacer">
@@ -64,7 +62,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           <Button
             color="success"
             outlined={true}
-            onClick={() => props.link("newLocation")}
+            onClick={() => props.setPage("newLocation")}
           >
             <IconLeft icon="plus">Neues Restaurant</IconLeft>
           </Button>
@@ -85,9 +83,14 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           helptext="Wie lange haben die anderen Personen Zeit ihre Bestellung einzugeben."
           error={{
             status: activeValidation() && !isValidTimeWindow(timeWindow()),
-            text: `Muss mindestens ${MIN_TIME_WINDOW_MIN} Minuten sein.`,
+            text: "Zeit darf nicht negativ sein.",
           }}
           setter={setTimeWindow}
+        />
+        <Input
+          label="Kommentar"
+          placeholder="kann leer gelassen werden"
+          setter={setComment}
         />
         <div
           class="pt-5 is-flex is-flex-wrap-wrap is-justify-content-space-evenly"
@@ -97,7 +100,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
             color="danger"
             outlined={true}
             large={true}
-            onClick={() => props.link("start")}
+            onClick={() => props.setPage("start")}
           >
             <IconLeft icon="arrow-left">Zurück</IconLeft>
           </Button>

@@ -16,7 +16,8 @@
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@style/*": ["style/*"],
-      "@util/*": ["util/*"]
+      "@util/*": ["util/*"],
+      "@api/*": ["api/*"]
     }
   }
 }

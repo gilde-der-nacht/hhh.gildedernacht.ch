@@ -1,30 +1,16 @@
 import { OrderGrid } from "@components/OrderGrid";
 import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/IconLeft";
-import { DateTime } from "luxon";
+import { PageProps } from "@pages/Router";
 import { Component } from "solid-js";
-import { AppState } from "StateType";
-import { PageType } from "@pages/Router";
-
-type PageProps = {
-  state: AppState;
-  setActiveOrder: (id: string) => void;
-  link: (page: PageType) => void;
-  now: DateTime;
-};
 
 export const StartPage: Component<PageProps> = (props) => {
+  
   return (
     <div class="hhh-spacer" style="--gap: 5rem;">
       <div>
         <h3 class="title is-3 has-text-centered">Aktive Bestellungen</h3>
-        <OrderGrid
-          state={props.state}
-          filter="open"
-          link={props.link}
-          setActiveOrder={props.setActiveOrder}
-          now={props.now}
-        />
+        <OrderGrid state={props.state} filter="active" />
       </div>
       <div>
         <h3 class="title is-3 has-text-centered">
@@ -34,7 +20,7 @@ export const StartPage: Component<PageProps> = (props) => {
           <Button
             color="success"
             large={true}
-            onClick={() => props.link("newOrder")}
+            onClick={() => props.setPage("newOrder")}
           >
             <IconLeft icon="plus">Neue Bestellung</IconLeft>
           </Button>
@@ -49,13 +35,7 @@ export const StartPage: Component<PageProps> = (props) => {
             die Bestellungen der letzten 24 Stunden
           </p>
         </div>
-        <OrderGrid
-          state={props.state}
-          filter="closed"
-          link={props.link}
-          setActiveOrder={props.setActiveOrder}
-          now={props.now}
-        />
+        <OrderGrid state={props.state} filter="inactive" />
       </div>
     </div>
   );

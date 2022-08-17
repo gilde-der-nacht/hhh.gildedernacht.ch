@@ -52,7 +52,7 @@ export const OrderDetailsPage: Component<PageProps> = (props) => {
         </div>
       </div>
       <Show when={props.activeOrder.displayState === "open"}>
-        <AddEntry />
+        <AddEntry orderId={props.activeOrder.id} />
       </Show>
       <div
         class="pt-5 is-flex is-flex-wrap-wrap is-justify-content-space-evenly"

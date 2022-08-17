@@ -34,14 +34,14 @@ export const saveNewRestaurant = async (restaurant: {
   menu: string;
 }) => {
   const id = crypto.randomUUID();
-  const entry: OlympEntry = {
+  const payload: OlympEntry = {
     identification: id,
     publicBody: JSON.stringify({
       restaurant: { ...restaurant, active: true, id },
     }),
     privateBody: JSON.stringify({}),
   };
-  await post(JSON.stringify(entry));
+  await post(JSON.stringify(payload));
 };
 
 export const saveNewOrder = async (order: {
@@ -50,12 +50,27 @@ export const saveNewOrder = async (order: {
   timeWindow: number;
 }) => {
   const id = crypto.randomUUID();
-  const entry: OlympEntry = {
+  const payload: OlympEntry = {
     identification: id,
     publicBody: JSON.stringify({ order: { ...order, active: true, id } }),
     privateBody: JSON.stringify({}),
   };
-  await post(JSON.stringify(entry));
+  await post(JSON.stringify(payload));
+};
+
+export const saveNewEntry = async (entry: {
+  orderId: string;
+  eater: string;
+  menuItem: string;
+  comment: string;
+}) => {
+  const id = crypto.randomUUID();
+  const payload: OlympEntry = {
+    identification: id,
+    publicBody: JSON.stringify({ entry: { ...entry, active: true, id } }),
+    privateBody: JSON.stringify({}),
+  };
+  await post(JSON.stringify(payload));
 };
 
 export const deactivateRestaurant = async (restaurant: Restaurant) => {

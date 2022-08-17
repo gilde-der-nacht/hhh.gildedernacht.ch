@@ -18,7 +18,7 @@ type PageProps = {
 const MIN_TIME_WINDOW_MIN = 10;
 
 export const NewOrderPage: Component<PageProps> = (props) => {
-  const [restaurant, setRestaurant] = createSignal("");
+  const [restaurantId, setRestaurantId] = createSignal("");
   const [orderer, setOrderer] = createSignal("");
   const [timeWindow, setTimeWindow] = createSignal(30);
   const [activeValidation, setActiveValidation] = createSignal(false);
@@ -29,12 +29,12 @@ export const NewOrderPage: Component<PageProps> = (props) => {
     e.preventDefault();
     setActiveValidation(true);
     if (
-      !isEmpty(restaurant()) &&
+      !isEmpty(restaurantId()) &&
       !isEmpty(orderer()) &&
       isValidTimeWindow(timeWindow())
     ) {
       await saveNewOrder({
-        restaurantId: restaurant(),
+        restaurantId: restaurantId(),
         orderer: orderer(),
         timeWindow: timeWindow(),
       });
@@ -44,7 +44,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
   const isValidTimeWindow = (time: number) =>
     !isNaN(time) && time >= MIN_TIME_WINDOW_MIN;
 
-  onMount(() => setRestaurant(props.restaurants[0].id));
+  onMount(() => setRestaurantId(props.restaurants[0].id));
 
   return (
     <div class="hhh-spacer">
@@ -53,10 +53,10 @@ export const NewOrderPage: Component<PageProps> = (props) => {
         <LocationDropdown
           activeRestaurants={activeRestaurants()}
           error={{
-            status: activeValidation() && isEmpty(restaurant()),
+            status: activeValidation() && isEmpty(restaurantId()),
             text: "Pflichtfeld",
           }}
-          setter={setRestaurant}
+          setter={setRestaurantId}
         >
           <Button
             color="success"

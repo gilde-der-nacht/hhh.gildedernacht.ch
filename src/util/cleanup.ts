@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { DisplayState } from "StateType";
-import { ResponseData } from "./api";
+import { DATA_VERSION, ResponseData } from "./api";
 
 type CleanRestaurant = {
   restaurant: {
@@ -171,6 +171,8 @@ export const cleanUpResponseData = (
         data: JSON.parse(d.publicBody),
         timestamp: DateTime.fromISO(d.timestamp),
       }))
+      .map((d) => ({ ...d, version: d.data.version }))
+      .filter((d) => d.version === DATA_VERSION)
       .map(({ data, timestamp }) => {
         if ((data as object).hasOwnProperty("restaurant")) {
           return cleanUpRestaurant(data.restaurant, timestamp);

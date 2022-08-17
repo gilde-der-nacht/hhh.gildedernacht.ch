@@ -3,10 +3,50 @@ import { Setter } from "solid-js";
 import { AppState, Entry, Order, Restaurant } from "StateType";
 import { cleanUpResponseData } from "./cleanup";
 
-const resourceUID =
+const Resource_UID =
   "ed28796bac34122c0d508c578915f9fc1ce53ef46789cdcf41a3dc8da76730f3";
 
+export const DATA_VERSION = 2;
+
+type RestaurantRequestData = {
+  restaurant: {
+    id: string;
+    label: string;
+    menu: string;
+    active: boolean;
+  };
+  version: number;
+};
+
+type OrderRequestData = {
+  order: {
+    id: string;
+    restaurantId: string;
+    orderer: string;
+    timeWindow: number;
+    active: boolean;
+  };
+  version: number;
+};
+
+type EntryRequestData = {
+  entry: {
+    id: string;
+    orderId: string;
+    eater: string;
+    menuItem: string;
+    comment: string;
+  };
+  version: number;
+};
+
 type OlympEntry = {
+  identification: string;
+  publicBody: RestaurantRequestData | OrderRequestData | EntryRequestData;
+  privateBody: {};
+};
+
+type OlympEntryRequest = {
   identification: string;
   publicBody: string;
   privateBody: string;
@@ -17,17 +57,26 @@ export type ResponseData =
   | { order: Order }
   | { entry: Entry };
 
-const post = async (stringified: string): Promise<void> => {
-  await fetch(`https://api.gildedernacht.ch/resources/${resourceUID}/entries`, {
-    method: "POST",
-    mode: "cors",
-    body: stringified,
-  });
+const post = async (p: OlympEntry): Promise<void> => {
+  const body: OlympEntryRequest = {
+    identification: p.identification,
+    privateBody: JSON.stringify(p.privateBody),
+    publicBody: JSON.stringify(p.publicBody),
+  };
+
+  await fetch(
+    `https://api.gildedernacht.ch/resources/${Resource_UID}/entries`,
+    {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+    }
+  );
 };
 
 const get = async (): Promise<Response> => {
   return await fetch(
-    `https://api.gildedernacht.ch/resources/${resourceUID}/entries`,
+    `https://api.gildedernacht.ch/resources/${Resource_UID}/entries`,
     { method: "GET", mode: "cors" }
   );
 };
@@ -37,14 +86,15 @@ export const saveNewRestaurant = async (restaurant: {
   menu: string;
 }) => {
   const id = crypto.randomUUID();
-  const payload: OlympEntry = {
+  const payload = {
     identification: id,
-    publicBody: JSON.stringify({
+    publicBody: {
       restaurant: { ...restaurant, active: true, id },
-    }),
-    privateBody: JSON.stringify({}),
+      version: DATA_VERSION,
+    },
+    privateBody: {},
   };
-  await post(JSON.stringify(payload));
+  await post(payload);
 };
 
 export const saveNewOrder = async (order: {
@@ -53,12 +103,15 @@ export const saveNewOrder = async (order: {
   timeWindow: number;
 }) => {
   const id = crypto.randomUUID();
-  const payload: OlympEntry = {
+  const payload = {
     identification: id,
-    publicBody: JSON.stringify({ order: { ...order, active: true, id } }),
-    privateBody: JSON.stringify({}),
+    publicBody: {
+      order: { ...order, active: true, id },
+      version: DATA_VERSION,
+    },
+    privateBody: {},
   };
-  await post(JSON.stringify(payload));
+  await post(payload);
 };
 
 export const saveNewEntry = async (entry: {
@@ -68,23 +121,27 @@ export const saveNewEntry = async (entry: {
   comment: string;
 }) => {
   const id = crypto.randomUUID();
-  const payload: OlympEntry = {
+  const payload = {
     identification: id,
-    publicBody: JSON.stringify({ entry: { ...entry, active: true, id } }),
-    privateBody: JSON.stringify({}),
+    publicBody: {
+      entry: { ...entry, active: true, id },
+      version: DATA_VERSION,
+    },
+    privateBody: {},
   };
-  await post(JSON.stringify(payload));
+  await post(payload);
 };
 
 export const deactivateRestaurant = async (restaurant: Restaurant) => {
-  const entry: OlympEntry = {
+  const payload = {
     identification: restaurant.id,
-    publicBody: JSON.stringify({
+    publicBody: {
       restaurant: { ...restaurant, active: false },
-    }),
-    privateBody: JSON.stringify({}),
+      version: DATA_VERSION,
+    },
+    privateBody: {},
   };
-  await post(JSON.stringify(entry));
+  await post(payload);
 };
 
 export const loadServerData = async (
@@ -94,7 +151,7 @@ export const loadServerData = async (
   const response = await get();
   const data = await response.json();
   const cleaned = cleanUpResponseData(data, now);
-  
+
   setState(() => ({
     restaurants: cleaned
       .filter((c): c is { restaurant: Restaurant } => "restaurant" in c)

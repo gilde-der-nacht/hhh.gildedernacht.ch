@@ -44,7 +44,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
   const isValidTimeWindow = (time: number) =>
     !isNaN(time) && time >= MIN_TIME_WINDOW_MIN;
 
-  onMount(() => setRestaurantId(props.restaurants[0].id));
+  onMount(() => setRestaurantId(props.restaurants[0]?.id ?? ""));
 
   return (
     <div class="hhh-spacer">

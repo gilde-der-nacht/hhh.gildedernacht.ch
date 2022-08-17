@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { DisplayState } from "StateType";
+import { AppState, DisplayState, Entry, Order, Restaurant } from "StateType";
 import { DATA_VERSION, ResponseData } from "./api";
 
 type CleanRestaurant = {
@@ -164,8 +164,8 @@ const filterNewest = (data: ResponseData[]): ResponseData[] => {
 export const cleanUpResponseData = (
   data: { publicBody: string; timestamp: string }[],
   now: DateTime
-): ResponseData[] => {
-  return filterNewest(
+): AppState => {
+  const list = filterNewest(
     data
       .map((d) => ({
         data: JSON.parse(d.publicBody) as ResponseData,
@@ -187,4 +187,15 @@ export const cleanUpResponseData = (
       })
       .filter((d): d is ResponseData => d !== null)
   );
+  return {
+    restaurants: list
+      .filter((c): c is { restaurant: Restaurant } => "restaurant" in c)
+      .map((c) => c.restaurant),
+    orders: list
+      .filter((o): o is { order: Order } => "order" in o)
+      .map((o) => o.order),
+    entries: list
+      .filter((e): e is { entry: Entry } => "entry" in e)
+      .map((e) => e.entry),
+  };
 };

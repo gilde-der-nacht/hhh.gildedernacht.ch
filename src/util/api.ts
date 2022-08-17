@@ -150,17 +150,11 @@ export const loadServerData = async (
 ) => {
   const response = await get();
   const data = await response.json();
-  const cleaned = cleanUpResponseData(data, now);
+  const { restaurants, orders, entries } = cleanUpResponseData(data, now);
 
   setState(() => ({
-    restaurants: cleaned
-      .filter((c): c is { restaurant: Restaurant } => "restaurant" in c)
-      .map((c) => c.restaurant),
-    orders: cleaned
-      .filter((o): o is { order: Order } => "order" in o)
-      .map((o) => o.order),
-    entries: cleaned
-      .filter((e): e is { entry: Entry } => "entry" in e)
-      .map((e) => e.entry),
+    restaurants,
+    orders,
+    entries,
   }));
 };

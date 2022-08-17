@@ -1,7 +1,7 @@
+import { cleanUpResponseData } from "@util/cleanup";
 import { DateTime } from "luxon";
 import { Setter } from "solid-js";
 import { AppState, Entry, Order, Restaurant } from "StateType";
-import { cleanUpResponseData } from "./cleanup";
 
 const Resource_UID =
   "ed28796bac34122c0d508c578915f9fc1ce53ef46789cdcf41a3dc8da76730f3";
@@ -57,14 +57,14 @@ export type ResponseData = (
   | { entry: Entry }
 ) & { version?: number };
 
-const post = async (p: OlympEntry): Promise<void> => {
+const post = async (p: OlympEntry): Promise<Response> => {
   const body: OlympEntryRequest = {
     identification: p.identification,
     privateBody: JSON.stringify(p.privateBody),
     publicBody: JSON.stringify(p.publicBody),
   };
 
-  await fetch(
+  return fetch(
     `https://api.gildedernacht.ch/resources/${Resource_UID}/entries`,
     {
       method: "POST",
@@ -84,7 +84,7 @@ const get = async (): Promise<Response> => {
 export const saveNewRestaurant = async (restaurant: {
   label: string;
   menu: string;
-}) => {
+}): Promise<Response> => {
   const id = crypto.randomUUID();
   const payload = {
     identification: id,
@@ -94,14 +94,14 @@ export const saveNewRestaurant = async (restaurant: {
     },
     privateBody: {},
   };
-  await post(payload);
+  return post(payload);
 };
 
 export const saveNewOrder = async (order: {
   restaurantId: string;
   orderer: string;
   timeWindow: number;
-}) => {
+}): Promise<Response> => {
   const id = crypto.randomUUID();
   const payload = {
     identification: id,
@@ -111,7 +111,7 @@ export const saveNewOrder = async (order: {
     },
     privateBody: {},
   };
-  await post(payload);
+  return post(payload);
 };
 
 export const saveNewEntry = async (entry: {
@@ -119,7 +119,7 @@ export const saveNewEntry = async (entry: {
   eater: string;
   menuItem: string;
   comment: string;
-}) => {
+}): Promise<Response> => {
   const id = crypto.randomUUID();
   const payload = {
     identification: id,
@@ -129,10 +129,12 @@ export const saveNewEntry = async (entry: {
     },
     privateBody: {},
   };
-  await post(payload);
+  return post(payload);
 };
 
-export const deactivateRestaurant = async (restaurant: Restaurant) => {
+export const deactivateRestaurant = async (
+  restaurant: Restaurant
+): Promise<Response> => {
   const payload = {
     identification: restaurant.id,
     publicBody: {
@@ -141,13 +143,13 @@ export const deactivateRestaurant = async (restaurant: Restaurant) => {
     },
     privateBody: {},
   };
-  await post(payload);
+  return post(payload);
 };
 
 export const loadServerData = async (
   setState: Setter<AppState>,
   now: DateTime
-) => {
+): Promise<void> => {
   const response = await get();
   const data = await response.json();
   const { restaurants, orders, entries } = cleanUpResponseData(data, now);

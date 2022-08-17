@@ -1,6 +1,6 @@
+import { DATA_VERSION, ResponseData } from "@util/api";
 import { DateTime } from "luxon";
 import { AppState, DisplayState, Entry, Order, Restaurant } from "StateType";
-import { DATA_VERSION, ResponseData } from "./api";
 
 type CleanRestaurant = {
   restaurant: {

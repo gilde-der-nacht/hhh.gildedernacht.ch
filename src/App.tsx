@@ -1,14 +1,17 @@
 import { Footer } from "@components/layout/Footer";
 import { Header } from "@components/layout/Header";
-import { NewLocationPage } from "@pages/NewLocationPage";
-import { NewOrderPage } from "@pages/NewOrderPage";
-import { OrderDetailsPage } from "@pages/OrderDetailsPage";
+import {
+  NetworkError,
+  NewLocationPage,
+  NewOrderPage,
+  OrderDetailsPage,
+  StartPage
+} from "@pages/index";
 import { pageError, PageType } from "@pages/Router";
-import { StartPage } from "@pages/StartPage";
 import { loadServerData } from "@util/api";
 import { getActiveOrder } from "@util/utils";
 import { DateTime } from "luxon";
-import { Component, createSignal, JSX } from "solid-js";
+import { Component, createSignal, JSX, onMount } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { AppState } from "StateType";
 
@@ -21,7 +24,15 @@ const App: Component = () => {
     orders: [],
     entries: [],
   });
-  loadServerData(setState, now());
+
+  onMount(async () => {
+    try {
+      await loadServerData(setState, now());
+    } catch (e) {
+      console.error(e);
+      setPage("networkError");
+    }
+  });
 
   const pages: {
     [_ in PageType]: () => JSX.Element;
@@ -48,6 +59,7 @@ const App: Component = () => {
         activeOrder={getActiveOrder(activeOrder(), state().orders)}
       />
     ),
+    networkError: () => <NetworkError />,
   };
 
   return (

@@ -8,7 +8,7 @@ import { deactivateRestaurant, saveNewRestaurant } from "@util/api";
 import { isEmpty } from "@util/utils";
 import { Component, createSignal, For } from "solid-js";
 import { Restaurant } from "StateType";
-import { PageType } from "./Router";
+import { PageType } from "@pages/Router";
 
 type PageProps = {
   restaurants: Restaurant[];

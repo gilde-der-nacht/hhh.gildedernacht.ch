@@ -5,7 +5,7 @@ export type OrderStatus = "auto" | "active" | "inactive" | "deleted";
 export type EntryStatus = "active" | "inactive" | "deleted";
 
 export type RestaurantPost = {
-  type: "restaurant";
+  kind: "restaurant";
   id: string;
   label: string;
   menuLink: string;
@@ -14,7 +14,7 @@ export type RestaurantPost = {
 };
 
 export type OrderPost = {
-  type: "order";
+  kind: "order";
   id: string;
   restaurantId: string;
   orderer: string;
@@ -24,7 +24,7 @@ export type OrderPost = {
 };
 
 export type EntryPost = {
-  type: "entry";
+  kind: "entry";
   id: string;
   orderId: string;
   eater: string;
@@ -34,7 +34,7 @@ export type EntryPost = {
 };
 
 export type RestaurantGet = {
-  type: "restaurant";
+  kind: "restaurant";
   id: string;
   label: string;
   menuLink: string;
@@ -44,7 +44,7 @@ export type RestaurantGet = {
 };
 
 export type OrderGet = {
-  type: "order";
+  kind: "order";
   id: string;
   restaurantId: string;
   orderer: string;
@@ -55,7 +55,7 @@ export type OrderGet = {
 };
 
 export type EntryGet = {
-  type: "entry";
+  kind: "entry";
   id: string;
   orderId: string;
   eater: string;
@@ -67,8 +67,8 @@ export type EntryGet = {
 
 export const isRestaurant = (o: any): o is Omit<RestaurantGet, "timestamp"> => {
   return (
-    "type" in o &&
-    o.type === "restaurant" &&
+    "kind" in o &&
+    o.kind === "restaurant" &&
     "id" in o &&
     "label" in o &&
     "menuLink" in o &&
@@ -79,8 +79,8 @@ export const isRestaurant = (o: any): o is Omit<RestaurantGet, "timestamp"> => {
 
 export const isOrder = (o: any): o is Omit<OrderGet, "timestamp"> => {
   return (
-    "type" in o &&
-    o.type === "order" &&
+    "kind" in o &&
+    o.kind === "order" &&
     "id" in o &&
     "restaurantId" in o &&
     "orderer" in o &&
@@ -92,8 +92,8 @@ export const isOrder = (o: any): o is Omit<OrderGet, "timestamp"> => {
 
 export const isEntry = (o: any): o is Omit<EntryGet, "timestamp"> => {
   return (
-    "type" in o &&
-    o.type === "entry" &&
+    "kind" in o &&
+    o.kind === "entry" &&
     "id" in o &&
     "orderId" in o &&
     "eater" in o &&

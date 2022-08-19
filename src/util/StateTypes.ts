@@ -5,6 +5,7 @@ export type DerivedOrderStatus = "active" | "inactive";
 export type DerivedEntryStatus = "active" | "inactive";
 
 export type RestaurantState = {
+  kind: "restaurant";
   id: string;
   label: string;
   menuLink: string;
@@ -14,6 +15,7 @@ export type RestaurantState = {
 };
 
 export type OrderState = {
+  kind: "order";
   restaurantId: string;
   id: string;
   orderer: string;
@@ -24,6 +26,7 @@ export type OrderState = {
 };
 
 export type EntryState = {
+  kind: "entry";
   orderId: string;
   id: string;
   eater: string;

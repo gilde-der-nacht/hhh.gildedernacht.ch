@@ -1,7 +1,7 @@
 import { Notification } from "@components/static/Notification";
 
 export const NetworkError = () => (
-  <Notification type="danger">
+  <Notification kind="danger">
     <div class="content">
       <p>
         Leider ist ein <strong>Netzwerk-Fehler</strong> aufgetreten. Versuche

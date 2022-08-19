@@ -17,7 +17,7 @@ const RESOURCE_UID =
 
 const ENDPOINT = `https://api.gildedernacht.ch/resources/${RESOURCE_UID}/entries`;
 
-const HHH_VERSION = 3;
+const HHH_VERSION = 4;
 
 type OlympPayload = RestaurantPost | OrderPost | EntryPost;
 

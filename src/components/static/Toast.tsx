@@ -1,14 +1,14 @@
 import { IconLeft, IconType } from "@components/static/icons/Icon";
 import {
   Notification,
-  NotificationType
+  NotificationKind
 } from "@components/static/Notification";
 import { isPromise } from "@util/utils";
 import { Component, createEffect, mergeProps, Setter } from "solid-js";
 
 export type ToastOptions = {
   visible?: boolean;
-  type?: NotificationType | "loading";
+  kind?: NotificationKind | "loading";
   text?: string;
   waitFor?:
     | {
@@ -40,7 +40,7 @@ export const Toast: Component<
           merged.setToast({
             visible: true,
             text: onSuccessMessage,
-            type: "success",
+            kind: "success",
             waitFor: 5_000,
           })
         )
@@ -48,7 +48,7 @@ export const Toast: Component<
           merged.setToast({
             visible: true,
             text: onErrorMessage,
-            type: "danger",
+            kind: "danger",
             waitFor: 10_000,
           })
         );
@@ -56,7 +56,7 @@ export const Toast: Component<
   });
 
   const iconName = (): IconType => {
-    switch (merged.type) {
+    switch (merged.kind) {
       case "loading":
         return "spinner-third";
       case "danger":
@@ -72,7 +72,7 @@ export const Toast: Component<
     <div classList={{ "hhh-toast": true, hide: !merged.visible }}>
       <div class="container">
         <Notification
-          type={merged.type === "loading" ? "info" : merged.type}
+          kind={merged.kind === "loading" ? "info" : merged.kind}
           isLight={false}
         >
           <IconLeft icon={iconName()}>{merged.text}</IconLeft>

@@ -11,54 +11,54 @@ export type Refetcher = (
 const saveNewRestaurant =
   (refetcher: Refetcher) =>
   async (
-    restaurant: Omit<RestaurantPost, "status" | "id" | "type">
+    restaurant: Omit<RestaurantPost, "status" | "id" | "kind">
   ): Promise<Response> => {
     const id = crypto.randomUUID();
     return OLYMP.POST(refetcher)({
       ...restaurant,
       id,
       status: "active",
-      type: "restaurant",
+      kind: "restaurant",
     });
   };
 
 const saveNewOrder =
   (refetcher: Refetcher) =>
   async (
-    order: Omit<OrderPost, "status" | "id" | "type">
+    order: Omit<OrderPost, "status" | "id" | "kind">
   ): Promise<Response> => {
     const id = crypto.randomUUID();
     return OLYMP.POST(refetcher)({
       ...order,
       id,
       status: "active",
-      type: "order",
+      kind: "order",
     });
   };
 
 const saveNewEntry =
   (refetcher: Refetcher) =>
   async (
-    entry: Omit<EntryPost, "status" | "id" | "type">
+    entry: Omit<EntryPost, "status" | "id" | "kind">
   ): Promise<Response> => {
     const id = crypto.randomUUID();
     return OLYMP.POST(refetcher)({
       ...entry,
       id,
       status: "active",
-      type: "entry",
+      kind: "entry",
     });
   };
 
 const deactivateRestaurant =
   (refetcher: Refetcher) =>
   async (
-    restaurant: Omit<RestaurantPost, "status" | "type">
+    restaurant: Omit<RestaurantPost, "status" | "kind">
   ): Promise<Response> => {
     return OLYMP.POST(refetcher)({
       ...restaurant,
       status: "inactive",
-      type: "restaurant",
+      kind: "restaurant",
     });
   };
 

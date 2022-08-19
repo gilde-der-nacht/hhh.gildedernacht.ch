@@ -30,7 +30,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
       props.setToast({
         visible: true,
         text: "Restaurant speichern ...",
-        type: "loading",
+        kind: "loading",
         waitFor: {
           promise,
           onSuccessMessage: "Restaurant gespeichert.",

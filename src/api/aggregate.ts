@@ -12,7 +12,7 @@ export const aggragateData = (
   now: DateTime
 ): AppState => {
   const restaurants = data
-    .filter((d): d is RestaurantGet => d.type === "restaurant")
+    .filter((d): d is RestaurantGet => d.kind === "restaurant")
     .map((r) => {
       if (r.status === "deleted") {
         return null;
@@ -22,7 +22,7 @@ export const aggragateData = (
     .filter((r): r is RestaurantState => r !== null);
 
   const orders = data
-    .filter((d): d is OrderGet => d.type === "order")
+    .filter((d): d is OrderGet => d.kind === "order")
     .map((o) => {
       if (o.status === "deleted") {
         return null;
@@ -51,7 +51,7 @@ export const aggragateData = (
     .filter((o): o is OrderState => o !== null);
 
   const entries = data
-    .filter((d): d is EntryGet => d.type === "entry")
+    .filter((d): d is EntryGet => d.kind === "entry")
     .map((e) => {
       if (e.status === "deleted") {
         return null;

@@ -1,4 +1,4 @@
-import { LocationDropdown } from "@components/LocationDropdown";
+import { RestaurantDropdown } from "@components/RestaurantDropdown";
 import { Button } from "@components/static/Button";
 import { Form } from "@components/static/forms/Form";
 import { Input } from "@components/static/forms/Input";
@@ -33,13 +33,11 @@ export const NewOrderPage: Component<PageProps> = (props) => {
         timeWindow: timeWindow(),
       }).catch((e) => {
         console.error(e);
-        props.setPage("networkError");
       });
     }
   };
 
-  const isValidTimeWindow = (time: number) =>
-    !isNaN(time) && time >= 0
+  const isValidTimeWindow = (time: number) => !isNaN(time) && time >= 0;
 
   onMount(() =>
     setRestaurantId(
@@ -51,7 +49,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
     <div class="hhh-spacer">
       <h3 class="title is-3 has-text-centered">Neue Bestellung</h3>
       <Form>
-        <LocationDropdown
+        <RestaurantDropdown
           activeRestaurants={activeRestaurants()}
           error={{
             status: activeValidation() && isEmpty(restaurantId()),
@@ -62,11 +60,11 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           <Button
             color="success"
             outlined={true}
-            onClick={() => props.setPage("newLocation")}
+            onClick={() => props.setPage("newRestaurant")}
           >
             <IconLeft icon="plus">Neues Restaurant</IconLeft>
           </Button>
-        </LocationDropdown>
+        </RestaurantDropdown>
         <Input
           label="Besteller"
           placeholder="Dein Name"

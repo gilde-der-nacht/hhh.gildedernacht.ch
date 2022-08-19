@@ -25,7 +25,6 @@
 //         orderId: props.orderId,
 //       }).catch((e) => {
 //         console.error(e);
-//         props.link("networkError");
 //       });
 //     }
 //   };

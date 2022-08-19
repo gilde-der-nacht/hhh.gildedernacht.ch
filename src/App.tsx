@@ -11,7 +11,7 @@ import {
   createResource,
   createSignal,
   Match,
-  Switch,
+  Switch
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 

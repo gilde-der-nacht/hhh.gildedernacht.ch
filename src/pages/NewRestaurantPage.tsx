@@ -8,7 +8,7 @@ import { PageProps } from "@pages/Router";
 import { isEmpty, isValidUrl } from "@util/utils";
 import { Component, createSignal, For, Show } from "solid-js";
 
-export const NewLocationPage: Component<PageProps> = (props) => {
+export const NewRestaurantPage: Component<PageProps> = (props) => {
   const [restaurant, setRestaurant] = createSignal("");
   const [menulink, setMenulink] = createSignal("");
   const [comment, setComment] = createSignal("");
@@ -29,7 +29,6 @@ export const NewLocationPage: Component<PageProps> = (props) => {
         comment: comment(),
       }).catch((e) => {
         console.error(e);
-        props.setPage("networkError");
       });
     }
   };
@@ -113,7 +112,6 @@ export const NewLocationPage: Component<PageProps> = (props) => {
                         props.API.deactivateRestaurant(restaurant).catch(
                           (e) => {
                             console.error(e);
-                            props.setPage("networkError");
                           }
                         )
                       }

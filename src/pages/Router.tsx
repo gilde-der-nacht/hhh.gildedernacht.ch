@@ -1,12 +1,12 @@
 import API from "@api/api";
 import { ToastOptions } from "@components/Toast";
-import { NewLocationPage } from "@pages/NewLocationPage";
+import { NewRestaurantPage } from "@pages/NewRestaurantPage";
 import { NewOrderPage } from "@pages/NewOrderPage";
 import { StartPage } from "@pages/StartPage";
 import { AppState } from "@util/StateTypes";
 import { JSX } from "solid-js";
 
-export type PageType = "start" | "newOrder" | "newLocation";
+export type PageType = "start" | "newOrder" | "newRestaurant";
 
 export type PageProps = {
   state: AppState;
@@ -20,5 +20,5 @@ export const Router: {
 } = {
   start: (props) => () => <StartPage {...props} />,
   newOrder: (props) => () => <NewOrderPage {...props} />,
-  newLocation: (props) => () => <NewLocationPage {...props} />,
+  newRestaurant: (props) => () => <NewRestaurantPage {...props} />,
 };

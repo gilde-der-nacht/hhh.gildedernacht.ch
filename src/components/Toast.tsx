@@ -1,8 +1,7 @@
-import { IconType } from "@components/static/icons/Icon";
-import { IconLeft } from "@components/static/icons/IconLeft";
+import { IconLeft, IconType } from "@components/static/icons/Icon";
 import {
   Notification,
-  NotificationType,
+  NotificationType
 } from "@components/static/Notification";
 import { isPromise } from "@util/utils";
 import { Component, createEffect, mergeProps, Setter } from "solid-js";

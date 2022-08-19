@@ -1,6 +1,6 @@
 import { OrderGrid } from "@components/OrderGrid";
 import { Button } from "@components/static/Button";
-import { IconLeft } from "@components/static/icons/IconLeft";
+import { IconLeft } from "@components/static/icons/Icon";
 import { PageProps } from "@pages/Router";
 import { Component } from "solid-js";
 

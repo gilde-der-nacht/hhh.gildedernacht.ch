@@ -1,8 +1,8 @@
 import API, { loadServerResource } from "@api/api";
-import { Footer } from "@components/layout/Footer";
-import { Header } from "@components/layout/Header";
 import { Progress } from "@components/static/Progress";
-import { Toast, ToastOptions } from "@components/Toast";
+import { Toast, ToastOptions } from "@components/static/Toast";
+import { Footer } from "@layout/Footer";
+import { Header } from "@layout/Header";
 import { NetworkError } from "@pages/NetworkError";
 import { PageType, Router } from "@pages/Router";
 import { DateTime } from "luxon";

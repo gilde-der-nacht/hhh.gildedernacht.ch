@@ -1,4 +1,4 @@
-import { Grid } from "@components/layout/Grid";
+import { Grid } from "@layout/Grid";
 import { AppState, DerivedOrderStatus } from "@util/StateTypes";
 import { Component } from "solid-js";
 

@@ -1,4 +1,4 @@
-import { OrderGrid } from "@components/OrderGrid";
+import { OrderGrid } from "@components/order/OrderGrid";
 import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/Icon";
 import { PageProps } from "@pages/Router";

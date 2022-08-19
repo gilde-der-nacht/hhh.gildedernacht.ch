@@ -1,4 +1,4 @@
-import { RestaurantDropdown } from "@components/RestaurantDropdown";
+import { RestaurantDropdown } from "@components/restaurant/RestaurantDropdown";
 import { Button } from "@components/static/Button";
 import { Form } from "@components/static/forms/Form";
 import { Input } from "@components/static/forms/Input";

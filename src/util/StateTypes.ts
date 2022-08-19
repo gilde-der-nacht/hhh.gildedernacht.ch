@@ -1,39 +1,19 @@
-import { DateTime } from "luxon";
+import { EntryBase, OrderBase, RestaurantBase } from "@util/BasicTypes";
 
 export type DerivedRestaurantStatus = "active" | "inactive";
 export type DerivedOrderStatus = "active" | "inactive";
 export type DerivedEntryStatus = "active" | "inactive";
 
-export type RestaurantState = {
-  kind: "restaurant";
-  id: string;
-  label: string;
-  menuLink: string;
-  comment: string;
+export type RestaurantState = RestaurantBase & {
   status: DerivedRestaurantStatus;
-  timestamp: DateTime;
 };
 
-export type OrderState = {
-  kind: "order";
-  restaurantId: string;
-  id: string;
-  orderer: string;
-  comment: string;
+export type OrderState = OrderBase & {
   status: DerivedOrderStatus;
-  timeWindow: number;
-  timestamp: DateTime;
 };
 
-export type EntryState = {
-  kind: "entry";
-  orderId: string;
-  id: string;
-  eater: string;
-  menuItem: string;
-  comment: string;
+export type EntryState = EntryBase & {
   status: DerivedEntryStatus;
-  timestamp: DateTime;
 };
 
 export type AppState = {

@@ -1,5 +1,4 @@
-import { EntryState, OrderState, RestaurantState } from "@util/StateTypes";
-import { DateTime } from "luxon";
+import { EntryBase, OrderBase, RestaurantBase } from "@util/BasicTypes";
 
 export type RestaurantStatus = "active" | "inactive" | "deleted";
 export type OrderStatus = "auto" | "active" | "inactive" | "deleted";
@@ -9,15 +8,15 @@ export type RestaurantPost = Omit<RestaurantGet, "timestamp">;
 export type OrderPost = Omit<OrderGet, "timestamp">;
 export type EntryPost = Omit<EntryGet, "timestamp">;
 
-export type RestaurantGet = Omit<RestaurantState, "status"> & {
+export type RestaurantGet = RestaurantBase & {
   status: RestaurantStatus;
 };
 
-export type OrderGet = Omit<OrderState, "status"> & {
+export type OrderGet = OrderBase & {
   status: OrderStatus;
 };
 
-export type EntryGet = Omit<EntryState, "status"> & {
+export type EntryGet = EntryBase & {
   status: EntryStatus;
 };
 

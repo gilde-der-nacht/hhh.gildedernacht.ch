@@ -1,23 +1,19 @@
 import { Refetcher } from "@api/api";
 import {
-  EntryGet,
   EntryPost,
-  isEntry,
-  isOrder,
-  isRestaurant,
-  OrderGet,
+  OlympResponse,
   OrderPost,
-  RestaurantGet,
+  RawServerData,
   RestaurantPost,
 } from "@api/ApiTypes";
-import { DateTime } from "luxon";
+import { safeParse } from "@api/parsing";
 
 const RESOURCE_UID =
   "ed28796bac34122c0d508c578915f9fc1ce53ef46789cdcf41a3dc8da76730f3";
 
 const ENDPOINT = `https://api.gildedernacht.ch/resources/${RESOURCE_UID}/entries`;
 
-const HHH_VERSION = 4;
+export const HHH_VERSION = 4;
 
 type OlympPayload = RestaurantPost | OrderPost | EntryPost;
 
@@ -48,27 +44,6 @@ const POST =
     }
     throw new Error(response.statusText);
   };
-
-type RawServerData = {
-  publicBody: string;
-  timestamp: string;
-};
-
-type OlympResponse = RestaurantGet | OrderGet | EntryGet;
-
-const safeParse = (raw: RawServerData): OlympResponse | null => {
-  const parsed = JSON.parse(raw.publicBody);
-  if (!("version" in parsed)) {
-    return null;
-  }
-  if (parsed.version !== HHH_VERSION) {
-    return null;
-  }
-  if (isRestaurant(parsed) || isOrder(parsed) || isEntry(parsed)) {
-    return { ...parsed, timestamp: DateTime.fromISO(raw.timestamp) };
-  }
-  return null;
-};
 
 const filterNewest = (data: OlympResponse[]): OlympResponse[] => {
   const map: { [_: string]: OlympResponse } = {};

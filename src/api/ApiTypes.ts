@@ -20,40 +20,9 @@ export type EntryGet = EntryBase & {
   status: EntryStatus;
 };
 
-export const isRestaurant = (o: any): o is Omit<RestaurantGet, "timestamp"> => {
-  return (
-    "kind" in o &&
-    o.kind === "restaurant" &&
-    "id" in o &&
-    "label" in o &&
-    "menuLink" in o &&
-    "comment" in o &&
-    "status" in o
-  );
-};
+export type OlympResponse = RestaurantGet | OrderGet | EntryGet;
 
-export const isOrder = (o: any): o is Omit<OrderGet, "timestamp"> => {
-  return (
-    "kind" in o &&
-    o.kind === "order" &&
-    "id" in o &&
-    "restaurantId" in o &&
-    "orderer" in o &&
-    "comment" in o &&
-    "timeWindow" in o &&
-    "status" in o
-  );
-};
-
-export const isEntry = (o: any): o is Omit<EntryGet, "timestamp"> => {
-  return (
-    "kind" in o &&
-    o.kind === "entry" &&
-    "id" in o &&
-    "orderId" in o &&
-    "eater" in o &&
-    "menuItem" in o &&
-    "comment" in o &&
-    "status" in o
-  );
+export type RawServerData = {
+  publicBody: string;
+  timestamp: string;
 };

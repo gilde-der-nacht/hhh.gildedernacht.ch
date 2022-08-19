@@ -1,3 +1,4 @@
+import { Refetcher } from "@api/api";
 import {
   EntryGet,
   EntryPost,
@@ -7,7 +8,7 @@ import {
   OrderGet,
   OrderPost,
   RestaurantGet,
-  RestaurantPost
+  RestaurantPost,
 } from "@api/ApiTypes";
 import { DateTime } from "luxon";
 
@@ -26,24 +27,27 @@ type OlympPostPayload = {
   privateBody: string;
 };
 
-const POST = async (payload: OlympPayload): Promise<Response> => {
-  const body: OlympPostPayload = {
-    identification: payload.id,
-    publicBody: JSON.stringify({ ...payload, version: HHH_VERSION }),
-    privateBody: JSON.stringify({}),
+const POST =
+  (refetcher: Refetcher) =>
+  async (payload: OlympPayload): Promise<Response> => {
+    const body: OlympPostPayload = {
+      identification: payload.id,
+      publicBody: JSON.stringify({ ...payload, version: HHH_VERSION }),
+      privateBody: JSON.stringify({}),
+    };
+
+    const response = await fetch(ENDPOINT, {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+    });
+
+    if (response.ok) {
+      refetcher();
+      return response;
+    }
+    throw new Error(response.statusText);
   };
-
-  const response = await fetch(ENDPOINT, {
-    method: "POST",
-    mode: "cors",
-    body: JSON.stringify(body),
-  });
-
-  if (response.ok) {
-    return response;
-  }
-  throw new Error(response.statusText);
-};
 
 type RawServerData = {
   publicBody: string;

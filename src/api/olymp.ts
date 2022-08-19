@@ -29,8 +29,8 @@ type OlympPostPayload = {
 const POST = async (payload: OlympPayload): Promise<Response> => {
   const body: OlympPostPayload = {
     identification: payload.id,
-    privateBody: JSON.stringify({ ...payload, version: HHH_VERSION }),
-    publicBody: JSON.stringify({}),
+    publicBody: JSON.stringify({ ...payload, version: HHH_VERSION }),
+    privateBody: JSON.stringify({}),
   };
 
   const response = await fetch(ENDPOINT, {

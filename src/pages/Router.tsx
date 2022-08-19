@@ -1,7 +1,7 @@
 import API from "@api/api";
 import { ToastOptions } from "@components/Toast";
-import { NewRestaurantPage } from "@pages/NewRestaurantPage";
 import { NewOrderPage } from "@pages/NewOrderPage";
+import { NewRestaurantPage } from "@pages/NewRestaurantPage";
 import { StartPage } from "@pages/StartPage";
 import { AppState } from "@util/StateTypes";
 import { JSX } from "solid-js";

@@ -2,7 +2,7 @@ import { Component, mergeProps, Show } from "solid-js";
 
 type InputProps = {
   label: string;
-  startValue: number;
+  value: number;
   helptext: string;
   error?: { status: boolean; text?: string };
   setter?: (content: number) => void;
@@ -25,7 +25,7 @@ export const NumberInput: Component<InputProps> = (props) => {
           type="number"
           min={0}
           step={1}
-          value={merged.startValue}
+          value={merged.value}
           onInput={(e) =>
             merged.setter(
               Math.floor(Number((e.target as HTMLInputElement).value))

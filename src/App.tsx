@@ -26,21 +26,6 @@ const App: Component = () => {
       <Header link={setPage} />
       <div>
         <div class="container p-5">
-          <button
-            onClick={() =>
-              setToast((prev) => ({
-                ...prev,
-                waitFor: new Promise((res, rej) => {
-                  setTimeout(() => res("done"), 5000);
-                }),
-                text: "Laden",
-                type: "loading",
-                visible: !prev.visible,
-              }))
-            }
-          >
-            toast
-          </button>
           <Switch fallback={<Progress />}>
             <Match when={state()}>
               {(state) => (
@@ -61,10 +46,7 @@ const App: Component = () => {
         </div>
       </div>
       <Footer />
-      <Toast
-        {...toast()}
-        hideToast={() => setToast((prev) => ({ ...prev, visible: false }))}
-      />
+      <Toast {...toast()} setToast={setToast} />
     </div>
   );
 };

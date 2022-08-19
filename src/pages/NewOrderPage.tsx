@@ -73,21 +73,23 @@ export const NewOrderPage: Component<PageProps> = (props) => {
             status: activeValidation() && isEmpty(orderer()),
             text: "Pflichtfeld",
           }}
+          value={orderer()}
           setter={setOrderer}
         />
         <NumberInput
           label="Zeitfenster (in Minuten)"
-          startValue={timeWindow()}
           helptext="Wie lange haben die anderen Personen Zeit ihre Bestellung einzugeben."
           error={{
             status: activeValidation() && !isValidTimeWindow(timeWindow()),
             text: "Zeit darf nicht negativ sein.",
           }}
+          value={timeWindow()}
           setter={setTimeWindow}
         />
         <Input
           label="Kommentar"
           placeholder="kann leer gelassen werden"
+          value={comment()}
           setter={setComment}
         />
         <div

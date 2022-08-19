@@ -23,12 +23,27 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
     e.preventDefault();
     setActiveValidation(true);
     if (!isEmpty(restaurant()) && isValidUrl(menulink())) {
-      props.API.saveNewRestaurant({
+      const promise = props.API.saveNewRestaurant({
         label: restaurant(),
         menuLink: menulink(),
         comment: comment(),
-      }).catch((e) => {
-        console.error(e);
+      });
+      props.setToast({
+        visible: true,
+        text: "Restaurant speichern ...",
+        type: "loading",
+        waitFor: {
+          promise,
+          onSuccessMessage: "Restaurant gespeichert.",
+          onErrorMessage:
+            "Restaurant konnte nicht gespeichert werden, bitte versuche es erneut",
+        },
+      });
+      promise.then(() => {
+        setActiveValidation(false);
+        setRestaurant("");
+        setMenulink("");
+        setComment("");
       });
     }
   };
@@ -46,6 +61,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
               status: activeValidation() && isEmpty(restaurant()),
               text: "Pflichtfeld",
             }}
+            value={restaurant()}
             setter={setRestaurant}
           />
           <Input
@@ -57,12 +73,14 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
               status: activeValidation() && !isValidUrl(menulink()),
               text: "Pflichtfeld, muss mit 'https://' starten.",
             }}
+            value={menulink()}
             setter={setMenulink}
           />
           <Input
             label="Kommentar"
             placeholder="kann leer gelassen werden"
             required={false}
+            value={comment()}
             setter={setComment}
           />
           <div

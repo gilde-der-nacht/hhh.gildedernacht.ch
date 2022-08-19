@@ -5,7 +5,7 @@ export const NetworkError = () => (
     <div class="content">
       <p>
         Leider ist ein <strong>Netzwerk-Fehler</strong> aufgetreten. Versuche
-        die Seite neuzuladen.{" "}
+        die Seite neuzuladen.
       </p>
       <p>
         Erhältst du den Fehler erneut, schreibe uns bitte eine Nachricht per{" "}

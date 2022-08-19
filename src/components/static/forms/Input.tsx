@@ -3,6 +3,7 @@ import { Component, mergeProps, Show } from "solid-js";
 type InputProps = {
   label: string;
   placeholder: string;
+  value: string;
   helpText?: string;
   required?: boolean;
   isUrl?: boolean;
@@ -33,6 +34,7 @@ export const Input: Component<InputProps> = (props) => {
           required={merged.required}
           placeholder={merged.placeholder}
           pattern={merged.isUrl ? "https://.*" : ""}
+          value={merged.value}
           onInput={(e) => merged.setter((e.target as HTMLInputElement).value)}
         />
         <Show when={merged.error.status}>

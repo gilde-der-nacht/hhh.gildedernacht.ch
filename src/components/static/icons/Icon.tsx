@@ -1,6 +1,14 @@
 import { Component } from "solid-js";
 
-export type IconType = "plus" | "check" | "trash" | "arrow-left";
+export type IconType =
+  | "plus"
+  | "check"
+  | "trash"
+  | "arrow-left"
+  | "spinner-third"
+  | "square-info"
+  | "square-exclamation"
+  | "square-check";
 
 type IconProps = {
   icon: IconType;

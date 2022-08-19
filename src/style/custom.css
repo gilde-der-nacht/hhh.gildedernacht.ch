@@ -35,3 +35,32 @@
   text-decoration: line-through;
   color: #dbdbdb;
 }
+
+.hhh-toast {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 0.5s;
+}
+
+.hhh-toast.hide {
+  transform: translateY(120%);
+  opacity: 0;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.fa-spinner-third {
+  animation: rotation 2s infinite linear;
+}

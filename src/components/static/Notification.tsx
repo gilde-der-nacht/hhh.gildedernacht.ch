@@ -1,20 +1,25 @@
-import { Component, JSX } from "solid-js";
+import { Component, JSX, mergeProps } from "solid-js";
+
+export type NotificationType = "success" | "danger" | "info";
 
 type NotificationProps = {
-  color: "danger";
+  type?: NotificationType;
+  isLight?: boolean;
   children: JSX.Element;
 };
 
 export const Notification: Component<NotificationProps> = (props) => {
+  const merged = mergeProps({ type: "info", isLight: true }, props);
+
   return (
     <div
       classList={{
         notification: true,
-        [`is-${props.color}`]: true,
-        "is-light": true,
+        [`is-${merged.type}`]: true,
+        "is-light": merged.isLight,
       }}
     >
-      {props.children}
+      {merged.children}
     </div>
   );
 };

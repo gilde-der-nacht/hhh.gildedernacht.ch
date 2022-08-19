@@ -76,3 +76,7 @@ export const isValidUrl = (s: string): boolean => {
   }
   return s.startsWith("https://");
 };
+
+export const isPromise = (p: any): p is Promise<any> => {
+  return typeof p === "object" && typeof p.then === "function";
+};

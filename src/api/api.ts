@@ -3,7 +3,6 @@ import { EntryPost, OrderPost, RestaurantPost } from "@api/ApiTypes";
 import OLYMP from "@api/olymp";
 import { AppState } from "@util/StateTypes";
 import { DateTime } from "luxon";
-import { Setter } from "solid-js";
 
 const saveNewRestaurant = async (
   restaurant: Omit<RestaurantPost, "status" | "id" | "type">
@@ -37,13 +36,9 @@ const deactivateRestaurant = async (
   return OLYMP.POST({ ...restaurant, status: "inactive", type: "restaurant" });
 };
 
-export const loadServerData = async (
-  setState: Setter<AppState>,
-  now: DateTime
-): Promise<void> => {
+export const loadServerResource = async (now: DateTime): Promise<AppState> => {
   const data = await OLYMP.GET();
-  const appState = aggragateData(data, now);
-  setState(appState);
+  return aggragateData(data, now);
 };
 
 export default {

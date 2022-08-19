@@ -7,7 +7,7 @@ import {
   OrderGet,
   OrderPost,
   RestaurantGet,
-  RestaurantPost,
+  RestaurantPost
 } from "@api/ApiTypes";
 import { DateTime } from "luxon";
 

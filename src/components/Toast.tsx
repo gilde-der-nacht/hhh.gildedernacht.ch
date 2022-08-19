@@ -2,7 +2,7 @@ import { IconType } from "@components/static/icons/Icon";
 import { IconLeft } from "@components/static/icons/IconLeft";
 import {
   Notification,
-  NotificationType
+  NotificationType,
 } from "@components/static/Notification";
 import { isPromise } from "@util/utils";
 import { Component, createEffect, mergeProps, Setter } from "solid-js";
@@ -23,7 +23,7 @@ export type ToastOptions = {
 export const Toast: Component<
   ToastOptions & { setToast: Setter<ToastOptions> }
 > = (props) => {
-  const merged = mergeProps({ visible: false }, props);
+  const merged = mergeProps({ visible: false, waitFor: 5_000 }, props);
 
   createEffect(() => {
     if (!merged.visible) {

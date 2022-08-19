@@ -11,7 +11,7 @@ import {
   createResource,
   createSignal,
   Match,
-  Switch
+  Switch,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
@@ -27,6 +27,9 @@ const App: Component = () => {
       <div>
         <div class="container p-5">
           <Switch fallback={<Progress />}>
+            <Match when={typeof state.error !== "undefined"}>
+              <NetworkError />
+            </Match>
             <Match when={state()}>
               {(state) => (
                 <Dynamic
@@ -38,9 +41,6 @@ const App: Component = () => {
                   })}
                 />
               )}
-            </Match>
-            <Match when={typeof state.error !== "undefined"}>
-              <NetworkError />
             </Match>
           </Switch>
         </div>

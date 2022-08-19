@@ -15,10 +15,9 @@ export type PageProps = {
   API: ReturnType<typeof API>;
 };
 
-export const Router: {
-  [_ in PageType]: (props: PageProps) => () => JSX.Element;
-} = {
-  start: (props) => () => <StartPage {...props} />,
-  newOrder: (props) => () => <NewOrderPage {...props} />,
-  newRestaurant: (props) => () => <NewRestaurantPage {...props} />,
-};
+export const Router: Record<PageType, (props: PageProps) => () => JSX.Element> =
+  {
+    start: (props) => () => <StartPage {...props} />,
+    newOrder: (props) => () => <NewOrderPage {...props} />,
+    newRestaurant: (props) => () => <NewRestaurantPage {...props} />,
+  };

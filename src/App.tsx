@@ -7,10 +7,10 @@ import { PageType, Router } from "@pages/Router";
 import { DateTime } from "luxon";
 import {
   Component,
-  createEffect,
   createResource,
   createSignal,
-  Match, Switch
+  Match,
+  Switch,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
@@ -18,8 +18,6 @@ const App: Component = () => {
   const [page, setPage] = createSignal<PageType>("start");
   const [now, setNow] = createSignal(DateTime.now());
   const [state, { refetch }] = createResource(now, loadServerResource);
-
-  createEffect(() => console.log(state.error));
 
   return (
     <div class="hhh-body">

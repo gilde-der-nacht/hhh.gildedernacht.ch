@@ -32,7 +32,6 @@
 }
 
 .hhh-card-disabled > * > * {
-  text-decoration: line-through;
   color: #dbdbdb;
 }
 

@@ -144,7 +144,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
                         )
                       }
                     >
-                      <Icon icon="trash" />
+                      <Icon icon="octagon-minus" />
                     </Button>
                   </div>
                 </Card>
@@ -159,6 +159,30 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
                       <p class="is-italic">
                         <a href={restaurant.menuLink}>{restaurant.menuLink}</a>
                       </p>
+                    </div>
+                    <div class="buttons has-addons">
+                      <Button
+                        color="success"
+                        onClick={() =>
+                          props.API.reactivateRestaurant(restaurant).catch(
+                            (e) => {
+                              console.error(e);
+                            }
+                          )
+                        }
+                      >
+                        <Icon icon="octagon-plus" />
+                      </Button>
+                      <Button
+                        color="danger"
+                        onClick={() =>
+                          props.API.deleteRestaurant(restaurant).catch((e) => {
+                            console.error(e);
+                          })
+                        }
+                      >
+                        <Icon icon="trash" />
+                      </Button>
                     </div>
                   </div>
                 </Card>

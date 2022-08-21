@@ -11,6 +11,8 @@ export type IconType =
   | "square-check"
   | "bars-staggered"
   | "fork-knife"
+  | "octagon-minus"
+  | "octagon-plus"
   | "receipt";
 
 type IconProps = {

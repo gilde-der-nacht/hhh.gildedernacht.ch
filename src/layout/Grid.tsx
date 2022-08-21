@@ -22,7 +22,7 @@ export const Grid = <T,>(props: GridProps<T>): JSX.Element => {
   );
 };
 
-type GridElementFooter = {
+export type GridElementFooter = {
   label: JSX.Element;
   onClick: () => void;
   kind?: "danger" | "success";

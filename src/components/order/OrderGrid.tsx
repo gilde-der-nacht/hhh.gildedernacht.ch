@@ -1,6 +1,6 @@
 import { Icon } from "@components/static/icons/Icon";
-import { Grid } from "@layout/Grid";
-import { AppState, DerivedOrderStatus } from "@util/StateTypes";
+import { Grid, GridElementFooter } from "@layout/Grid";
+import { AppState, DerivedOrderStatus, OrderState } from "@util/StateTypes";
 import { Component } from "solid-js";
 
 type Props = {
@@ -15,29 +15,39 @@ export const OrderGrid: Component<Props> = (props) => {
       .filter((o) => o.status === props.filter)
       .filter((o) => restaurantIds().includes(o.restaurantId));
 
-  return (
-    <Grid
-      each={orders()}
-      footer={(item) => [
-        {
-          label: <>Bestellung anzeigen</>,
-          onClick: () => {
-            console.log("tobedone");
-          },
+  const footer = (item: OrderState): GridElementFooter[] => {
+    const footerElements: GridElementFooter[] = [
+      {
+        label: <>Bestellung anzeigen</>,
+        onClick: () => {
+          console.log("tobedone");
         },
-        item.status === "active"
-          ? {
-              label: <Icon icon="octagon-minus"></Icon>,
-              onClick: () => {},
-              kind: "danger",
-            }
-          : {
-              label: <Icon icon="octagon-plus"></Icon>,
-              onClick: () => {},
-              kind: "success",
-            },
-      ]}
-    >
+      },
+    ];
+
+    if (item.status === "active") {
+      footerElements.push({
+        label: <Icon icon="octagon-minus"></Icon>,
+        onClick: () => {},
+        kind: "danger",
+      });
+    } else {
+      footerElements.push({
+        label: <Icon icon="octagon-plus"></Icon>,
+        onClick: () => {},
+        kind: "success",
+      });
+      footerElements.push({
+        label: <Icon icon="trash"></Icon>,
+        onClick: () => {},
+        kind: "danger",
+      });
+    }
+    return footerElements;
+  };
+
+  return (
+    <Grid each={orders()} footer={footer}>
       {(item) => {
         const restaurant = props.state.restaurants.find(
           (r) => r.id === item.restaurantId

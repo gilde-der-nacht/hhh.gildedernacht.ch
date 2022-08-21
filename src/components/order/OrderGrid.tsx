@@ -37,6 +37,9 @@ export const OrderGrid: Component<Props> = (props) => {
           <div class="content">
             <h4 class="title is-4 m-0">{restaurant.label}</h4>
             <p>{item.orderer}</p>
+            <p>
+              <em>{item.comment}</em>
+            </p>
             {/* <Show
               when={
                 getCountdown(item.timestamp, item.timeWindow, props.now) !==

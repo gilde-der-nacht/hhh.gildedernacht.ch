@@ -26,6 +26,24 @@
   gap: 1.75rem;
 }
 
+.hhh-card {
+  display: grid;
+  grid-template-rows: 1fr max-content;
+}
+
+.hhh-card:hover {
+  border-color: #158cba !important;
+}
+
+.hhh-card:hover .title,
+.hhh-card:hover a {
+  color: #158cba !important;
+}
+
+.hhh-card a:hover {
+  color: #5bb7db !important;
+}
+
 .hhh-card-disabled {
   background-color: white !important;
   border-color: #fafafa !important;

@@ -33,17 +33,18 @@ const GridElement: Component<GridElementProps> = (props) => {
   const merged = mergeProps({ footer: [] }, props);
 
   return (
-    <div class="card">
+    <div class="card hhh-card">
       <div class="card-content">{merged.children}</div>
       <Show when={merged.footer.length > 0}>
-        <footer class="card-footer"></footer>
-        <For each={merged.footer}>
-          {(entry) => (
-            <a class="card-footer-item" onClick={entry.onClick}>
-              {entry.label}
-            </a>
-          )}
-        </For>
+        <footer class="card-footer">
+          <For each={merged.footer}>
+            {(entry) => (
+              <a class="card-footer-item" onClick={entry.onClick}>
+                {entry.label}
+              </a>
+            )}
+          </For>
+        </footer>
       </Show>
     </div>
   );

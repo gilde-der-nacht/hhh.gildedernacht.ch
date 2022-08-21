@@ -72,7 +72,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
         <Input
           label="Besteller"
           placeholder="Dein Name"
-          helpText="Damit alle wissen, wer diese Bestellung abschickt."
+          helpText="Damit alle wissen, wer diese Bestellung organisiert."
           error={{
             status: activeValidation() && isEmpty(orderer()),
             text: "Pflichtfeld",

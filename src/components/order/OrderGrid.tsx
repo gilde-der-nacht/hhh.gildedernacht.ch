@@ -1,3 +1,4 @@
+import { Icon } from "@components/static/icons/Icon";
 import { Grid } from "@layout/Grid";
 import { AppState, DerivedOrderStatus } from "@util/StateTypes";
 import { Component } from "solid-js";
@@ -19,11 +20,22 @@ export const OrderGrid: Component<Props> = (props) => {
       each={orders()}
       footer={(item) => [
         {
-          label: "Bestellung anzeigen",
+          label: <>Bestellung anzeigen</>,
           onClick: () => {
             console.log("tobedone");
           },
         },
+        item.status === "active"
+          ? {
+              label: <Icon icon="octagon-minus"></Icon>,
+              onClick: () => {},
+              kind: "danger",
+            }
+          : {
+              label: <Icon icon="octagon-plus"></Icon>,
+              onClick: () => {},
+              kind: "success",
+            },
       ]}
     >
       {(item) => {

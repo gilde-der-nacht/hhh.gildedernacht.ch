@@ -3,7 +3,7 @@ import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { PageProps } from "@pages/Router";
-import { Component, createSignal, Match, Show, Switch } from "solid-js";
+import { Component, createSignal, Show } from "solid-js";
 
 export const StartPage: Component<PageProps> = (props) => {
   const [showDeactivated, setShowDeactivated] = createSignal(false);

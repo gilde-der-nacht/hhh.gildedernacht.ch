@@ -36,11 +36,11 @@
 }
 
 .hhh-card:hover .title,
-.hhh-card:hover a {
+.hhh-card:hover a:not([class*="has-text"]) {
   color: #158cba !important;
 }
 
-.hhh-card a:hover {
+.hhh-card a:hover:not([class*="has-text"]) {
   color: #5bb7db !important;
 }
 

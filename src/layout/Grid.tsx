@@ -22,7 +22,11 @@ export const Grid = <T,>(props: GridProps<T>): JSX.Element => {
   );
 };
 
-type GridElementFooter = { label: string; onClick: () => void };
+type GridElementFooter = {
+  label: JSX.Element;
+  onClick: () => void;
+  kind?: "danger" | "success";
+};
 
 type GridElementProps = {
   footer?: GridElementFooter[];
@@ -39,7 +43,13 @@ const GridElement: Component<GridElementProps> = (props) => {
         <footer class="card-footer">
           <For each={merged.footer}>
             {(entry) => (
-              <a class="card-footer-item" onClick={entry.onClick}>
+              <a
+                classList={{
+                  "card-footer-item": true,
+                  [`has-text-${entry.kind}`]: typeof entry.kind === "string",
+                }}
+                onClick={entry.onClick}
+              >
                 {entry.label}
               </a>
             )}

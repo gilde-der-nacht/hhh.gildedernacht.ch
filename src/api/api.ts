@@ -31,7 +31,7 @@ const saveNewOrder =
     return OLYMP.POST(refetcher)({
       ...order,
       id,
-      status: "active",
+      status: "auto",
       kind: "order",
     });
   };

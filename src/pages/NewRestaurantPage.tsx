@@ -87,14 +87,6 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
             style="gap: 1rem;"
           >
             <Button
-              color="danger"
-              outlined={true}
-              large={true}
-              onClick={() => props.setPage("newOrder")}
-            >
-              <IconLeft icon="arrow-left">Zurück</IconLeft>
-            </Button>
-            <Button
               color="success"
               large={true}
               onClick={formSubmit}

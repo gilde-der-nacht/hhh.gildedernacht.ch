@@ -1,6 +1,4 @@
 import { OrderGrid } from "@components/order/OrderGrid";
-import { Button } from "@components/static/Button";
-import { IconLeft } from "@components/static/icons/Icon";
 import { PageProps } from "@pages/Router";
 import { Component } from "solid-js";
 
@@ -11,20 +9,6 @@ export const StartPage: Component<PageProps> = (props) => {
       <div>
         <h3 class="title is-3 has-text-centered">Aktive Bestellungen</h3>
         <OrderGrid state={props.state} filter="active" />
-      </div>
-      <div>
-        <h3 class="title is-3 has-text-centered">
-          Starte eine neue Bestellung
-        </h3>
-        <div class="has-text-centered">
-          <Button
-            color="success"
-            large={true}
-            onClick={() => props.setPage("newOrder")}
-          >
-            <IconLeft icon="plus">Neue Bestellung</IconLeft>
-          </Button>
-        </div>
       </div>
       <div>
         <div class="mb-5">

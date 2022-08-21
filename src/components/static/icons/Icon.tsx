@@ -8,7 +8,10 @@ export type IconType =
   | "spinner-third"
   | "square-info"
   | "square-exclamation"
-  | "square-check";
+  | "square-check"
+  | "bars-staggered"
+  | "fork-knife"
+  | "receipt";
 
 type IconProps = {
   icon: IconType;

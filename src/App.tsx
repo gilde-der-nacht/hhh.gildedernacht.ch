@@ -3,6 +3,7 @@ import { Progress } from "@components/static/Progress";
 import { Toast, ToastOptions } from "@components/static/Toast";
 import { Footer } from "@layout/Footer";
 import { Header } from "@layout/Header";
+import { Layout } from "@layout/Layout";
 import { NetworkError } from "@pages/NetworkError";
 import { PageType, Router } from "@pages/Router";
 import { DateTime } from "luxon";
@@ -22,8 +23,7 @@ const App: Component = () => {
   const [state, { refetch }] = createResource(now, loadServerResource);
 
   return (
-    <div class="hhh-body">
-      <Header link={setPage} />
+    <Layout link={setPage} toast={toast()} setToast={setToast}>
       <div>
         <div class="container p-5">
           <Switch fallback={<Progress />}>
@@ -45,9 +45,7 @@ const App: Component = () => {
           </Switch>
         </div>
       </div>
-      <Footer />
-      <Toast {...toast()} setToast={setToast} />
-    </div>
+    </Layout>
   );
 };
 

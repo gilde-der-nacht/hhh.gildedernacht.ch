@@ -58,11 +58,11 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           setter={setRestaurantId}
         >
           <Button
-            color="success"
+            color="danger"
             outlined={true}
             onClick={() => props.setPage("newRestaurant")}
           >
-            <IconLeft icon="plus">Neues Restaurant</IconLeft>
+            <IconLeft icon="fork-knife">Neues Restaurant</IconLeft>
           </Button>
         </RestaurantDropdown>
         <Input
@@ -96,14 +96,6 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           class="pt-5 is-flex is-flex-wrap-wrap is-justify-content-space-evenly"
           style="gap: 1rem;"
         >
-          <Button
-            color="danger"
-            outlined={true}
-            large={true}
-            onClick={() => props.setPage("start")}
-          >
-            <IconLeft icon="arrow-left">Zurück</IconLeft>
-          </Button>
           <Button color="success" large={true} onClick={formSubmit}>
             <IconLeft icon="check">Bestellung starten</IconLeft>
           </Button>

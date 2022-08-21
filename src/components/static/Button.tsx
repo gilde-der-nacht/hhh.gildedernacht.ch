@@ -1,7 +1,7 @@
 import { Component, JSX, mergeProps } from "solid-js";
 
 type ButtonProps = {
-  color?: "primary" | "success" | "danger";
+  color?: "primary" | "success" | "danger" | "warning";
   outlined?: boolean;
   large?: boolean;
   isSubmit?: boolean;

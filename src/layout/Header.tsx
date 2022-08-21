@@ -7,7 +7,7 @@ type HeaderProps = {
 
 export const Header: Component<HeaderProps> = (props) => {
   return (
-    <header class="hero is-info">
+    <header class="hero is-info is-small">
       <a onClick={() => props.link("start")}>
         <div class="hero-body">
           <h1 class="title is-2 has-text-centered">Hungry Hungry Hippos</h1>

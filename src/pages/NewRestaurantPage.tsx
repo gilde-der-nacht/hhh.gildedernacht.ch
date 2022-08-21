@@ -133,6 +133,9 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
                       <p class="is-italic">
                         <a href={restaurant.menuLink}>{restaurant.menuLink}</a>
                       </p>
+                      <Show when={restaurant.comment.trim().length > 0}>
+                        <p class="is-italic">{restaurant.comment}</p>
+                      </Show>
                     </div>
                     <Button
                       color="danger"
@@ -159,6 +162,9 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
                       <p class="is-italic">
                         <a href={restaurant.menuLink}>{restaurant.menuLink}</a>
                       </p>
+                      <Show when={restaurant.comment.trim().length > 0}>
+                        <p class="is-italic">{restaurant.comment}</p>
+                      </Show>
                     </div>
                     <div class="buttons has-addons">
                       <Button

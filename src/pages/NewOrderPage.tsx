@@ -47,7 +47,11 @@ export const NewOrderPage: Component<PageProps> = (props) => {
 
   return (
     <div class="hhh-spacer">
-      <h3 class="title is-3 has-text-centered">Neue Bestellung</h3>
+      <h3 class="title is-3 has-text-centered">
+        <IconLeft icon="receipt">
+          <span class="pl-2">Neue Bestellungen</span>
+        </IconLeft>
+      </h3>
       <Form>
         <RestaurantDropdown
           activeRestaurants={activeRestaurants()}

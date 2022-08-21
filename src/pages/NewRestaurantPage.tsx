@@ -3,11 +3,13 @@ import { Card } from "@components/static/Card";
 import { Form } from "@components/static/forms/Form";
 import { Input } from "@components/static/forms/Input";
 import { Icon, IconLeft } from "@components/static/icons/Icon";
+import { Notification } from "@components/static/Notification";
 import { PageProps } from "@pages/Router";
 import { isEmpty, isValidUrl } from "@util/utils";
 import { Component, createSignal, For, Show } from "solid-js";
 
 export const NewRestaurantPage: Component<PageProps> = (props) => {
+  const [showList, setShowList] = createSignal(false);
   const [restaurant, setRestaurant] = createSignal("");
   const [menulink, setMenulink] = createSignal("");
   const [comment, setComment] = createSignal("");
@@ -50,7 +52,11 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
   return (
     <div class="hhh-spacer" style="--gap: 5rem;">
       <div>
-        <h3 class="title is-3 has-text-centered">Neues Restaurant</h3>
+        <h3 class="title is-3 has-text-centered">
+          <IconLeft icon="fork-knife">
+            <span class="pl-2">Neues Restaurant</span>
+          </IconLeft>
+        </h3>
         <Form>
           <Input
             label="Restaurant"
@@ -98,12 +104,25 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
         </Form>
       </div>
       <Show
-        when={
-          activeRestaurants().length > 0 || inactiveRestaurants().length > 0
+        when={showList()}
+        fallback={
+          <Button onClick={() => setShowList(true)}>
+            Zeige Liste der Restaurants
+          </Button>
         }
       >
         <div>
           <h3 class="title is-3 has-text-centered">Restaurant Liste</h3>
+          <Show
+            when={
+              activeRestaurants().length === 0 &&
+              inactiveRestaurants().length === 0
+            }
+          >
+            <Notification kind="info">
+              <em>Keine (aktiven oder inaktiven) Restaurants gefunden.</em>
+            </Notification>
+          </Show>
           <div class="hhh-spacer" style="--gap: 1rem;">
             <For each={activeRestaurants()}>
               {(restaurant) => (

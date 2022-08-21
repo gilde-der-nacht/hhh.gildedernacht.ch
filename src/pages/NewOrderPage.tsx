@@ -26,13 +26,28 @@ export const NewOrderPage: Component<PageProps> = (props) => {
       !isEmpty(orderer()) &&
       isValidTimeWindow(timeWindow())
     ) {
-      props.API.saveNewOrder({
+      const promise = props.API.saveNewOrder({
         restaurantId: restaurantId(),
         orderer: orderer(),
         comment: comment(),
         timeWindow: timeWindow(),
-      }).catch((e) => {
-        console.error(e);
+      });
+      props.setToast({
+        visible: true,
+        text: "Bestellung speichern ...",
+        kind: "loading",
+        waitFor: {
+          promise,
+          onSuccessMessage: "Bestellung gespeichert.",
+          onErrorMessage:
+            "Bestellung konnte nicht gespeichert werden, bitte versuche es erneut",
+        },
+      });
+      promise.then(() => {
+        setActiveValidation(false);
+        setOrderer("");
+        setComment("");
+        setTimeWindow(30);
       });
     }
   };
@@ -100,7 +115,12 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           class="pt-5 is-flex is-flex-wrap-wrap is-justify-content-space-evenly"
           style="gap: 1rem;"
         >
-          <Button color="success" large={true} onClick={formSubmit}>
+          <Button
+            color="success"
+            large={true}
+            onClick={formSubmit}
+            isSubmit={true}
+          >
             <IconLeft icon="check">Bestellung starten</IconLeft>
           </Button>
         </div>

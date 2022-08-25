@@ -5,7 +5,7 @@ import { Component } from "solid-js";
 
 type Props = {
   orders: readonly OrderState[];
-  restaurants: readonly RestaurantState[];
+  activeRestaurants: readonly RestaurantState[];
   showOrder: (order: OrderState) => void;
   deactivateOrder: (order: OrderState) => void;
   reactivateOrder: (order: OrderState) => void;
@@ -47,7 +47,7 @@ export const OrderGrid: Component<Props> = (props) => {
   return (
     <Grid each={props.orders} footer={footer}>
       {(item) => {
-        const restaurant = props.restaurants.find(
+        const restaurant = props.activeRestaurants.find(
           (r) => r.id === item.restaurantId
         );
         if (typeof restaurant === "undefined") {

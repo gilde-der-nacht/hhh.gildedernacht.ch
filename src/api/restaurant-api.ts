@@ -8,12 +8,24 @@ const create =
     restaurant: Omit<RestaurantPost, "status" | "id" | "kind">
   ): Promise<Response> => {
     const id = crypto.randomUUID();
-    return OLYMP.POST(props.refetch)({
+    const promise = OLYMP.POST(props.refetch)({
       ...restaurant,
       id,
       status: "active",
       kind: "restaurant",
     });
+    props.setToast({
+      visible: true,
+      text: "Restaurant speichern ...",
+      kind: "loading",
+      waitFor: {
+        promise,
+        onSuccessMessage: "Restaurant gespeichert.",
+        onErrorMessage:
+          "Restaurant konnte nicht gespeichert werden, bitte versuche es erneut",
+      },
+    });
+    return promise;
   };
 
 const deactivate =
@@ -21,11 +33,23 @@ const deactivate =
   async (
     restaurant: Omit<RestaurantPost, "status" | "kind">
   ): Promise<Response> => {
-    return OLYMP.POST(props.refetch)({
+    const promise = OLYMP.POST(props.refetch)({
       ...restaurant,
       status: "inactive",
       kind: "restaurant",
     });
+    props.setToast({
+      visible: true,
+      text: "Restaurant deaktivieren ...",
+      kind: "loading",
+      waitFor: {
+        promise,
+        onSuccessMessage: "Restaurant deaktiviert.",
+        onErrorMessage:
+          "Restaurant konnte nicht deaktiviert werden, bitte versuche es erneut",
+      },
+    });
+    return promise;
   };
 
 const reactivate =
@@ -33,11 +57,23 @@ const reactivate =
   async (
     restaurant: Omit<RestaurantPost, "status" | "kind">
   ): Promise<Response> => {
-    return OLYMP.POST(props.refetch)({
+    const promise = OLYMP.POST(props.refetch)({
       ...restaurant,
       status: "active",
       kind: "restaurant",
     });
+    props.setToast({
+      visible: true,
+      text: "Restaurant reaktivieren ...",
+      kind: "loading",
+      waitFor: {
+        promise,
+        onSuccessMessage: "Restaurant reaktiviert.",
+        onErrorMessage:
+          "Restaurant konnte nicht reaktiviert werden, bitte versuche es erneut",
+      },
+    });
+    return promise;
   };
 
 const remove =
@@ -45,11 +81,23 @@ const remove =
   async (
     restaurant: Omit<RestaurantPost, "status" | "kind">
   ): Promise<Response> => {
-    return OLYMP.POST(props.refetch)({
+    const promise = OLYMP.POST(props.refetch)({
       ...restaurant,
       status: "deleted",
       kind: "restaurant",
     });
+    props.setToast({
+      visible: true,
+      text: "Restaurant löschen ...",
+      kind: "loading",
+      waitFor: {
+        promise,
+        onSuccessMessage: "Restaurant gelöscht.",
+        onErrorMessage:
+          "Restaurant konnte nicht gelöscht werden, bitte versuche es erneut",
+      },
+    });
+    return promise;
   };
 
 export const RestaurantAPI = (props: ApiProps) => ({

@@ -32,17 +32,6 @@ export const NewOrderPage: Component<PageProps> = (props) => {
         comment: comment(),
         timeWindow: timeWindow(),
       });
-      props.setToast({
-        visible: true,
-        text: "Bestellung speichern ...",
-        kind: "loading",
-        waitFor: {
-          promise,
-          onSuccessMessage: "Bestellung gespeichert.",
-          onErrorMessage:
-            "Bestellung konnte nicht gespeichert werden, bitte versuche es erneut",
-        },
-      });
       promise.then(() => {
         setActiveValidation(false);
         setOrderer("");

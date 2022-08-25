@@ -29,17 +29,6 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
         menuLink: menulink(),
         comment: comment(),
       });
-      props.setToast({
-        visible: true,
-        text: "Restaurant speichern ...",
-        kind: "loading",
-        waitFor: {
-          promise,
-          onSuccessMessage: "Restaurant gespeichert.",
-          onErrorMessage:
-            "Restaurant konnte nicht gespeichert werden, bitte versuche es erneut",
-        },
-      });
       promise.then(() => {
         setActiveValidation(false);
         setRestaurant("");
@@ -139,21 +128,9 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
                     </div>
                     <Button
                       color="danger"
-                      onClick={() => {
-                        const promise =
-                          props.API.restaurant.deactivate(restaurant);
-                        props.setToast({
-                          visible: true,
-                          text: "Restaurant deaktivieren ...",
-                          kind: "loading",
-                          waitFor: {
-                            promise,
-                            onSuccessMessage: "Restaurant deaktiviert.",
-                            onErrorMessage:
-                              "Restaurant konnte nicht deaktiviert werden, bitte versuche es erneut",
-                          },
-                        });
-                      }}
+                      onClick={() =>
+                        props.API.restaurant.deactivate(restaurant)
+                      }
                     >
                       <Icon icon="octagon-minus" />
                     </Button>
@@ -177,41 +154,15 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
                     <div class="buttons has-addons">
                       <Button
                         color="success"
-                        onClick={() => {
-                          const promise =
-                            props.API.restaurant.reactivate(restaurant);
-                          props.setToast({
-                            visible: true,
-                            text: "Restaurant reaktivieren ...",
-                            kind: "loading",
-                            waitFor: {
-                              promise,
-                              onSuccessMessage: "Restaurant reaktiviert.",
-                              onErrorMessage:
-                                "Restaurant konnte nicht reaktiviert werden, bitte versuche es erneut",
-                            },
-                          });
-                        }}
+                        onClick={() =>
+                          props.API.restaurant.reactivate(restaurant)
+                        }
                       >
                         <Icon icon="octagon-plus" />
                       </Button>
                       <Button
                         color="danger"
-                        onClick={() => {
-                          const promise =
-                            props.API.restaurant.remove(restaurant);
-                          props.setToast({
-                            visible: true,
-                            text: "Restaurant löschen ...",
-                            kind: "loading",
-                            waitFor: {
-                              promise,
-                              onSuccessMessage: "Restaurant gelöscht.",
-                              onErrorMessage:
-                                "Restaurant konnte nicht gelöscht werden, bitte versuche es erneut",
-                            },
-                          });
-                        }}
+                        onClick={() => props.API.restaurant.remove(restaurant)}
                       >
                         <Icon icon="trash" />
                       </Button>

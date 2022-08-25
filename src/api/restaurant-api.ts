@@ -1,14 +1,14 @@
-import { Refetcher } from "@api/api";
+import { ApiProps } from "@api/api";
 import { RestaurantPost } from "@api/ApiTypes";
 import OLYMP from "@api/olymp";
 
 const create =
-  (refetcher: Refetcher) =>
+  (props: ApiProps) =>
   async (
     restaurant: Omit<RestaurantPost, "status" | "id" | "kind">
   ): Promise<Response> => {
     const id = crypto.randomUUID();
-    return OLYMP.POST(refetcher)({
+    return OLYMP.POST(props.refetch)({
       ...restaurant,
       id,
       status: "active",
@@ -17,11 +17,11 @@ const create =
   };
 
 const deactivate =
-  (refetcher: Refetcher) =>
+  (props: ApiProps) =>
   async (
     restaurant: Omit<RestaurantPost, "status" | "kind">
   ): Promise<Response> => {
-    return OLYMP.POST(refetcher)({
+    return OLYMP.POST(props.refetch)({
       ...restaurant,
       status: "inactive",
       kind: "restaurant",
@@ -29,11 +29,11 @@ const deactivate =
   };
 
 const reactivate =
-  (refetcher: Refetcher) =>
+  (props: ApiProps) =>
   async (
     restaurant: Omit<RestaurantPost, "status" | "kind">
   ): Promise<Response> => {
-    return OLYMP.POST(refetcher)({
+    return OLYMP.POST(props.refetch)({
       ...restaurant,
       status: "active",
       kind: "restaurant",
@@ -41,20 +41,20 @@ const reactivate =
   };
 
 const remove =
-  (refetcher: Refetcher) =>
+  (props: ApiProps) =>
   async (
     restaurant: Omit<RestaurantPost, "status" | "kind">
   ): Promise<Response> => {
-    return OLYMP.POST(refetcher)({
+    return OLYMP.POST(props.refetch)({
       ...restaurant,
       status: "deleted",
       kind: "restaurant",
     });
   };
 
-export const RestaurantAPI = (refetcher: Refetcher) => ({
-  create: create(refetcher),
-  deactivate: deactivate(refetcher),
-  reactivate: reactivate(refetcher),
-  remove: remove(refetcher),
+export const RestaurantAPI = (props: ApiProps) => ({
+  create: create(props),
+  deactivate: deactivate(props),
+  reactivate: reactivate(props),
+  remove: remove(props),
 });

@@ -35,7 +35,7 @@ const App: Component = () => {
                     state: state,
                     setPage,
                     setToast,
-                    API: API(refetch),
+                    API: API({ refetch, setToast }),
                   })}
                 />
               )}

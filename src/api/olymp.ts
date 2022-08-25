@@ -24,7 +24,7 @@ type OlympPostPayload = {
 };
 
 const POST =
-  (refetcher: Refetcher) =>
+  (refetch: Refetcher) =>
   async (payload: OlympPayload): Promise<Response> => {
     const body: OlympPostPayload = {
       identification: payload.id,
@@ -39,7 +39,7 @@ const POST =
     });
 
     if (response.ok) {
-      refetcher();
+      refetch();
       return response;
     }
     throw new Error(response.statusText);

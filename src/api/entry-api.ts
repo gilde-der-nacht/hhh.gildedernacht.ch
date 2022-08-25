@@ -1,14 +1,14 @@
-import { Refetcher } from "@api/api";
+import { ApiProps } from "@api/api";
 import { EntryPost } from "@api/ApiTypes";
 import OLYMP from "@api/olymp";
 
 const create =
-  (refetcher: Refetcher) =>
+  (props: ApiProps) =>
   async (
     entry: Omit<EntryPost, "status" | "id" | "kind">
   ): Promise<Response> => {
     const id = crypto.randomUUID();
-    return OLYMP.POST(refetcher)({
+    return OLYMP.POST(props.refetch)({
       ...entry,
       id,
       status: "active",
@@ -16,6 +16,6 @@ const create =
     });
   };
 
-export const EntryAPI = (refetcher: Refetcher) => ({
-  create: create(refetcher),
+export const EntryAPI = (props: ApiProps) => ({
+  create: create(props),
 });

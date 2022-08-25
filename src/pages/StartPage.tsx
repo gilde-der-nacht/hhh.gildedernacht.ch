@@ -37,7 +37,13 @@ export const StartPage: Component<PageProps> = (props) => {
             </Notification>
           }
         >
-          <OrderGrid state={props.state} filter="active" />
+          <OrderGrid
+            state={props.state}
+            filter="active"
+            deactivateOrder={props.API.order.deactivate}
+            reactivateOrder={props.API.order.reactivate}
+            removeOrder={props.API.order.remove}
+          />
         </Show>
       </div>
       <hr />
@@ -72,7 +78,13 @@ export const StartPage: Component<PageProps> = (props) => {
               </Notification>
             }
           >
-            <OrderGrid state={props.state} filter="inactive" />
+            <OrderGrid
+              state={props.state}
+              filter="inactive"
+              deactivateOrder={props.API.order.deactivate}
+              reactivateOrder={props.API.order.reactivate}
+              removeOrder={props.API.order.remove}
+            />
           </Show>
         </div>
       </Show>

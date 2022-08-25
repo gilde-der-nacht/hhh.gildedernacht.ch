@@ -6,7 +6,8 @@ import { RestaurantState } from "@util/StateTypes";
 import { Component, createSignal, For, Show } from "solid-js";
 
 type Props = {
-  restaurants: readonly RestaurantState[];
+  activeRestaurants: readonly RestaurantState[];
+  inactiveRestaurants: readonly RestaurantState[];
   deactivateRestaurant: (restaurant: RestaurantState) => void;
   reactivateRestaurant: (restaurant: RestaurantState) => void;
   removeRestaurant: (restaurant: RestaurantState) => void;
@@ -14,11 +15,6 @@ type Props = {
 
 export const RestaurantList: Component<Props> = (props) => {
   const [showList, setShowList] = createSignal(false);
-
-  const activeRestaurants = () =>
-    props.restaurants.filter((r) => r.status === "active");
-  const inactiveRestaurants = () =>
-    props.restaurants.filter((r) => r.status === "inactive");
 
   return (
     <Show
@@ -33,8 +29,8 @@ export const RestaurantList: Component<Props> = (props) => {
         <h3 class="title is-3 has-text-centered">Restaurant Liste</h3>
         <Show
           when={
-            activeRestaurants().length === 0 &&
-            inactiveRestaurants().length === 0
+            props.activeRestaurants.length === 0 &&
+            props.inactiveRestaurants.length === 0
           }
         >
           <Notification kind="info">
@@ -42,7 +38,7 @@ export const RestaurantList: Component<Props> = (props) => {
           </Notification>
         </Show>
         <div class="hhh-spacer" style="--gap: 1rem;">
-          <For each={activeRestaurants()}>
+          <For each={props.activeRestaurants}>
             {(restaurant) => (
               <Card isDisabled={false}>
                 <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
@@ -59,13 +55,13 @@ export const RestaurantList: Component<Props> = (props) => {
                     color="danger"
                     onClick={() => props.deactivateRestaurant(restaurant)}
                   >
-                    <Icon icon="octagon-minus" />
+                    <Icon icon="circle-stop" />
                   </Button>
                 </div>
               </Card>
             )}
           </For>
-          <For each={inactiveRestaurants()}>
+          <For each={props.inactiveRestaurants}>
             {(restaurant) => (
               <Card isDisabled={true}>
                 <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
@@ -83,7 +79,7 @@ export const RestaurantList: Component<Props> = (props) => {
                       color="success"
                       onClick={() => props.reactivateRestaurant(restaurant)}
                     >
-                      <Icon icon="octagon-plus" />
+                      <Icon icon="circle-play" />
                     </Button>
                     <Button
                       color="danger"

@@ -17,7 +17,10 @@ export type EntryState = EntryBase & {
 };
 
 export type AppState = {
-  restaurants: readonly RestaurantState[];
-  orders: readonly OrderState[];
-  entries: readonly EntryState[];
+  restaurants: {
+    active: readonly RestaurantState[];
+    inactive: readonly RestaurantState[];
+  };
+  orders: { active: readonly OrderState[]; inactive: readonly OrderState[] };
+  entries: { active: readonly EntryState[]; inactive: readonly EntryState[] };
 };

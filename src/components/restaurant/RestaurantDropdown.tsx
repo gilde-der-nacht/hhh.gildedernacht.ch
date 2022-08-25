@@ -3,13 +3,15 @@ import { RestaurantState } from "@util/StateTypes";
 import { Component, JSX, mergeProps, Show } from "solid-js";
 
 type RestaurantDropdownProps = {
-  activeRestaurants: RestaurantState[];
+  activeRestaurants: readonly RestaurantState[];
   setter: (id: string) => void;
   error?: { status: boolean; text?: string };
   children: JSX.Element;
 };
 
-export const RestaurantDropdown: Component<RestaurantDropdownProps> = (props) => {
+export const RestaurantDropdown: Component<RestaurantDropdownProps> = (
+  props
+) => {
   const merged = mergeProps({ error: { status: false, text: "" } }, props);
 
   return (

@@ -17,9 +17,7 @@ export const StartPage: Component<PageProps> = (props) => {
           </IconLeft>
         </h3>
         <Show
-          when={
-            props.state.orders.filter((o) => o.status === "active").length > 0
-          }
+          when={props.state.orders.active.length > 0}
           fallback={
             <Notification kind="info">
               <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between is-align-items-center">
@@ -38,10 +36,8 @@ export const StartPage: Component<PageProps> = (props) => {
           }
         >
           <OrderGrid
-            orders={props.state.orders.filter((o) => o.status === "active")}
-            restaurants={props.state.restaurants.filter(
-              (r) => r.status === "active"
-            )}
+            orders={props.state.orders.active}
+            restaurants={props.state.restaurants.active}
             showOrder={() => {}}
             deactivateOrder={props.API.order.deactivate}
             reactivateOrder={props.API.order.reactivate}
@@ -68,10 +64,7 @@ export const StartPage: Component<PageProps> = (props) => {
             </p>
           </div>
           <Show
-            when={
-              props.state.orders.filter((o) => o.status === "inactive").length >
-              0
-            }
+            when={props.state.orders.inactive.length > 0}
             fallback={
               <Notification kind="info">
                 <em>
@@ -82,10 +75,8 @@ export const StartPage: Component<PageProps> = (props) => {
             }
           >
             <OrderGrid
-              orders={props.state.orders.filter((o) => o.status === "inactive")}
-              restaurants={props.state.restaurants.filter(
-                (r) => r.status === "active"
-              )}
+              orders={props.state.orders.inactive}
+              restaurants={props.state.restaurants.active}
               showOrder={() => {}}
               deactivateOrder={props.API.order.deactivate}
               reactivateOrder={props.API.order.reactivate}

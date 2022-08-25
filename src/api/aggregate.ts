@@ -11,7 +11,7 @@ export const aggragateData = (
   data: (RestaurantGet | OrderGet | EntryGet)[],
   now: DateTime
 ): AppState => {
-  const restaurants = data
+  const allRestaurants = data
     .filter((d): d is RestaurantGet => d.kind === "restaurant")
     .map((r) => {
       if (r.status === "deleted") {
@@ -20,19 +20,18 @@ export const aggragateData = (
       return { ...r, status: r.status } as RestaurantState;
     })
     .filter((r): r is RestaurantState => r !== null);
+  const restaurants = {
+    active: allRestaurants.filter((r) => r.status === "active"),
+    inactive: allRestaurants.filter((r) => r.status === "inactive"),
+  };
 
-  const orders = data
+  const allOrders = data
     .filter((d): d is OrderGet => d.kind === "order")
     .map((o) => {
       if (o.status === "deleted") {
         return null;
       }
-      if (
-        !restaurants
-          .filter((r) => r.status === "active")
-          .map((r) => r.id)
-          .includes(o.restaurantId)
-      ) {
+      if (!restaurants.active.map((r) => r.id).includes(o.restaurantId)) {
         return null;
       }
       if (o.status === "auto") {
@@ -58,23 +57,32 @@ export const aggragateData = (
     })
     .filter((o): o is OrderState => o !== null);
 
-  const entries = data
+  const orders = {
+    active: allOrders.filter((o) => o.status === "active"),
+    inactive: allOrders.filter((o) => o.status === "inactive"),
+  };
+
+  const allEntries = data
     .filter((d): d is EntryGet => d.kind === "entry")
     .map((e) => {
       if (e.status === "deleted") {
         return null;
       }
-      if (
-        !orders
-          .filter((o) => o.status === "active")
-          .map((o) => o.id)
-          .includes(e.orderId)
-      ) {
+      if (!orders.active.map((o) => o.id).includes(e.orderId)) {
         return null;
       }
       return { ...e, status: e.status } as EntryState;
     })
     .filter((e): e is EntryState => e !== null);
 
-  return { restaurants, orders, entries };
+  const entries = {
+    active: allEntries.filter((e) => e.status === "active"),
+    inactive: allEntries.filter((e) => e.status === "inactive"),
+  };
+
+  return {
+    restaurants,
+    orders,
+    entries,
+  };
 };

@@ -4,8 +4,8 @@ import { OrderState, RestaurantState } from "@util/StateTypes";
 import { Component } from "solid-js";
 
 type Props = {
-  orders: OrderState[];
-  restaurants: RestaurantState[];
+  orders: readonly OrderState[];
+  restaurants: readonly RestaurantState[];
   showOrder: (order: OrderState) => void;
   deactivateOrder: (order: OrderState) => void;
   reactivateOrder: (order: OrderState) => void;

@@ -86,7 +86,8 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
         </Form>
       </div>
       <RestaurantList
-        restaurants={props.state.restaurants}
+        activeRestaurants={props.state.restaurants.active}
+        inactiveRestaurants={props.state.restaurants.inactive}
         deactivateRestaurant={props.API.restaurant.deactivate}
         reactivateRestaurant={props.API.restaurant.reactivate}
         removeRestaurant={props.API.restaurant.remove}

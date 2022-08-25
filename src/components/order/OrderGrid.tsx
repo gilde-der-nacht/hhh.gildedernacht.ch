@@ -1,24 +1,18 @@
 import { OrderPost } from "@api/ApiTypes";
 import { Icon } from "@components/static/icons/Icon";
 import { Grid, GridElementFooter } from "@layout/Grid";
-import { AppState, DerivedOrderStatus, OrderState } from "@util/StateTypes";
+import { OrderState, RestaurantState } from "@util/StateTypes";
 import { Component } from "solid-js";
 
 type Props = {
-  state: AppState;
-  filter: DerivedOrderStatus;
+  orders: OrderState[];
+  restaurants: RestaurantState[];
   deactivateOrder: (order: Omit<OrderPost, "status" | "kind">) => void;
   reactivateOrder: (order: Omit<OrderPost, "status" | "kind">) => void;
   removeOrder: (order: Omit<OrderPost, "status" | "kind">) => void;
 };
 
 export const OrderGrid: Component<Props> = (props) => {
-  const restaurantIds = () => props.state.restaurants.map((r) => r.id);
-  const orders = () =>
-    props.state.orders
-      .filter((o) => o.status === props.filter)
-      .filter((o) => restaurantIds().includes(o.restaurantId));
-
   const footer = (item: OrderState): GridElementFooter[] => {
     const footerElements: GridElementFooter[] = [
       {
@@ -31,13 +25,13 @@ export const OrderGrid: Component<Props> = (props) => {
 
     if (item.status === "active") {
       footerElements.push({
-        label: <Icon icon="octagon-minus"></Icon>,
+        label: <Icon icon="circle-stop"></Icon>,
         onClick: () => props.deactivateOrder(item),
         kind: "danger",
       });
     } else {
       footerElements.push({
-        label: <Icon icon="octagon-plus"></Icon>,
+        label: <Icon icon="circle-play"></Icon>,
         onClick: () => props.reactivateOrder(item),
         kind: "success",
       });
@@ -51,9 +45,9 @@ export const OrderGrid: Component<Props> = (props) => {
   };
 
   return (
-    <Grid each={orders()} footer={footer}>
+    <Grid each={props.orders} footer={footer}>
       {(item) => {
-        const restaurant = props.state.restaurants.find(
+        const restaurant = props.restaurants.find(
           (r) => r.id === item.restaurantId
         );
         if (typeof restaurant === "undefined") {

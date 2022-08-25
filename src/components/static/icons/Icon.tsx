@@ -13,6 +13,8 @@ export type IconType =
   | "fork-knife"
   | "octagon-minus"
   | "octagon-plus"
+  | "circle-stop"
+  | "circle-play"
   | "receipt";
 
 type IconProps = {

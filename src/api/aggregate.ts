@@ -3,7 +3,7 @@ import {
   AppState,
   EntryState,
   OrderState,
-  RestaurantState
+  RestaurantState,
 } from "@util/StateTypes";
 import { DateTime } from "luxon";
 
@@ -25,6 +25,14 @@ export const aggragateData = (
     .filter((d): d is OrderGet => d.kind === "order")
     .map((o) => {
       if (o.status === "deleted") {
+        return null;
+      }
+      if (
+        !restaurants
+          .filter((r) => r.status === "active")
+          .map((r) => r.id)
+          .includes(o.restaurantId)
+      ) {
         return null;
       }
       if (o.status === "auto") {
@@ -54,6 +62,14 @@ export const aggragateData = (
     .filter((d): d is EntryGet => d.kind === "entry")
     .map((e) => {
       if (e.status === "deleted") {
+        return null;
+      }
+      if (
+        !orders
+          .filter((o) => o.status === "active")
+          .map((o) => o.id)
+          .includes(e.orderId)
+      ) {
         return null;
       }
       return { ...e, status: e.status } as EntryState;

@@ -38,8 +38,10 @@ export const StartPage: Component<PageProps> = (props) => {
           }
         >
           <OrderGrid
-            state={props.state}
-            filter="active"
+            orders={props.state.orders.filter((o) => o.status === "active")}
+            restaurants={props.state.restaurants.filter(
+              (r) => r.status === "active"
+            )}
             deactivateOrder={props.API.order.deactivate}
             reactivateOrder={props.API.order.reactivate}
             removeOrder={props.API.order.remove}
@@ -79,8 +81,10 @@ export const StartPage: Component<PageProps> = (props) => {
             }
           >
             <OrderGrid
-              state={props.state}
-              filter="inactive"
+              orders={props.state.orders.filter((o) => o.status === "inactive")}
+              restaurants={props.state.restaurants.filter(
+                (r) => r.status === "active"
+              )}
               deactivateOrder={props.API.order.deactivate}
               reactivateOrder={props.API.order.reactivate}
               removeOrder={props.API.order.remove}

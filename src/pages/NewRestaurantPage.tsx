@@ -24,7 +24,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
     e.preventDefault();
     setActiveValidation(true);
     if (!isEmpty(restaurant()) && isValidUrl(menulink())) {
-      const promise = props.API.saveNewRestaurant({
+      const promise = props.API.restaurant.create({
         label: restaurant(),
         menuLink: menulink(),
         comment: comment(),
@@ -141,7 +141,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
                       color="danger"
                       onClick={() => {
                         const promise =
-                          props.API.deactivateRestaurant(restaurant);
+                          props.API.restaurant.deactivate(restaurant);
                         props.setToast({
                           visible: true,
                           text: "Restaurant deaktivieren ...",
@@ -179,7 +179,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
                         color="success"
                         onClick={() => {
                           const promise =
-                            props.API.reactivateRestaurant(restaurant);
+                            props.API.restaurant.reactivate(restaurant);
                           props.setToast({
                             visible: true,
                             text: "Restaurant reaktivieren ...",
@@ -199,7 +199,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
                         color="danger"
                         onClick={() => {
                           const promise =
-                            props.API.deleteRestaurant(restaurant);
+                            props.API.restaurant.remove(restaurant);
                           props.setToast({
                             visible: true,
                             text: "Restaurant löschen ...",

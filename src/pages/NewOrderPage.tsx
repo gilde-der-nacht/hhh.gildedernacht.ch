@@ -26,7 +26,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
       !isEmpty(orderer()) &&
       isValidTimeWindow(timeWindow())
     ) {
-      const promise = props.API.saveNewOrder({
+      const promise = props.API.order.create({
         restaurantId: restaurantId(),
         orderer: orderer(),
         comment: comment(),

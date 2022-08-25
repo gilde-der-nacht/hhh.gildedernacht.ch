@@ -43,8 +43,8 @@ const GridElement: ParentComponent<GridElementProps> = (props) => {
           <For each={merged.footer}>
             {(entry) => (
               <a
+                class="card-footer-item"
                 classList={{
-                  "card-footer-item": true,
                   [`has-text-${entry.kind}`]: typeof entry.kind === "string",
                 }}
                 onClick={entry.onClick}

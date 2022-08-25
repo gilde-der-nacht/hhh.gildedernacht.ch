@@ -26,7 +26,7 @@ type Props = {
 export const Icon: Component<Props> = (props) => {
   return (
     <span class="icon">
-      <i classList={{ fas: true, [`fa-${props.icon}`]: true }}></i>
+      <i class={`fas fa-${props.icon}`}></i>
     </span>
   );
 };

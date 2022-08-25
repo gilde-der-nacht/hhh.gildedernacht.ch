@@ -13,7 +13,7 @@ export const Dropdown: Component<Props> = (props) => {
     merged.updateValue((e.target as HTMLSelectElement).value);
   return (
     <div class="control">
-      <div classList={{ select: true, "is-danger": props.hasErrors }}>
+      <div class="select" classList={{ "is-danger": props.hasErrors }}>
         <select onChange={onChange}>
           <For each={merged.entries}>
             {(entry) => <option value={entry.value}>{entry.label}</option>}

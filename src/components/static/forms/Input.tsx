@@ -26,10 +26,12 @@ export const Input: Component<Props> = (props) => {
     <div class="field">
       <label class="label">{merged.label}</label>
       <div
-        classList={{ control: true, "has-icons-right": merged.error.status }}
+        class="control"
+        classList={{ "has-icons-right": merged.error.status }}
       >
         <input
-          classList={{ input: true, "is-danger": merged.error.status }}
+          class="input"
+          classList={{ "is-danger": merged.error.status }}
           type={merged.isUrl ? "url" : "text"}
           required={merged.required}
           placeholder={merged.placeholder}

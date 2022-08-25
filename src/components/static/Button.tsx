@@ -17,9 +17,8 @@ export const Button: ParentComponent<Props> = (props) => {
   return (
     <button
       type={merged.isSubmit ? "submit" : "button"}
+      class={`button is-${merged.color}`}
       classList={{
-        button: true,
-        [`is-${merged.color}`]: true,
         "is-outlined": merged.outlined,
         "is-medium": merged.large,
       }}

@@ -12,9 +12,8 @@ export const Notification: ParentComponent<Props> = (props) => {
 
   return (
     <div
+      class={`notification is-${merged.kind}`}
       classList={{
-        notification: true,
-        [`is-${merged.kind}`]: true,
         "is-light": merged.isLight,
       }}
     >

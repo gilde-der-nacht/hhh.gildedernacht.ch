@@ -1,7 +1,7 @@
 import { IconLeft, IconType } from "@components/static/icons/Icon";
 import {
   Notification,
-  NotificationKind
+  NotificationKind,
 } from "@components/static/Notification";
 import { isPromise } from "@util/utils";
 import { Component, createEffect, mergeProps, Setter } from "solid-js";
@@ -69,7 +69,7 @@ export const Toast: Component<
   };
 
   return (
-    <div classList={{ "hhh-toast": true, hide: !merged.visible }}>
+    <div class="hhh-toast" classList={{ hide: !merged.visible }}>
       <div class="container">
         <Notification
           kind={merged.kind === "loading" ? "info" : merged.kind}

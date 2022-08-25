@@ -1,7 +1,8 @@
 import { Button } from "@components/static/Button";
+import { Card } from "@components/static/Card";
 import { Icon, IconLeft } from "@components/static/icons/Icon";
 import { AppState, OrderState } from "@util/StateTypes";
-import { Component } from "solid-js";
+import { Component, Show } from "solid-js";
 
 type Props = { order: OrderState; state: AppState; goBack: () => void };
 
@@ -30,6 +31,32 @@ export const OrderDetails: Component<Props> = (props) => {
           </IconLeft>
         </h3>
       </div>
+      <div class="tags is-justify-content-center">
+        <span
+          class="tag"
+          classList={{
+            "is-success": props.order.status === "active",
+            "is-danger": props.order.status === "inactive",
+          }}
+        >
+          {props.order.status === "active" ? "Aktiv" : "Inaktiv"}
+        </span>
+      </div>
+      <Card>
+        <p>
+          <strong>Besteller</strong> <em>{props.order.orderer}</em>
+          <Show when={restaurant().comment}>
+            {" "}
+            || <strong>Hinweis Restaurant</strong>{" "}
+            <em>{restaurant().comment}</em>
+          </Show>
+          <Show when={props.order.comment}>
+            {" "}
+            || <strong>Hinweis Bestellung</strong>{" "}
+            <em>{props.order.comment}</em>
+          </Show>
+        </p>
+      </Card>
     </>
   );
 };

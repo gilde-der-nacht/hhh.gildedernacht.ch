@@ -62,16 +62,6 @@ export const OrderGrid: Component<Props> = (props) => {
             <p>
               <em>{item.comment}</em>
             </p>
-            {/* <Show
-              when={
-                getCountdown(item.timestamp, item.timeWindow, props.now) !==
-                null
-              }
-            >
-              <strong class="has-text-danger">
-                Noch {getCountdown(item.timestamp, item.timeWindow, props.now)}
-              </strong>
-            </Show> */}
           </div>
         );
       }}

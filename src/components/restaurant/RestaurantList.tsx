@@ -1,4 +1,3 @@
-import { RestaurantPost } from "@api/ApiTypes";
 import { Button } from "@components/static/Button";
 import { Card } from "@components/static/Card";
 import { Icon } from "@components/static/icons/Icon";
@@ -8,15 +7,9 @@ import { Component, createSignal, For, Show } from "solid-js";
 
 type Props = {
   restaurants: readonly RestaurantState[];
-  deactivateRestaurant: (
-    restaurant: Omit<RestaurantPost, "status" | "kind">
-  ) => void;
-  reactivateRestaurant: (
-    restaurant: Omit<RestaurantPost, "status" | "kind">
-  ) => void;
-  removeRestaurant: (
-    restaurant: Omit<RestaurantPost, "status" | "kind">
-  ) => void;
+  deactivateRestaurant: (restaurant: RestaurantState) => void;
+  reactivateRestaurant: (restaurant: RestaurantState) => void;
+  removeRestaurant: (restaurant: RestaurantState) => void;
 };
 
 export const RestaurantList: Component<Props> = (props) => {

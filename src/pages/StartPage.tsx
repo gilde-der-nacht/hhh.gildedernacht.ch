@@ -42,6 +42,7 @@ export const StartPage: Component<PageProps> = (props) => {
             restaurants={props.state.restaurants.filter(
               (r) => r.status === "active"
             )}
+            showOrder={() => {}}
             deactivateOrder={props.API.order.deactivate}
             reactivateOrder={props.API.order.reactivate}
             removeOrder={props.API.order.remove}
@@ -85,6 +86,7 @@ export const StartPage: Component<PageProps> = (props) => {
               restaurants={props.state.restaurants.filter(
                 (r) => r.status === "active"
               )}
+              showOrder={() => {}}
               deactivateOrder={props.API.order.deactivate}
               reactivateOrder={props.API.order.reactivate}
               removeOrder={props.API.order.remove}

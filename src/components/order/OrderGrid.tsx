@@ -1,4 +1,3 @@
-import { OrderPost } from "@api/ApiTypes";
 import { Icon } from "@components/static/icons/Icon";
 import { Grid, GridElementFooter } from "@layout/Grid";
 import { OrderState, RestaurantState } from "@util/StateTypes";
@@ -7,9 +6,10 @@ import { Component } from "solid-js";
 type Props = {
   orders: OrderState[];
   restaurants: RestaurantState[];
-  deactivateOrder: (order: Omit<OrderPost, "status" | "kind">) => void;
-  reactivateOrder: (order: Omit<OrderPost, "status" | "kind">) => void;
-  removeOrder: (order: Omit<OrderPost, "status" | "kind">) => void;
+  showOrder: (order: OrderState) => void;
+  deactivateOrder: (order: OrderState) => void;
+  reactivateOrder: (order: OrderState) => void;
+  removeOrder: (order: OrderState) => void;
 };
 
 export const OrderGrid: Component<Props> = (props) => {

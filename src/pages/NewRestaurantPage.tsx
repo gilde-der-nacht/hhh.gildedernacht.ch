@@ -3,7 +3,7 @@ import { Button } from "@components/static/Button";
 import { Form } from "@components/static/forms/Form";
 import { Input } from "@components/static/forms/Input";
 import { IconLeft } from "@components/static/icons/Icon";
-import { PageProps } from "@pages/Router";
+import { PageProps } from "@pages/util/Router";
 import { isEmpty, isValidUrl } from "@util/utils";
 import { Component, createSignal } from "solid-js";
 

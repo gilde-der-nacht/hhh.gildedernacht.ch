@@ -2,7 +2,7 @@ import { Toast, ToastOptions } from "@components/static/Toast";
 import { Footer } from "@layout/Footer";
 import { Header } from "@layout/Header";
 import { Navbar } from "@layout/Navbar";
-import { PageType } from "@pages/Router";
+import { PageType } from "@pages/util/Router";
 import { ParentComponent, Setter } from "solid-js";
 
 type Props = {

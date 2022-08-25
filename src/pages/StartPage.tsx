@@ -2,7 +2,7 @@ import { OrderGrid } from "@components/order/OrderGrid";
 import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
-import { PageProps } from "@pages/Router";
+import { PageProps } from "@pages/util/Router";
 import { Component, createSignal, Show } from "solid-js";
 
 export const StartPage: Component<PageProps> = (props) => {

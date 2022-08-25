@@ -3,17 +3,11 @@ import {
   OlympResponse,
   OrderGet,
   RawServerData,
-  RestaurantGet,
+  RestaurantGet
 } from "@api/ApiTypes";
 import { HHH_VERSION } from "@api/olymp";
+import { hasProp } from "@util/utils";
 import { DateTime } from "luxon";
-
-export const hasProp = <K extends PropertyKey>(
-  data: object,
-  prop: K
-): data is Record<K, unknown> => {
-  return prop in data;
-};
 
 export const isRestaurant = (
   o: object

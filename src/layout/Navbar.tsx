@@ -1,6 +1,6 @@
 import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/Icon";
-import { PageType } from "@pages/Router";
+import { PageType } from "@pages/util/Router";
 import { Component } from "solid-js";
 
 type Props = { setPage: (page: PageType) => void };

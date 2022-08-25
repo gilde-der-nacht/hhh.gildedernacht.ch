@@ -1,12 +1,12 @@
 import { Component, For, mergeProps } from "solid-js";
 
-type DropdownProps = {
+type Props = {
   hasErrors?: boolean;
   entries: { label: string; value: string }[];
   updateValue: (value: string) => void;
 };
 
-export const Dropdown: Component<DropdownProps> = (props) => {
+export const Dropdown: Component<Props> = (props) => {
   const merged = mergeProps({ hasErrors: false }, props);
 
   const onChange = (e: Event) =>

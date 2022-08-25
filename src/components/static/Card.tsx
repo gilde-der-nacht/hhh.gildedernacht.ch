@@ -1,11 +1,10 @@
-import { Component, JSX, mergeProps } from "solid-js";
+import { mergeProps, ParentComponent } from "solid-js";
 
-type CardProps = {
+type Props = {
   isDisabled?: boolean;
-  children: JSX.Element;
 };
 
-export const Card: Component<CardProps> = (props) => {
+export const Card: ParentComponent<Props> = (props) => {
   const merged = mergeProps({ isDisabled: false }, props);
 
   return (

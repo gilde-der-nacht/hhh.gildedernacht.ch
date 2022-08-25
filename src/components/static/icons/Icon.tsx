@@ -1,4 +1,4 @@
-import { Component, JSX } from "solid-js";
+import { Component, ParentComponent } from "solid-js";
 
 export type IconType =
   | "plus"
@@ -17,11 +17,11 @@ export type IconType =
   | "circle-play"
   | "receipt";
 
-type IconProps = {
+type Props = {
   icon: IconType;
 };
 
-export const Icon: Component<IconProps> = (props) => {
+export const Icon: Component<Props> = (props) => {
   return (
     <span class="icon">
       <i classList={{ fas: true, [`fa-${props.icon}`]: true }}></i>
@@ -29,12 +29,7 @@ export const Icon: Component<IconProps> = (props) => {
   );
 };
 
-type IconLeftProps = {
-  icon: IconType;
-  children: JSX.Element;
-};
-
-export const IconLeft: Component<IconLeftProps> = (props) => {
+export const IconLeft: ParentComponent<Props> = (props) => {
   return (
     <>
       <Icon icon={props.icon} /> <span>{props.children}</span>

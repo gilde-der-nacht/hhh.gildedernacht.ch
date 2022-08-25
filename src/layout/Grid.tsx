@@ -1,4 +1,4 @@
-import { Component, For, JSX, mergeProps, Show } from "solid-js";
+import { For, JSX, mergeProps, ParentComponent, Show } from "solid-js";
 
 type GridProps<T> = {
   each: readonly T[];
@@ -30,10 +30,9 @@ export type GridElementFooter = {
 
 type GridElementProps = {
   footer?: GridElementFooter[];
-  children: JSX.Element;
 };
 
-const GridElement: Component<GridElementProps> = (props) => {
+const GridElement: ParentComponent<GridElementProps> = (props) => {
   const merged = mergeProps({ footer: [] }, props);
 
   return (

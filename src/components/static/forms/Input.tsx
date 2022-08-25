@@ -1,6 +1,6 @@
 import { Component, mergeProps, Show } from "solid-js";
 
-type InputProps = {
+type Props = {
   label: string;
   placeholder: string;
   value: string;
@@ -11,7 +11,7 @@ type InputProps = {
   setter?: (content: string) => void;
 };
 
-export const Input: Component<InputProps> = (props) => {
+export const Input: Component<Props> = (props) => {
   const merged = mergeProps(
     {
       error: { status: false, text: "" },

@@ -6,7 +6,7 @@ import { Component } from "solid-js";
 type Props = {
   orders: readonly OrderState[];
   activeRestaurants: readonly RestaurantState[];
-  showOrder: (order: OrderState) => void;
+  openOrder: (order: OrderState) => void;
   deactivateOrder: (order: OrderState) => void;
   reactivateOrder: (order: OrderState) => void;
   removeOrder: (order: OrderState) => void;
@@ -17,9 +17,7 @@ export const OrderGrid: Component<Props> = (props) => {
     const footerElements: GridElementFooter[] = [
       {
         label: <>Bestellung anzeigen</>,
-        onClick: () => {
-          console.log("tobedone");
-        },
+        onClick: () => props.openOrder(item),
       },
     ];
 

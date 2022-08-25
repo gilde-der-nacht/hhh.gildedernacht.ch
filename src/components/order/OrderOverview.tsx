@@ -9,6 +9,7 @@ import { OrderGrid } from "./OrderGrid";
 type Props = {
   state: AppState;
   setPage: (page: PageType) => void;
+  openOrder: (order: OrderState) => void;
   deactivateOrder: (order: OrderState) => void;
   reactivateOrder: (order: OrderState) => void;
   removeOrder: (order: OrderState) => void;
@@ -47,7 +48,7 @@ export const OrderOverview: Component<Props> = (props) => {
           <OrderGrid
             orders={props.state.orders.active}
             activeRestaurants={props.state.restaurants.active}
-            showOrder={() => {}}
+            openOrder={props.openOrder}
             deactivateOrder={props.deactivateOrder}
             reactivateOrder={props.reactivateOrder}
             removeOrder={props.removeOrder}
@@ -86,7 +87,7 @@ export const OrderOverview: Component<Props> = (props) => {
             <OrderGrid
               orders={props.state.orders.inactive}
               activeRestaurants={props.state.restaurants.active}
-              showOrder={() => {}}
+              openOrder={props.openOrder}
               deactivateOrder={props.deactivateOrder}
               reactivateOrder={props.reactivateOrder}
               removeOrder={props.removeOrder}

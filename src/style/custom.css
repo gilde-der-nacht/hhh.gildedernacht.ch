@@ -81,3 +81,7 @@
 .fa-spinner-third {
   animation: rotation 2s infinite linear;
 }
+
+.hhh-card-footer :first-child {
+  flex-basis: max-content;
+}

@@ -40,7 +40,7 @@ const GridElement: Component<GridElementProps> = (props) => {
     <div class="card hhh-card">
       <div class="card-content">{merged.children}</div>
       <Show when={merged.footer.length > 0}>
-        <footer class="card-footer">
+        <footer class="card-footer hhh-card-footer">
           <For each={merged.footer}>
             {(entry) => (
               <a

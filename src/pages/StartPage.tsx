@@ -1,3 +1,4 @@
+import { OrderDetails } from "@components/order/OrderDetails";
 import { OrderOverview } from "@components/order/OrderOverview";
 import { PageProps } from "@pages/util/Router";
 import { OrderState } from "@util/StateTypes";
@@ -20,7 +21,7 @@ export const StartPage: Component<PageProps> = (props) => {
   return (
     <div class="hhh-spacer" style="--gap: 3rem;">
       <Show when={activeOrder()} fallback={Overview}>
-        {(order) => <h1>{order.id}</h1>}
+        {(order) => <OrderDetails order={order} />}
       </Show>
     </div>
   );

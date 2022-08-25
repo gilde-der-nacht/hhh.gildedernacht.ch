@@ -7,11 +7,8 @@ type Props = { setPage: (page: PageType) => void };
 
 export const Navbar: Component<Props> = (props) => {
   return (
-    <nav
-      class="navbar is-light is-flex is-flex-wrap-wrap is-justify-content-center is-align-content-center"
-      style="gap: 1rem;"
-    >
-      <div class="buttons has-addons">
+    <nav class="navbar is-light is-flex is-justify-content-center">
+      <div class="buttons has-addons is-justify-content-center">
         <Button onClick={() => props.setPage("start")} outlined={true}>
           <IconLeft icon="bars-staggered">Überblick</IconLeft>
         </Button>

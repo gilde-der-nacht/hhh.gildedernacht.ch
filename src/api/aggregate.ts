@@ -31,26 +31,21 @@ export const aggragateData = (
       if (o.status === "deleted") {
         return null;
       }
+      const delta = o.timestamp
+        .plus({ minutes: o.timeWindow })
+        .diff(now, ["hours", "minutes"])
+        .toObject() as {
+        hours: number;
+        minutes: number;
+      };
+      if (delta.hours > 24) {
+        return null;
+      }
       if (!restaurants.active.map((r) => r.id).includes(o.restaurantId)) {
         return null;
       }
       if (o.status === "auto") {
-        const delta = o.timestamp
-          .plus({ minutes: o.timeWindow })
-          .diff(now, ["hours", "minutes"])
-          .toObject() as {
-          hours: number;
-          minutes: number;
-        };
-        const status =
-          delta.minutes >= 0
-            ? "active"
-            : delta.hours >= -24
-            ? "inactive"
-            : "deleted";
-        if (status === "deleted") {
-          return null;
-        }
+        const status = delta.minutes >= 0 ? "active" : "inactive";
         return { ...o, status } as OrderState;
       }
       return { ...o, status: o.status } as OrderState;

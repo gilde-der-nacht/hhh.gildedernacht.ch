@@ -9,7 +9,7 @@ export const Navbar: Component<Props> = (props) => {
   return (
     <nav
       class="navbar is-light is-flex is-flex-wrap-wrap is-justify-content-center is-align-content-center"
-      style="gap:1rem"
+      style="gap: 1rem;"
     >
       <div class="buttons has-addons">
         <Button onClick={() => props.setPage("start")} outlined={true}>

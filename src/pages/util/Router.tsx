@@ -3,13 +3,15 @@ import { ToastOptions } from "@components/static/Toast";
 import { NewOrderPage } from "@pages/NewOrderPage";
 import { NewRestaurantPage } from "@pages/NewRestaurantPage";
 import { StartPage } from "@pages/StartPage";
-import { AppState } from "@util/StateTypes";
-import { JSX } from "solid-js";
+import { AppState, OrderState } from "@util/StateTypes";
+import { Accessor, JSX } from "solid-js";
 
 export type PageType = "start" | "newOrder" | "newRestaurant";
 
 export type PageProps = {
   state: AppState;
+  activeOrder: Accessor<OrderState | null>;
+  setActiveOrder: (order: OrderState | null) => void;
   setPage: (page: PageType) => void;
   setToast: (options: ToastOptions) => void;
   API: ReturnType<typeof API>;

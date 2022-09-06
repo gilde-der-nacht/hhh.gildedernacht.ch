@@ -3,6 +3,7 @@ import { NewEntryForm } from "@components/entry/NewEntryForm";
 import { Button } from "@components/static/Button";
 import { Icon, IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
+import { Tags } from "@components/static/Tags";
 import { AppState, OrderState } from "@util/StateTypes";
 import { DateTime } from "luxon";
 import { Component, Show } from "solid-js";
@@ -12,7 +13,10 @@ type Props = {
   state: AppState;
   goBack: () => void;
   createEntry: (
-    entry: Omit<EntryUpdatePost, "status" | "id" | "kind" | "created" | "updated">
+    entry: Omit<
+      EntryUpdatePost,
+      "status" | "id" | "kind" | "created" | "updated"
+    >
   ) => Promise<Response>;
 };
 
@@ -49,19 +53,17 @@ export const OrderDetails: Component<Props> = (props) => {
             <span class="pl-2">{restaurant().label}</span>
           </IconLeft>
         </h3>
-        <div class="tags is-justify-content-center">
-          <span
-            class="tag"
-            classList={{
-              "is-success": props.order.status === "active",
-              "is-danger": props.order.status === "inactive",
-            }}
-          >
-            {props.order.status === "active" ? "Aktiv" : "Inaktiv"}
-          </span>
-          <span class="tag">Erstellt: {createdDate()}</span>
-          <span class="tag">Deadline: {deadlineDate()}</span>
-        </div>
+        <Tags
+          justified
+          tags={[
+            {
+              label: props.order.status === "active" ? "Aktiv" : "Inaktiv",
+              kind: props.order.status === "active" ? "success" : "danger",
+            },
+            { label: `Erstellt: ${createdDate()}` },
+            { label: `Deadline: ${deadlineDate()}` },
+          ]}
+        />
         <Notification kind="info">
           <p>
             <strong>Besteller</strong> <em>{props.order.orderer}</em>

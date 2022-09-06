@@ -54,7 +54,7 @@ export const OrderDetails: Component<Props> = (props) => {
           </IconLeft>
         </h3>
         <Tags
-          justified
+          isJustified
           tags={[
             {
               label: props.order.status === "active" ? "Aktiv" : "Inaktiv",

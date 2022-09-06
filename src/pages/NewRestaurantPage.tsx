@@ -66,7 +66,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
           <Input
             label="Kommentar"
             placeholder="kann leer gelassen werden"
-            required={false}
+            isRequired={false}
             value={comment()}
             setter={setComment}
           />
@@ -76,7 +76,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
           >
             <Button
               color="success"
-              large={true}
+              isLarge={true}
               onClick={formSubmit}
               isSubmit={true}
             >

@@ -2,15 +2,15 @@ import { mergeProps, ParentComponent } from "solid-js";
 
 type Props = {
   color?: "primary" | "success" | "danger" | "warning";
-  outlined?: boolean;
-  large?: boolean;
+  isOutlined?: boolean;
+  isLarge?: boolean;
   isSubmit?: boolean;
   onClick: (e: Event) => void;
 };
 
 export const Button: ParentComponent<Props> = (props) => {
   const merged = mergeProps(
-    { color: "primary", outlined: false, large: false, isSubmit: false },
+    { color: "primary", isOutlined: false, isLarge: false, isSubmit: false },
     props
   );
 
@@ -19,8 +19,8 @@ export const Button: ParentComponent<Props> = (props) => {
       type={merged.isSubmit ? "submit" : "button"}
       class={`button is-${merged.color}`}
       classList={{
-        "is-outlined": merged.outlined,
-        "is-medium": merged.large,
+        "is-outlined": merged.isOutlined,
+        "is-medium": merged.isLarge,
       }}
       onClick={merged.onClick}
     >

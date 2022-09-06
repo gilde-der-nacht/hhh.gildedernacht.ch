@@ -76,7 +76,7 @@ export const NewEntryForm: Component<Props> = (props) => {
         >
           <Button
             color="success"
-            large={true}
+            isLarge={true}
             onClick={formSubmit}
             isSubmit={true}
           >

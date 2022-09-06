@@ -7,7 +7,7 @@ import { isPromise } from "@util/utils";
 import { Component, createEffect, mergeProps, Setter } from "solid-js";
 
 export type ToastOptions = {
-  visible?: boolean;
+  isVisible?: boolean;
   kind?: NotificationKind | "loading";
   text?: string;
   waitFor?:
@@ -22,10 +22,10 @@ export type ToastOptions = {
 export const Toast: Component<
   ToastOptions & { setToast: Setter<ToastOptions> }
 > = (props) => {
-  const merged = mergeProps({ visible: false, waitFor: 5_000 }, props);
+  const merged = mergeProps({ isVisible: false, waitFor: 5_000 }, props);
 
   createEffect(() => {
-    if (!merged.visible) {
+    if (!merged.isVisible) {
       return;
     }
     if (typeof merged.waitFor === "number") {
@@ -69,7 +69,7 @@ export const Toast: Component<
   };
 
   return (
-    <div class="hhh-toast" classList={{ hide: !merged.visible }}>
+    <div class="hhh-toast" classList={{ hide: !merged.isVisible }}>
       <div class="container">
         <Notification
           kind={merged.kind === "loading" ? "info" : merged.kind}

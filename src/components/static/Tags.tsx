@@ -6,17 +6,17 @@ type Tag = {
 };
 
 type Props = {
-  justified?: boolean;
+  isJustified?: boolean;
   tags: Tag[];
 };
 
 export const Tags: Component<Props> = (props) => {
-  const merged = mergeProps({ justified: false }, props);
+  const merged = mergeProps({ isJustified: false }, props);
 
   return (
     <div
       class="tags"
-      classList={{ "is-justify-content-center": merged.justified }}
+      classList={{ "is-justify-content-center": merged.isJustified }}
     >
       <For each={merged.tags}>
         {(tag) => <span class={`tag is-${tag.kind ?? ""}`}>{tag.label}</span>}

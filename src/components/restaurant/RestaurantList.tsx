@@ -1,9 +1,9 @@
 import { Button } from "@components/static/Button";
-import { Card } from "@components/static/Card";
 import { Icon } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { RestaurantState } from "@util/StateTypes";
 import { Component, createSignal, For, Show } from "solid-js";
+import { RestaurantListEntry } from "./RestaurantListEntry";
 
 type Props = {
   activeRestaurants: readonly RestaurantState[];
@@ -40,56 +40,34 @@ export const RestaurantList: Component<Props> = (props) => {
         <div class="hhh-spacer" style="--gap: 1rem;">
           <For each={props.activeRestaurants}>
             {(restaurant) => (
-              <Card isDisabled={false}>
-                <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
-                  <div>
-                    <h5 class="m-0">{restaurant.label}</h5>
-                    <p class="is-italic">
-                      <a href={restaurant.menuLink}>{restaurant.menuLink}</a>
-                    </p>
-                    <Show when={restaurant.comment.trim().length > 0}>
-                      <p class="is-italic">{restaurant.comment}</p>
-                    </Show>
-                  </div>
-                  <Button
-                    color="danger"
-                    onClick={() => props.deactivateRestaurant(restaurant)}
-                  >
-                    <Icon icon="circle-stop" />
-                  </Button>
-                </div>
-              </Card>
+              <RestaurantListEntry isDisabled={false} restaurant={restaurant}>
+                <Button
+                  color="danger"
+                  onClick={() => props.deactivateRestaurant(restaurant)}
+                >
+                  <Icon icon="circle-stop" />
+                </Button>
+              </RestaurantListEntry>
             )}
           </For>
           <For each={props.inactiveRestaurants}>
             {(restaurant) => (
-              <Card isDisabled={true}>
-                <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
-                  <div>
-                    <h5 class="m-0">{restaurant.label}</h5>
-                    <p class="is-italic">
-                      <a href={restaurant.menuLink}>{restaurant.menuLink}</a>
-                    </p>
-                    <Show when={restaurant.comment.trim().length > 0}>
-                      <p class="is-italic">{restaurant.comment}</p>
-                    </Show>
-                  </div>
-                  <div class="buttons has-addons">
-                    <Button
-                      color="success"
-                      onClick={() => props.reactivateRestaurant(restaurant)}
-                    >
-                      <Icon icon="circle-play" />
-                    </Button>
-                    <Button
-                      color="danger"
-                      onClick={() => props.removeRestaurant(restaurant)}
-                    >
-                      <Icon icon="trash" />
-                    </Button>
-                  </div>
+              <RestaurantListEntry isDisabled={true} restaurant={restaurant}>
+                <div class="buttons has-addons">
+                  <Button
+                    color="success"
+                    onClick={() => props.reactivateRestaurant(restaurant)}
+                  >
+                    <Icon icon="circle-play" />
+                  </Button>
+                  <Button
+                    color="danger"
+                    onClick={() => props.removeRestaurant(restaurant)}
+                  >
+                    <Icon icon="trash" />
+                  </Button>
                 </div>
-              </Card>
+              </RestaurantListEntry>
             )}
           </For>
         </div>

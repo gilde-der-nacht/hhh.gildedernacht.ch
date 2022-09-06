@@ -66,7 +66,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
         >
           <Button
             color="danger"
-            outlined={true}
+            isOutlined={true}
             onClick={() => props.setPage("newRestaurant")}
           >
             <IconLeft icon="fork-knife">Neues Restaurant</IconLeft>
@@ -105,7 +105,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
         >
           <Button
             color="success"
-            large={true}
+            isLarge={true}
             onClick={formSubmit}
             isSubmit={true}
           >

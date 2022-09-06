@@ -15,7 +15,7 @@ export const Layout: ParentComponent<Props> = (props) => {
   return (
     <div class="hhh-body">
       <Header link={props.link}></Header>
-      <Navbar setPage={props.link}></Navbar>
+      <Navbar link={props.link}></Navbar>
       {props.children}
       <Footer></Footer>
       <Toast {...props.toast} setToast={props.setToast} />

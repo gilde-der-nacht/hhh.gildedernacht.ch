@@ -5,7 +5,7 @@ type Props = {
   placeholder: string;
   value: string;
   helpText?: string;
-  required?: boolean;
+  isRequired?: boolean;
   isUrl?: boolean;
   error?: { status: boolean; text?: string };
   setter?: (content: string) => void;
@@ -17,7 +17,7 @@ export const Input: Component<Props> = (props) => {
       error: { status: false, text: "" },
       setter: () => {},
       isUrl: false,
-      required: true,
+      isRequired: true,
     },
     props
   );
@@ -33,7 +33,7 @@ export const Input: Component<Props> = (props) => {
           class="input"
           classList={{ "is-danger": merged.error.status }}
           type={merged.isUrl ? "url" : "text"}
-          required={merged.required}
+          required={merged.isRequired}
           placeholder={merged.placeholder}
           pattern={merged.isUrl ? "https://.*" : ""}
           value={merged.value}

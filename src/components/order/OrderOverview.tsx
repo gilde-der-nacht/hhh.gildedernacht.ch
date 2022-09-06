@@ -35,7 +35,7 @@ export const OrderOverview: Component<Props> = (props) => {
                   <em>Keine aktiven Bestellungen gefungen.</em>
                 </p>
                 <Button
-                  large={true}
+                  isLarge={true}
                   onClick={() => props.setPage("newOrder")}
                   color="success"
                 >

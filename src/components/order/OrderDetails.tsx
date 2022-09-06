@@ -1,7 +1,6 @@
-import { EntryPost } from "@api/ApiTypes";
+import { EntryUpdatePost } from "@api/ApiTypes";
 import { NewEntryForm } from "@components/entry/NewEntryForm";
 import { Button } from "@components/static/Button";
-import { Card } from "@components/static/Card";
 import { Icon, IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { AppState, OrderState } from "@util/StateTypes";
@@ -13,7 +12,7 @@ type Props = {
   state: AppState;
   goBack: () => void;
   createEntry: (
-    entry: Omit<EntryPost, "status" | "id" | "kind">
+    entry: Omit<EntryUpdatePost, "status" | "id" | "kind" | "created" | "updated">
   ) => Promise<Response>;
 };
 
@@ -29,11 +28,10 @@ export const OrderDetails: Component<Props> = (props) => {
   };
 
   const createdDate = () =>
-    props.order.timestamp
-      .setLocale("ch")
-      .toLocaleString(DateTime.DATETIME_MED) + " Uhr";
+    props.order.created.setLocale("ch").toLocaleString(DateTime.DATETIME_MED) +
+    " Uhr";
   const deadlineDate = () =>
-    props.order.timestamp
+    props.order.created
       .plus({ minutes: props.order.timeWindow })
       .setLocale("ch")
       .toLocaleString(DateTime.DATETIME_MED) + " Uhr";

@@ -1,10 +1,10 @@
+import { OrderGrid } from "@components/order/OrderGrid";
 import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { PageType } from "@pages/util/Router";
 import { AppState, OrderState } from "@util/StateTypes";
 import { Component, createSignal, Show } from "solid-js";
-import { OrderGrid } from "./OrderGrid";
 
 type Props = {
   state: AppState;

@@ -6,7 +6,8 @@ export type RestaurantBase = {
   label: string;
   menuLink: string;
   comment: string;
-  timestamp: DateTime;
+  created: DateTime;
+  updated: DateTime;
 };
 
 export type OrderBase = {
@@ -16,7 +17,8 @@ export type OrderBase = {
   orderer: string;
   comment: string;
   timeWindow: number;
-  timestamp: DateTime;
+  created: DateTime;
+  updated: DateTime;
 };
 
 export type EntryBase = {
@@ -26,5 +28,6 @@ export type EntryBase = {
   eater: string;
   menuItem: string;
   comment: string;
-  timestamp: DateTime;
+  created: DateTime;
+  updated: DateTime;
 };

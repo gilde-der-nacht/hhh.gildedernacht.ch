@@ -1,14 +1,14 @@
 import { ApiProps } from "@api/api";
-import { RestaurantPost } from "@api/ApiTypes";
 import OLYMP from "@api/olymp";
+import { RestaurantBase } from "@util/BasicTypes";
 
 const create =
   (props: ApiProps) =>
   async (
-    restaurant: Omit<RestaurantPost, "status" | "id" | "kind">
+    restaurant: Omit<RestaurantBase, "kind" | "id" | "created" | "updated">
   ): Promise<Response> => {
     const id = crypto.randomUUID();
-    const promise = OLYMP.POST(props.refetch)({
+    const promise = OLYMP.CREATE(props.refetch)({
       ...restaurant,
       id,
       status: "active",
@@ -30,10 +30,8 @@ const create =
 
 const deactivate =
   (props: ApiProps) =>
-  async (
-    restaurant: Omit<RestaurantPost, "status" | "kind">
-  ): Promise<Response> => {
-    const promise = OLYMP.POST(props.refetch)({
+  async (restaurant: RestaurantBase): Promise<Response> => {
+    const promise = OLYMP.UPDATE(props.refetch)({
       ...restaurant,
       status: "inactive",
       kind: "restaurant",
@@ -54,10 +52,8 @@ const deactivate =
 
 const reactivate =
   (props: ApiProps) =>
-  async (
-    restaurant: Omit<RestaurantPost, "status" | "kind">
-  ): Promise<Response> => {
-    const promise = OLYMP.POST(props.refetch)({
+  async (restaurant: RestaurantBase): Promise<Response> => {
+    const promise = OLYMP.UPDATE(props.refetch)({
       ...restaurant,
       status: "active",
       kind: "restaurant",
@@ -78,10 +74,8 @@ const reactivate =
 
 const remove =
   (props: ApiProps) =>
-  async (
-    restaurant: Omit<RestaurantPost, "status" | "kind">
-  ): Promise<Response> => {
-    const promise = OLYMP.POST(props.refetch)({
+  async (restaurant: RestaurantBase): Promise<Response> => {
+    const promise = OLYMP.UPDATE(props.refetch)({
       ...restaurant,
       status: "deleted",
       kind: "restaurant",

@@ -31,7 +31,7 @@ export const aggragateData = (
       if (o.status === "deleted") {
         return null;
       }
-      const delta = o.timestamp
+      const delta = o.created
         .plus({ minutes: o.timeWindow })
         .diff(now, ["hours", "minutes"])
         .toObject() as {

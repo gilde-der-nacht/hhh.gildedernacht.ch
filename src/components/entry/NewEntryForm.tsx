@@ -1,4 +1,4 @@
-import { EntryPost } from "@api/ApiTypes";
+import { EntryUpdatePost } from "@api/ApiTypes";
 import { Button } from "@components/static/Button";
 import { Card } from "@components/static/Card";
 import { Form } from "@components/static/forms/Form";
@@ -10,7 +10,7 @@ import { Component, createSignal } from "solid-js";
 type Props = {
   orderId: string;
   createEntry: (
-    entry: Omit<EntryPost, "status" | "id" | "kind">
+    entry: Omit<EntryUpdatePost, "status" | "id" | "kind" | "created">
   ) => Promise<Response>;
 };
 

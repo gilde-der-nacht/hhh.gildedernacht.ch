@@ -1,14 +1,14 @@
 import { ApiProps } from "@api/api";
-import { OrderPost } from "@api/ApiTypes";
 import OLYMP from "@api/olymp";
+import { OrderBase } from "@util/BasicTypes";
 
 const create =
   (props: ApiProps) =>
   async (
-    order: Omit<OrderPost, "status" | "id" | "kind">
+    order: Omit<OrderBase, "kind" | "id" | "created" | "updated">
   ): Promise<Response> => {
     const id = crypto.randomUUID();
-    const promise = OLYMP.POST(props.refetch)({
+    const promise = OLYMP.CREATE(props.refetch)({
       ...order,
       id,
       status: "auto",
@@ -30,8 +30,8 @@ const create =
 
 const deactivate =
   (props: ApiProps) =>
-  async (order: Omit<OrderPost, "status" | "kind">): Promise<Response> => {
-    const promise = OLYMP.POST(props.refetch)({
+  async (order: OrderBase): Promise<Response> => {
+    const promise = OLYMP.UPDATE(props.refetch)({
       ...order,
       status: "inactive",
       kind: "order",
@@ -52,8 +52,8 @@ const deactivate =
 
 const reactivate =
   (props: ApiProps) =>
-  async (order: Omit<OrderPost, "status" | "kind">): Promise<Response> => {
-    const promise = OLYMP.POST(props.refetch)({
+  async (order: OrderBase): Promise<Response> => {
+    const promise = OLYMP.UPDATE(props.refetch)({
       ...order,
       status: "active",
       kind: "order",
@@ -74,8 +74,8 @@ const reactivate =
 
 const remove =
   (props: ApiProps) =>
-  async (order: Omit<OrderPost, "status" | "kind">): Promise<Response> => {
-    const promise = OLYMP.POST(props.refetch)({
+  async (order: OrderBase): Promise<Response> => {
+    const promise = OLYMP.UPDATE(props.refetch)({
       ...order,
       status: "deleted",
       kind: "order",

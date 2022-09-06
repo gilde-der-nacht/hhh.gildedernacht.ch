@@ -1,14 +1,15 @@
 import { ApiProps } from "@api/api";
-import { EntryPost } from "@api/ApiTypes";
+
 import OLYMP from "@api/olymp";
+import { EntryBase } from "@util/BasicTypes";
 
 const create =
   (props: ApiProps) =>
   async (
-    entry: Omit<EntryPost, "status" | "id" | "kind">
+    entry: Omit<EntryBase, "kind" | "id" | "created" | "updated">
   ): Promise<Response> => {
     const id = crypto.randomUUID();
-    const promise = OLYMP.POST(props.refetch)({
+    const promise = OLYMP.CREATE(props.refetch)({
       ...entry,
       id,
       status: "active",

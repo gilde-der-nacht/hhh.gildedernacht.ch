@@ -1,10 +1,13 @@
 import { Refetcher } from "@api/api";
 import {
-  EntryPost,
+  EntryCreatePost,
+  EntryUpdatePost,
   OlympResponse,
-  OrderPost,
+  OrderCreatePost,
+  OrderUpdatePost,
   RawServerData,
-  RestaurantPost,
+  RestaurantCreatePost,
+  RestaurantUpdatePost,
 } from "@api/ApiTypes";
 import { safeParse } from "@api/parsing";
 
@@ -13,9 +16,16 @@ const RESOURCE_UID =
 
 const ENDPOINT = `https://api.gildedernacht.ch/resources/${RESOURCE_UID}/entries`;
 
-export const HHH_VERSION = 4;
+export const HHH_VERSION = 5;
 
-type OlympPayload = RestaurantPost | OrderPost | EntryPost;
+type OlympCreatePayload =
+  | RestaurantCreatePost
+  | OrderCreatePost
+  | EntryCreatePost;
+type OlympUpdatePayload =
+  | RestaurantUpdatePost
+  | OrderUpdatePost
+  | EntryUpdatePost;
 
 type OlympPostPayload = {
   identification: string;
@@ -23,9 +33,31 @@ type OlympPostPayload = {
   privateBody: string;
 };
 
-const POST =
+const CREATE =
   (refetch: Refetcher) =>
-  async (payload: OlympPayload): Promise<Response> => {
+  async (payload: OlympCreatePayload): Promise<Response> => {
+    const body: OlympPostPayload = {
+      identification: payload.id,
+      publicBody: JSON.stringify({ ...payload, version: HHH_VERSION }),
+      privateBody: JSON.stringify({}),
+    };
+
+    const response = await fetch(ENDPOINT, {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+    });
+
+    if (response.ok) {
+      refetch();
+      return response;
+    }
+    throw new Error(response.statusText);
+  };
+
+const UPDATE =
+  (refetch: Refetcher) =>
+  async (payload: OlympUpdatePayload): Promise<Response> => {
     const body: OlympPostPayload = {
       identification: payload.id,
       publicBody: JSON.stringify({ ...payload, version: HHH_VERSION }),
@@ -65,4 +97,4 @@ const GET = async (): Promise<OlympResponse[]> => {
   return filterNewest(parsed);
 };
 
-export default { POST, GET };
+export default { CREATE, UPDATE, GET };

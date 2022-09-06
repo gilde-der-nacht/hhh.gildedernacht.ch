@@ -3,7 +3,7 @@ import {
   OlympResponse,
   OrderGet,
   RawServerData,
-  RestaurantGet
+  RestaurantGet,
 } from "@api/ApiTypes";
 import { HHH_VERSION } from "@api/olymp";
 import { hasProp } from "@util/utils";
@@ -11,7 +11,7 @@ import { DateTime } from "luxon";
 
 export const isRestaurant = (
   o: object
-): o is Omit<RestaurantGet, "timestamp"> => {
+): o is Omit<RestaurantGet, "created" | "updated"> => {
   if (
     !(
       hasProp(o, "kind") &&
@@ -38,7 +38,9 @@ export const isRestaurant = (
   return true;
 };
 
-export const isOrder = (o: object): o is Omit<OrderGet, "timestamp"> => {
+export const isOrder = (
+  o: object
+): o is Omit<OrderGet, "created" | "updated"> => {
   if (
     !(
       hasProp(o, "kind") &&
@@ -67,7 +69,9 @@ export const isOrder = (o: object): o is Omit<OrderGet, "timestamp"> => {
   return true;
 };
 
-export const isEntry = (o: object): o is Omit<EntryGet, "timestamp"> => {
+export const isEntry = (
+  o: object
+): o is Omit<EntryGet, "created" | "updated"> => {
   if (
     !(
       hasProp(o, "kind") &&
@@ -108,7 +112,18 @@ export const safeParse = (raw: RawServerData): OlympResponse | null => {
     return null;
   }
   if (isRestaurant(parsed) || isOrder(parsed) || isEntry(parsed)) {
-    return { ...parsed, timestamp: DateTime.fromISO(raw.timestamp) };
+    if (hasProp(parsed, "created") && typeof parsed.created === "string") {
+      return {
+        ...parsed,
+        created: DateTime.fromISO(parsed.created),
+        updated: DateTime.fromISO(raw.timestamp),
+      };
+    }
+    return {
+      ...parsed,
+      created: DateTime.fromISO(raw.timestamp),
+      updated: DateTime.fromISO(raw.timestamp),
+    };
   }
   return null;
 };

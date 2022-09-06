@@ -1,11 +1,21 @@
+import { EntryPost } from "@api/ApiTypes";
+import { NewEntryForm } from "@components/entry/NewEntryForm";
 import { Button } from "@components/static/Button";
 import { Card } from "@components/static/Card";
 import { Icon, IconLeft } from "@components/static/icons/Icon";
+import { Notification } from "@components/static/Notification";
 import { AppState, OrderState } from "@util/StateTypes";
 import { DateTime } from "luxon";
 import { Component, Show } from "solid-js";
 
-type Props = { order: OrderState; state: AppState; goBack: () => void };
+type Props = {
+  order: OrderState;
+  state: AppState;
+  goBack: () => void;
+  createEntry: (
+    entry: Omit<EntryPost, "status" | "id" | "kind">
+  ) => Promise<Response>;
+};
 
 export const OrderDetails: Component<Props> = (props) => {
   const restaurant = () => {
@@ -54,7 +64,7 @@ export const OrderDetails: Component<Props> = (props) => {
           <span class="tag">Erstellt: {createdDate()}</span>
           <span class="tag">Deadline: {deadlineDate()}</span>
         </div>
-        <Card>
+        <Notification kind="info">
           <p>
             <strong>Besteller</strong> <em>{props.order.orderer}</em>
             <Show when={restaurant().comment}>
@@ -66,10 +76,17 @@ export const OrderDetails: Component<Props> = (props) => {
               {" "}
               || <strong>Hinweis Bestellung</strong>{" "}
               <em>{props.order.comment}</em>
-            </Show>
+            </Show>{" "}
+            || <strong>999 Einträge</strong>
           </p>
-        </Card>
+        </Notification>
       </div>
+      <Show when={props.order.status === "active"}>
+        <NewEntryForm
+          orderId={props.order.id}
+          createEntry={props.createEntry}
+        />
+      </Show>
     </>
   );
 };

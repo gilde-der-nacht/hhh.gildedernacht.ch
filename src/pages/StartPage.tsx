@@ -23,6 +23,7 @@ export const StartPage: Component<PageProps> = (props) => {
             order={order}
             state={props.state}
             goBack={() => props.setActiveOrder(null)}
+            createEntry={props.API.entry.create}
           />
         )}
       </Show>

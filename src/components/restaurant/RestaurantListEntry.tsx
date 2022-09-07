@@ -1,5 +1,5 @@
 import { Card } from "@components/static/Card";
-import { Tag, Tags } from "@components/static/Tags";
+import { Tag } from "@components/static/Tags";
 import { RestaurantState } from "@util/StateTypes";
 import { formatDate, hasBeenUpdated } from "@util/utils";
 import { ParentComponent, Show } from "solid-js";
@@ -19,7 +19,7 @@ export const RestaurantListEntry: ParentComponent<Props> = (props) => {
   }
 
   return (
-    <Card isDisabled={props.isDisabled}>
+    <Card isDisabled={props.isDisabled} tags={tags}>
       <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
         <div>
           <h5 class="m-0">{props.restaurant.label}</h5>
@@ -29,7 +29,6 @@ export const RestaurantListEntry: ParentComponent<Props> = (props) => {
           <Show when={props.restaurant.comment.trim().length > 0}>
             <p class="is-italic">{props.restaurant.comment}</p>
           </Show>
-          <Tags tags={tags} />
         </div>
         {props.children}
       </div>

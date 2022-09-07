@@ -40,7 +40,7 @@ export const NewEntryForm: Component<Props> = (props) => {
   };
 
   return (
-    <Card>
+    <Card showStatusTag={false}>
       <h4 class="title is-4 has-text-centered">Neuer Eintrag</h4>
       <Form>
         <Input

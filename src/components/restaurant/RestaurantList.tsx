@@ -1,9 +1,9 @@
+import { RestaurantListEntry } from "@components/restaurant/RestaurantListEntry";
 import { Button } from "@components/static/Button";
 import { Icon } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { RestaurantState } from "@util/StateTypes";
 import { Component, createSignal, For, Show } from "solid-js";
-import { RestaurantListEntry } from "./RestaurantListEntry";
 
 type Props = {
   activeRestaurants: readonly RestaurantState[];

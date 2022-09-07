@@ -1,7 +1,7 @@
 import { Card } from "@components/static/Card";
-import { Tags } from "@components/static/Tags";
+import { Tag, Tags } from "@components/static/Tags";
 import { RestaurantState } from "@util/StateTypes";
-import { formatDate } from "@util/utils";
+import { formatDate, hasBeenUpdated } from "@util/utils";
 import { ParentComponent, Show } from "solid-js";
 
 type Props = {
@@ -10,6 +10,14 @@ type Props = {
 };
 
 export const RestaurantListEntry: ParentComponent<Props> = (props) => {
+  const tags: Tag[] = [
+    { label: `Erstellt: ${formatDate(props.restaurant.created)}` },
+  ];
+
+  if (hasBeenUpdated(props.restaurant)) {
+    tags.push({ label: `Bearbeitet: ${formatDate(props.restaurant.updated)}` });
+  }
+
   return (
     <Card isDisabled={props.isDisabled}>
       <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between">
@@ -21,11 +29,7 @@ export const RestaurantListEntry: ParentComponent<Props> = (props) => {
           <Show when={props.restaurant.comment.trim().length > 0}>
             <p class="is-italic">{props.restaurant.comment}</p>
           </Show>
-          <Tags
-            tags={[
-              { label: `Erstellt: ${formatDate(props.restaurant.created)}` },
-            ]}
-          />
+          <Tags tags={tags} />
         </div>
         {props.children}
       </div>

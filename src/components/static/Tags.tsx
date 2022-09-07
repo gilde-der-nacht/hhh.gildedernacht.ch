@@ -1,6 +1,6 @@
 import { Component, For, mergeProps } from "solid-js";
 
-type Tag = {
+export type Tag = {
   label: string;
   kind?: "success" | "danger";
 };

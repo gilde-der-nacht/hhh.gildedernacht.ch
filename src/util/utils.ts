@@ -24,3 +24,11 @@ export const hasProp = <K extends PropertyKey>(
 
 export const formatDate = (date: DateTime): string =>
   date.setLocale("ch").toLocaleString(DateTime.DATETIME_MED) + " Uhr";
+
+export const hasBeenUpdated = (o: {
+  created: DateTime;
+  updated: DateTime;
+}): boolean => {
+  const delta = o.updated.diff(o.created, "seconds").toObject().seconds;
+  return typeof delta !== "undefined" && delta > 0;
+};

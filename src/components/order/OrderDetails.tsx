@@ -3,9 +3,9 @@ import { NewEntryForm } from "@components/entry/NewEntryForm";
 import { Button } from "@components/static/Button";
 import { Icon, IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
-import { Tags } from "@components/static/Tags";
+import { Tag, Tags } from "@components/static/Tags";
 import { AppState, OrderState } from "@util/StateTypes";
-import { formatDate } from "@util/utils";
+import { formatDate, hasBeenUpdated } from "@util/utils";
 import { Component, Show } from "solid-js";
 
 type Props = {
@@ -31,9 +31,21 @@ export const OrderDetails: Component<Props> = (props) => {
     return restaurant;
   };
 
-  const createdDate = () => formatDate(props.order.created);
-  const deadlineDate = () =>
-    formatDate(props.order.created.plus({ minutes: props.order.timeWindow }));
+  const tags: Tag[] = [
+    {
+      label: props.order.status === "active" ? "aktiv" : "inaktiv",
+      kind: props.order.status === "active" ? "success" : "danger",
+    },
+    { label: `Erstellt: ${formatDate(props.order.created)}` },
+  ];
+  if (hasBeenUpdated(props.order)) {
+    tags.push({ label: `Bearbeitet: ${formatDate(props.order.updated)}` });
+  }
+  tags.push({
+    label: `Deadline: ${formatDate(
+      props.order.created.plus({ minutes: props.order.timeWindow })
+    )}`,
+  });
 
   return (
     <>
@@ -48,17 +60,7 @@ export const OrderDetails: Component<Props> = (props) => {
             <span class="pl-2">{restaurant().label}</span>
           </IconLeft>
         </h3>
-        <Tags
-          isJustified
-          tags={[
-            {
-              label: props.order.status === "active" ? "aktiv" : "inaktiv",
-              kind: props.order.status === "active" ? "success" : "danger",
-            },
-            { label: `Erstellt: ${createdDate()}` },
-            { label: `Deadline: ${deadlineDate()}` },
-          ]}
-        />
+        <Tags isJustified tags={tags} />
         <Notification kind="info">
           <p>
             <strong>Besteller</strong> <em>{props.order.orderer}</em>

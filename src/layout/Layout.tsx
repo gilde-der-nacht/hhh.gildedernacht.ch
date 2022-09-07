@@ -1,28 +1,28 @@
-import { Toast, ToastOptions } from "@components/static/Toast";
+import { Toast } from "@components/static/Toast";
 import { Footer } from "@layout/Footer";
 import { Header } from "@layout/Header";
 import { Navbar } from "@layout/Navbar";
-import { PageType } from "@pages/util/Router";
-import { ParentComponent } from "solid-js";
+import { AppState } from "@util/StateTypes";
+import { hideToast, link, setToast } from "@util/utils";
+import { Accessor, ParentComponent, Setter } from "solid-js";
 
 type Props = {
-  toast: ToastOptions;
-  setToast: (o: ToastOptions) => void;
-  hideToast: () => void;
-  link: (page: PageType) => void;
+  stateSignal: [Accessor<AppState>, Setter<AppState>];
 };
 
 export const Layout: ParentComponent<Props> = (props) => {
+  const [state, setState] = props.stateSignal;
+
   return (
     <div class="hhh-body">
-      <Header link={props.link}></Header>
-      <Navbar link={props.link}></Navbar>
+      <Header link={link(setState)}></Header>
+      <Navbar link={link(setState)}></Navbar>
       {props.children}
       <Footer></Footer>
       <Toast
-        {...props.toast}
-        setToast={props.setToast}
-        hideToast={props.hideToast}
+        {...state().toast}
+        setToast={setToast(setState)}
+        hideToast={hideToast(setState)}
       />
     </div>
   );

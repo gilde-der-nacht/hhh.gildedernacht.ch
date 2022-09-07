@@ -1,4 +1,8 @@
+import { ToastOptions } from "@components/static/Toast";
+import { PageType } from "@pages/util/Router";
 import { DateTime } from "luxon";
+import { Setter } from "solid-js";
+import { AppState, OrderState } from "@util/StateTypes";
 
 export const isEmpty = (s: string): boolean => {
   return s.trim().length === 0;
@@ -40,3 +44,36 @@ export const hasBeenUpdated = (o: {
   const delta = getDelta(o.updated, o.created).seconds;
   return delta > 0;
 };
+
+export const link = (setter: Setter<AppState>) => (page: PageType) => {
+  setter((prev) => ({ ...prev, page }));
+};
+
+export const setToast = (setter: Setter<AppState>) => (o: ToastOptions) => {
+  setter((prev) => ({ ...prev, toast: o }));
+};
+
+export const hideToast = (setter: Setter<AppState>) => () => {
+  setter((prev) => ({
+    ...prev,
+    toast: { ...prev.toast, isVisible: false },
+  }));
+};
+
+export const setShowRestaurantList =
+  (setter: Setter<AppState>) => (s: boolean) => {
+    setter((prev) => ({ ...prev, showRestaurantList: s }));
+  };
+
+export const setShowOrderList = (setter: Setter<AppState>) => (s: boolean) => {
+  setter((prev) => ({ ...prev, showOrderList: s }));
+};
+
+export const setShowEntryList = (setter: Setter<AppState>) => (s: boolean) => {
+  setter((prev) => ({ ...prev, showEntryList: s }));
+};
+
+export const setActiveOrder =
+  (setter: Setter<AppState>) => (o: null | OrderState) => {
+    setter((prev) => ({ ...prev, activeOrder: o }));
+  };

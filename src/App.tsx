@@ -1,10 +1,10 @@
 import API, { loadServerResource } from "@api/api";
 import { NetworkError } from "@components/static/NetworkError";
 import { Progress } from "@components/static/Progress";
-import { ToastOptions } from "@components/static/Toast";
 import { Layout } from "@layout/Layout";
-import { PageType, Router } from "@pages/util/Router";
-import { AppState, OrderState } from "@util/StateTypes";
+import { Router } from "@pages/util/Router";
+import { AppState } from "@util/StateTypes";
+import { setToast } from "@util/utils";
 import { DateTime } from "luxon";
 import {
   Component,
@@ -22,34 +22,13 @@ const App: Component = () => {
     page: "start",
     activeOrder: null,
     toast: {},
+    showRestaurantList: false,
+    showOrderList: false,
+    showEntryList: false,
   });
 
-  const changePageMiddleware = (page: PageType) => {
-    if (page === "start") {
-      setState((prev) => ({ ...prev, activeOrder: null }));
-    }
-    setState((prev) => ({ ...prev, page }));
-  };
-
-  const setToast = (toast: ToastOptions) =>
-    setState((prev) => ({ ...prev, toast }));
-
-  const hideToast = () =>
-    setState((prev) => ({
-      ...prev,
-      toast: { ...prev.toast, isVisible: false },
-    }));
-
-  const setActiveOrder = (o: null | OrderState) =>
-    setState((prev) => ({ ...prev, activeOrder: o }));
-
   return (
-    <Layout
-      link={changePageMiddleware}
-      toast={state().toast}
-      setToast={setToast}
-      hideToast={hideToast}
-    >
+    <Layout stateSignal={[state, setState]}>
       <div>
         <div class="container p-5">
           <Switch fallback={<Progress />}>
@@ -60,12 +39,9 @@ const App: Component = () => {
               {(data) => (
                 <Dynamic
                   component={Router[state().page]({
-                    data: data,
-                    activeOrder: state().activeOrder,
-                    setActiveOrder,
-                    setPage: changePageMiddleware,
-                    setToast,
-                    API: API({ refetch, setToast }),
+                    data,
+                    stateSignal: [state, setState],
+                    API: API({ refetch, setToast: setToast(setState) }),
                   })}
                 />
               )}

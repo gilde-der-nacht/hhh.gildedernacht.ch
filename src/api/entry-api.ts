@@ -1,5 +1,4 @@
 import { ApiProps } from "@api/api";
-
 import OLYMP from "@api/olymp";
 import { EntryBase } from "@util/BasicTypes";
 

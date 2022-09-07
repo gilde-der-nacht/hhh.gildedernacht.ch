@@ -31,4 +31,7 @@ export type AppState = {
   page: PageType;
   activeOrder: null | OrderState;
   toast: ToastOptions;
+  showRestaurantList: boolean;
+  showOrderList: boolean;
+  showEntryList: boolean;
 };

@@ -1,19 +1,15 @@
 import API from "@api/api";
-import { ToastOptions } from "@components/static/Toast";
 import { NewOrderPage } from "@pages/NewOrderPage";
 import { NewRestaurantPage } from "@pages/NewRestaurantPage";
 import { StartPage } from "@pages/StartPage";
-import { AppData, OrderState } from "@util/StateTypes";
-import { Accessor, JSX } from "solid-js";
+import { AppData, AppState } from "@util/StateTypes";
+import { Accessor, JSX, Setter } from "solid-js";
 
 export type PageType = "start" | "newOrder" | "newRestaurant";
 
 export type PageProps = {
   data: AppData;
-  activeOrder: OrderState | null;
-  setActiveOrder: (order: OrderState | null) => void;
-  setPage: (page: PageType) => void;
-  setToast: (options: ToastOptions) => void;
+  stateSignal: [Accessor<AppState>, Setter<AppState>];
   API: ReturnType<typeof API>;
 };
 

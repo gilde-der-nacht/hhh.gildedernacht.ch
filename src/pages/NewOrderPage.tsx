@@ -5,7 +5,7 @@ import { Input } from "@components/static/forms/Input";
 import { NumberInput } from "@components/static/forms/NumberInput";
 import { IconLeft } from "@components/static/icons/Icon";
 import { PageProps } from "@pages/util/Router";
-import { isEmpty } from "@util/utils";
+import { isEmpty, link } from "@util/utils";
 import { Component, createSignal, onMount } from "solid-js";
 
 export const NewOrderPage: Component<PageProps> = (props) => {
@@ -16,6 +16,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
   const [activeValidation, setActiveValidation] = createSignal(false);
 
   const activeRestaurants = () => props.data.restaurants.active;
+  const [state, setState] = props.stateSignal;
 
   const formSubmit = (e: Event) => {
     e.preventDefault();
@@ -67,7 +68,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           <Button
             color="danger"
             isOutlined={true}
-            onClick={() => props.setPage("newRestaurant")}
+            onClick={() => link(setState)("newRestaurant")}
           >
             <IconLeft icon="fork-knife">Neues Restaurant</IconLeft>
           </Button>

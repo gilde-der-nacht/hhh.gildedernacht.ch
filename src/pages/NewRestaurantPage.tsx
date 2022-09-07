@@ -4,7 +4,7 @@ import { Form } from "@components/static/forms/Form";
 import { Input } from "@components/static/forms/Input";
 import { IconLeft } from "@components/static/icons/Icon";
 import { PageProps } from "@pages/util/Router";
-import { isEmpty, isValidUrl } from "@util/utils";
+import { isEmpty, isValidUrl, setShowRestaurantList } from "@util/utils";
 import { Component, createSignal } from "solid-js";
 
 export const NewRestaurantPage: Component<PageProps> = (props) => {
@@ -12,7 +12,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
   const [menulink, setMenulink] = createSignal("");
   const [comment, setComment] = createSignal("");
   const [activeValidation, setActiveValidation] = createSignal(false);
-  const [showList, setShowList] = createSignal(false);
+  const [state, setState] = props.stateSignal;
 
   const formSubmit = (e: Event) => {
     e.preventDefault();
@@ -92,8 +92,8 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
         deactivateRestaurant={props.API.restaurant.deactivate}
         reactivateRestaurant={props.API.restaurant.reactivate}
         removeRestaurant={props.API.restaurant.remove}
-        showList={showList()}
-        setShowList={setShowList}
+        showList={state().showRestaurantList}
+        setShowList={setShowRestaurantList(setState)}
       />
     </div>
   );

@@ -3,7 +3,7 @@ import { Button } from "@components/static/Button";
 import { Icon } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { RestaurantState } from "@util/StateTypes";
-import { Component, For, Setter, Show } from "solid-js";
+import { Component, For, Show } from "solid-js";
 
 type Props = {
   activeRestaurants: readonly RestaurantState[];
@@ -12,7 +12,7 @@ type Props = {
   reactivateRestaurant: (restaurant: RestaurantState) => void;
   removeRestaurant: (restaurant: RestaurantState) => void;
   showList: boolean;
-  setShowList: Setter<boolean>;
+  setShowList: (b: boolean) => void;
 };
 
 export const RestaurantList: Component<Props> = (props) => {

@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 export const isEmpty = (s: string): boolean => {
   return s.trim().length === 0;
 };
@@ -19,3 +21,6 @@ export const hasProp = <K extends PropertyKey>(
 ): data is Record<K, unknown> => {
   return prop in data;
 };
+
+export const formatDate = (date: DateTime): string =>
+  date.setLocale("ch").toLocaleString(DateTime.DATETIME_MED) + " Uhr";

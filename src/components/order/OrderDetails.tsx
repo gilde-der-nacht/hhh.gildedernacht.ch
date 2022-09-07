@@ -5,6 +5,7 @@ import { Icon, IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { Tags } from "@components/static/Tags";
 import { AppState, OrderState } from "@util/StateTypes";
+import { formatDate } from "@util/utils";
 import { DateTime } from "luxon";
 import { Component, Show } from "solid-js";
 
@@ -31,14 +32,9 @@ export const OrderDetails: Component<Props> = (props) => {
     return restaurant;
   };
 
-  const createdDate = () =>
-    props.order.created.setLocale("ch").toLocaleString(DateTime.DATETIME_MED) +
-    " Uhr";
+  const createdDate = () => formatDate(props.order.created);
   const deadlineDate = () =>
-    props.order.created
-      .plus({ minutes: props.order.timeWindow })
-      .setLocale("ch")
-      .toLocaleString(DateTime.DATETIME_MED) + " Uhr";
+    formatDate(props.order.created.plus({ minutes: props.order.timeWindow }));
 
   return (
     <>

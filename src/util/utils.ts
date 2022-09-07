@@ -46,6 +46,9 @@ export const hasBeenUpdated = (o: {
 };
 
 export const link = (setter: Setter<AppState>) => (page: PageType) => {
+  if (page === "start") {
+    setter((prev) => ({ ...prev, activeOrder: null }));
+  }
   setter((prev) => ({ ...prev, page }));
 };
 

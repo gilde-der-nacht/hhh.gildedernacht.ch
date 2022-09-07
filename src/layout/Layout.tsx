@@ -3,11 +3,12 @@ import { Footer } from "@layout/Footer";
 import { Header } from "@layout/Header";
 import { Navbar } from "@layout/Navbar";
 import { PageType } from "@pages/util/Router";
-import { ParentComponent, Setter } from "solid-js";
+import { ParentComponent } from "solid-js";
 
 type Props = {
   toast: ToastOptions;
-  setToast: Setter<ToastOptions>;
+  setToast: (o: ToastOptions) => void;
+  hideToast: () => void;
   link: (page: PageType) => void;
 };
 
@@ -18,7 +19,11 @@ export const Layout: ParentComponent<Props> = (props) => {
       <Navbar link={props.link}></Navbar>
       {props.children}
       <Footer></Footer>
-      <Toast {...props.toast} setToast={props.setToast} />
+      <Toast
+        {...props.toast}
+        setToast={props.setToast}
+        hideToast={props.hideToast}
+      />
     </div>
   );
 };

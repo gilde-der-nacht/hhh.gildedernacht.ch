@@ -1,3 +1,5 @@
+import { ToastOptions } from "@components/static/Toast";
+import { PageType } from "@pages/util/Router";
 import { EntryBase, OrderBase, RestaurantBase } from "@util/BasicTypes";
 
 export type DerivedRestaurantStatus = "active" | "inactive";
@@ -16,11 +18,17 @@ export type EntryState = EntryBase & {
   status: DerivedEntryStatus;
 };
 
-export type AppState = {
+export type AppData = {
   restaurants: {
     active: readonly RestaurantState[];
     inactive: readonly RestaurantState[];
   };
   orders: { active: readonly OrderState[]; inactive: readonly OrderState[] };
   entries: { active: readonly EntryState[]; inactive: readonly EntryState[] };
+};
+
+export type AppState = {
+  page: PageType;
+  activeOrder: null | OrderState;
+  toast: ToastOptions;
 };

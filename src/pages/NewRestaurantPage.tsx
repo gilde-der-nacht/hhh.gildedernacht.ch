@@ -12,6 +12,7 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
   const [menulink, setMenulink] = createSignal("");
   const [comment, setComment] = createSignal("");
   const [activeValidation, setActiveValidation] = createSignal(false);
+  const [showList, setShowList] = createSignal(false);
 
   const formSubmit = (e: Event) => {
     e.preventDefault();
@@ -86,11 +87,13 @@ export const NewRestaurantPage: Component<PageProps> = (props) => {
         </Form>
       </div>
       <RestaurantList
-        activeRestaurants={props.state.restaurants.active}
-        inactiveRestaurants={props.state.restaurants.inactive}
+        activeRestaurants={props.data.restaurants.active}
+        inactiveRestaurants={props.data.restaurants.inactive}
         deactivateRestaurant={props.API.restaurant.deactivate}
         reactivateRestaurant={props.API.restaurant.reactivate}
         removeRestaurant={props.API.restaurant.remove}
+        showList={showList()}
+        setShowList={setShowList}
       />
     </div>
   );

@@ -4,11 +4,11 @@ import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { PageType } from "@pages/util/Router";
-import { AppState, OrderState } from "@util/StateTypes";
+import { AppData, OrderState } from "@util/StateTypes";
 import { Component, createSignal, Show } from "solid-js";
 
 type Props = {
-  state: AppState;
+  data: AppData;
   setPage: (page: PageType) => void;
   openOrder: (order: OrderState) => void;
   deactivateOrder: (order: OrderState) => void;
@@ -28,7 +28,7 @@ export const OrderOverview: Component<Props> = (props) => {
           </IconLeft>
         </h3>
         <Show
-          when={props.state.orders.active.length > 0}
+          when={props.data.orders.active.length > 0}
           fallback={
             <Notification kind="info">
               <div class="is-flex is-flex-wrap-wrap is-justify-content-space-between is-align-items-center">
@@ -47,8 +47,8 @@ export const OrderOverview: Component<Props> = (props) => {
           }
         >
           <OrderGrid
-            orders={props.state.orders.active}
-            activeRestaurants={props.state.restaurants.active}
+            orders={props.data.orders.active}
+            activeRestaurants={props.data.restaurants.active}
             openOrder={props.openOrder}
             deactivateOrder={props.deactivateOrder}
             reactivateOrder={props.reactivateOrder}
@@ -75,7 +75,7 @@ export const OrderOverview: Component<Props> = (props) => {
             </p>
           </div>
           <Show
-            when={props.state.orders.inactive.length > 0}
+            when={props.data.orders.inactive.length > 0}
             fallback={
               <Notification kind="info">
                 <em>
@@ -86,8 +86,8 @@ export const OrderOverview: Component<Props> = (props) => {
             }
           >
             <OrderGrid
-              orders={props.state.orders.inactive}
-              activeRestaurants={props.state.restaurants.active}
+              orders={props.data.orders.inactive}
+              activeRestaurants={props.data.restaurants.active}
               openOrder={props.openOrder}
               deactivateOrder={props.deactivateOrder}
               reactivateOrder={props.reactivateOrder}

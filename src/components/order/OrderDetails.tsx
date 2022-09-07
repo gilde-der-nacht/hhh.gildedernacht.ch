@@ -5,13 +5,13 @@ import { Button } from "@components/static/Button";
 import { Icon, IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { Tag, Tags } from "@components/static/Tags";
-import { AppState, OrderState } from "@util/StateTypes";
+import { AppData, OrderState } from "@util/StateTypes";
 import { formatDate, hasBeenUpdated } from "@util/utils";
 import { Component, Show } from "solid-js";
 
 type Props = {
   order: OrderState;
-  state: AppState;
+  data: AppData;
   goBack: () => void;
   createEntry: (
     entry: Omit<
@@ -23,7 +23,7 @@ type Props = {
 
 export const OrderDetails: Component<Props> = (props) => {
   const restaurant = () => {
-    const restaurant = props.state.restaurants.active.find(
+    const restaurant = props.data.restaurants.active.find(
       (r) => r.id === props.order.restaurantId
     );
     if (typeof restaurant === "undefined") {
@@ -34,9 +34,9 @@ export const OrderDetails: Component<Props> = (props) => {
 
   const entries = {
     active: () =>
-      props.state.entries.active.filter((e) => e.orderId === props.order.id),
+      props.data.entries.active.filter((e) => e.orderId === props.order.id),
     inactive: () =>
-      props.state.entries.inactive.filter((e) => e.orderId === props.order.id),
+      props.data.entries.inactive.filter((e) => e.orderId === props.order.id),
   };
 
   const tags: Tag[] = [

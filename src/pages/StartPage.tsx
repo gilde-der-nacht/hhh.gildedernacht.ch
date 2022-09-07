@@ -6,7 +6,7 @@ import { Component, Show } from "solid-js";
 export const StartPage: Component<PageProps> = (props) => {
   const Overview = () => (
     <OrderOverview
-      state={props.state}
+      data={props.data}
       setPage={props.setPage}
       openOrder={props.setActiveOrder}
       deactivateOrder={props.API.order.deactivate}
@@ -17,11 +17,11 @@ export const StartPage: Component<PageProps> = (props) => {
 
   return (
     <div class="hhh-spacer" style="--gap: 3rem;">
-      <Show when={props.activeOrder()} fallback={Overview}>
+      <Show when={props.activeOrder} fallback={Overview}>
         {(order) => (
           <OrderDetails
             order={order}
-            state={props.state}
+            data={props.data}
             goBack={() => props.setActiveOrder(null)}
             createEntry={props.API.entry.create}
           />

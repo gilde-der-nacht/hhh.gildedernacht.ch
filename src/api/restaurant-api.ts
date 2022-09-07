@@ -15,7 +15,7 @@ const create =
       kind: "restaurant",
     });
     props.setToast({
-      visible: true,
+      isVisible: true,
       text: "Restaurant speichern ...",
       kind: "loading",
       waitFor: {
@@ -37,7 +37,7 @@ const deactivate =
       kind: "restaurant",
     });
     props.setToast({
-      visible: true,
+      isVisible: true,
       text: "Restaurant deaktivieren ...",
       kind: "loading",
       waitFor: {
@@ -59,7 +59,7 @@ const reactivate =
       kind: "restaurant",
     });
     props.setToast({
-      visible: true,
+      isVisible: true,
       text: "Restaurant reaktivieren ...",
       kind: "loading",
       waitFor: {
@@ -81,7 +81,7 @@ const remove =
       kind: "restaurant",
     });
     props.setToast({
-      visible: true,
+      isVisible: true,
       text: "Restaurant löschen ...",
       kind: "loading",
       waitFor: {

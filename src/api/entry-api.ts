@@ -16,7 +16,7 @@ const create =
       kind: "entry",
     });
     props.setToast({
-      visible: true,
+      isVisible: true,
       text: "Eintrag speichern ...",
       kind: "loading",
       waitFor: {

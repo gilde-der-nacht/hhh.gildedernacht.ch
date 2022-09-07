@@ -4,20 +4,19 @@ import OLYMP from "@api/olymp";
 import { OrderAPI } from "@api/order-api";
 import { RestaurantAPI } from "@api/restaurant-api";
 import { ToastOptions } from "@components/static/Toast";
-import { AppState } from "@util/StateTypes";
+import { AppData } from "@util/StateTypes";
 import { DateTime } from "luxon";
-import { Setter } from "solid-js";
 
 export type ApiProps = {
   refetch: Refetcher;
-  setToast: Setter<ToastOptions>;
+  setToast: (o: ToastOptions) => void;
 };
 
 export type Refetcher = (
   info?: unknown
-) => AppState | Promise<AppState | undefined> | null | undefined;
+) => AppData | Promise<AppData | undefined> | null | undefined;
 
-export const loadServerResource = async (now: DateTime): Promise<AppState> => {
+export const loadServerResource = async (now: DateTime): Promise<AppData> => {
   const data = await OLYMP.GET();
   return aggragateData(data, now);
 };

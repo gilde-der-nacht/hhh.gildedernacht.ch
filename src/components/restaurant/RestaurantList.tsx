@@ -3,7 +3,7 @@ import { Button } from "@components/static/Button";
 import { Icon } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { RestaurantState } from "@util/StateTypes";
-import { Component, createSignal, For, Show } from "solid-js";
+import { Component, For, Setter, Show } from "solid-js";
 
 type Props = {
   activeRestaurants: readonly RestaurantState[];
@@ -11,16 +11,16 @@ type Props = {
   deactivateRestaurant: (restaurant: RestaurantState) => void;
   reactivateRestaurant: (restaurant: RestaurantState) => void;
   removeRestaurant: (restaurant: RestaurantState) => void;
+  showList: boolean;
+  setShowList: Setter<boolean>;
 };
 
 export const RestaurantList: Component<Props> = (props) => {
-  const [showList, setShowList] = createSignal(false);
-
   return (
     <Show
-      when={showList()}
+      when={props.showList}
       fallback={
-        <Button onClick={() => setShowList(true)}>
+        <Button onClick={() => props.setShowList(true)}>
           Zeige Liste der Restaurants
         </Button>
       }

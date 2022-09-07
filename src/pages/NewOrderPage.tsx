@@ -15,7 +15,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
   const [timeWindow, setTimeWindow] = createSignal(30);
   const [activeValidation, setActiveValidation] = createSignal(false);
 
-  const activeRestaurants = () => props.state.restaurants.active;
+  const activeRestaurants = () => props.data.restaurants.active;
 
   const formSubmit = (e: Event) => {
     e.preventDefault();

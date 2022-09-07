@@ -15,7 +15,7 @@ const create =
       kind: "order",
     });
     props.setToast({
-      visible: true,
+      isVisible: true,
       text: "Bestellung speichern ...",
       kind: "loading",
       waitFor: {
@@ -37,7 +37,7 @@ const deactivate =
       kind: "order",
     });
     props.setToast({
-      visible: true,
+      isVisible: true,
       text: "Bestellung deaktivieren ...",
       kind: "loading",
       waitFor: {
@@ -59,7 +59,7 @@ const reactivate =
       kind: "order",
     });
     props.setToast({
-      visible: true,
+      isVisible: true,
       text: "Bestellung reaktivieren ...",
       kind: "loading",
       waitFor: {
@@ -81,7 +81,7 @@ const remove =
       kind: "order",
     });
     props.setToast({
-      visible: true,
+      isVisible: true,
       text: "Bestellung löschen ...",
       kind: "loading",
       waitFor: {

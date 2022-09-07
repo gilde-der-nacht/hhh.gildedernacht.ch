@@ -4,7 +4,7 @@ import {
   NotificationKind,
 } from "@components/static/Notification";
 import { isPromise } from "@util/utils";
-import { Component, createEffect, mergeProps, Setter } from "solid-js";
+import { Component, createEffect, mergeProps } from "solid-js";
 
 export type ToastOptions = {
   isVisible?: boolean;
@@ -19,9 +19,12 @@ export type ToastOptions = {
     | number;
 };
 
-export const Toast: Component<
-  ToastOptions & { setToast: Setter<ToastOptions> }
-> = (props) => {
+type Props = {
+  setToast: (o: ToastOptions) => void;
+  hideToast: () => void;
+};
+
+export const Toast: Component<ToastOptions & Props> = (props) => {
   const merged = mergeProps({ isVisible: false, waitFor: 5_000 }, props);
 
   createEffect(() => {
@@ -29,16 +32,13 @@ export const Toast: Component<
       return;
     }
     if (typeof merged.waitFor === "number") {
-      setTimeout(
-        () => merged.setToast((prev) => ({ ...prev, visible: false })),
-        merged.waitFor
-      );
+      setTimeout(() => merged.hideToast(), merged.waitFor);
     } else if (merged.waitFor && isPromise(merged.waitFor?.promise)) {
       const { promise, onSuccessMessage, onErrorMessage } = merged.waitFor;
       promise
         .then(() =>
           merged.setToast({
-            visible: true,
+            isVisible: true,
             text: onSuccessMessage,
             kind: "success",
             waitFor: 5_000,
@@ -46,7 +46,7 @@ export const Toast: Component<
         )
         .catch(() =>
           merged.setToast({
-            visible: true,
+            isVisible: true,
             text: onErrorMessage,
             kind: "danger",
             waitFor: 10_000,

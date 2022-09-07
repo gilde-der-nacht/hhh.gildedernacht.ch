@@ -1,6 +1,6 @@
 import { EntryGet, OrderGet, RestaurantGet } from "@api/ApiTypes";
 import {
-  AppState,
+  AppData,
   DerivedOrderStatus,
   EntryState,
   OrderState,
@@ -14,7 +14,7 @@ export const CUT_OFF_TIME_HOURS = 24;
 export const aggragateData = (
   data: (RestaurantGet | OrderGet | EntryGet)[],
   now: DateTime
-): AppState => {
+): AppData => {
   const allRestaurants = data
     .filter((d): d is RestaurantGet => d.kind === "restaurant")
     .filter((r): r is RestaurantState => r.status !== "deleted");

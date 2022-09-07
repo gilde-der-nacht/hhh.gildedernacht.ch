@@ -4,10 +4,11 @@ import { Progress } from "@components/static/Progress";
 import { ToastOptions } from "@components/static/Toast";
 import { Layout } from "@layout/Layout";
 import { PageType, Router } from "@pages/util/Router";
-import { OrderState } from "@util/StateTypes";
+import { AppState, OrderState } from "@util/StateTypes";
 import { DateTime } from "luxon";
 import {
-  Component, createResource,
+  Component,
+  createResource,
   createSignal,
   Match,
   Switch
@@ -15,33 +16,52 @@ import {
 import { Dynamic } from "solid-js/web";
 
 const App: Component = () => {
-  const [page, setPage] = createSignal<PageType>("start");
-  const [activeOrder, setActiveOrder] = createSignal<null | OrderState>(null);
   const [now, setNow] = createSignal(DateTime.now());
-  const [toast, setToast] = createSignal<ToastOptions>({});
-  const [state, { refetch }] = createResource(now, loadServerResource);
+  const [data, { refetch }] = createResource(now, loadServerResource);
+  const [state, setState] = createSignal<AppState>({
+    page: "start",
+    activeOrder: null,
+    toast: {},
+  });
 
   const changePageMiddleware = (page: PageType) => {
     if (page === "start") {
-      setActiveOrder(null);
+      setState((prev) => ({ ...prev, activeOrder: null }));
     }
-    setPage(page);
+    setState((prev) => ({ ...prev, page }));
   };
 
+  const setToast = (toast: ToastOptions) =>
+    setState((prev) => ({ ...prev, toast }));
+
+  const hideToast = () =>
+    setState((prev) => ({
+      ...prev,
+      toast: { ...prev.toast, isVisible: false },
+    }));
+
+  const setActiveOrder = (o: null | OrderState) =>
+    setState((prev) => ({ ...prev, activeOrder: o }));
+
   return (
-    <Layout link={changePageMiddleware} toast={toast()} setToast={setToast}>
+    <Layout
+      link={changePageMiddleware}
+      toast={state().toast}
+      setToast={setToast}
+      hideToast={hideToast}
+    >
       <div>
         <div class="container p-5">
           <Switch fallback={<Progress />}>
-            <Match when={typeof state.error !== "undefined"}>
+            <Match when={typeof data.error !== "undefined"}>
               <NetworkError />
             </Match>
-            <Match when={state()}>
-              {(state) => (
+            <Match when={data()}>
+              {(data) => (
                 <Dynamic
-                  component={Router[page()]({
-                    state,
-                    activeOrder,
+                  component={Router[state().page]({
+                    data: data,
+                    activeOrder: state().activeOrder,
                     setActiveOrder,
                     setPage: changePageMiddleware,
                     setToast,

@@ -1,4 +1,5 @@
 import { EntryUpdatePost } from "@api/ApiTypes";
+import { EntryList } from "@components/entry/EntryList";
 import { NewEntryForm } from "@components/entry/NewEntryForm";
 import { Button } from "@components/static/Button";
 import { Icon, IconLeft } from "@components/static/icons/Icon";
@@ -29,6 +30,13 @@ export const OrderDetails: Component<Props> = (props) => {
       throw new Error("This should not be able to happen!");
     }
     return restaurant;
+  };
+
+  const entries = {
+    active: () =>
+      props.state.entries.active.filter((e) => e.orderId === props.order.id),
+    inactive: () =>
+      props.state.entries.inactive.filter((e) => e.orderId === props.order.id),
   };
 
   const tags: Tag[] = [
@@ -74,7 +82,7 @@ export const OrderDetails: Component<Props> = (props) => {
               || <strong>Hinweis Bestellung</strong>{" "}
               <em>{props.order.comment}</em>
             </Show>{" "}
-            || <strong>999 Einträge</strong>
+            || <strong>{entries.active().length} Einträge</strong>
           </p>
         </Notification>
       </div>
@@ -84,6 +92,10 @@ export const OrderDetails: Component<Props> = (props) => {
           createEntry={props.createEntry}
         />
       </Show>
+      <EntryList
+        activeEntries={entries.active()}
+        inactiveEntries={entries.inactive()}
+      />
     </>
   );
 };

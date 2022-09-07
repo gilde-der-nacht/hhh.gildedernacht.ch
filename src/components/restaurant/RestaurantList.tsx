@@ -1,4 +1,4 @@
-import { RestaurantListEntry } from "@components/restaurant/RestaurantListEntry";
+import { RestaurantListItem } from "@components/restaurant/RestaurantListItem";
 import { Button } from "@components/static/Button";
 import { Icon } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
@@ -40,19 +40,19 @@ export const RestaurantList: Component<Props> = (props) => {
         <div class="hhh-spacer" style="--gap: 1rem;">
           <For each={props.activeRestaurants}>
             {(restaurant) => (
-              <RestaurantListEntry isDisabled={false} restaurant={restaurant}>
+              <RestaurantListItem isDisabled={false} restaurant={restaurant}>
                 <Button
                   color="danger"
                   onClick={() => props.deactivateRestaurant(restaurant)}
                 >
                   <Icon icon="circle-stop" />
                 </Button>
-              </RestaurantListEntry>
+              </RestaurantListItem>
             )}
           </For>
           <For each={props.inactiveRestaurants}>
             {(restaurant) => (
-              <RestaurantListEntry isDisabled={true} restaurant={restaurant}>
+              <RestaurantListItem isDisabled={true} restaurant={restaurant}>
                 <div class="buttons has-addons">
                   <Button
                     color="success"
@@ -67,7 +67,7 @@ export const RestaurantList: Component<Props> = (props) => {
                     <Icon icon="trash" />
                   </Button>
                 </div>
-              </RestaurantListEntry>
+              </RestaurantListItem>
             )}
           </For>
         </div>

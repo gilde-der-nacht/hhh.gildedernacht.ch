@@ -9,7 +9,7 @@ type Props = {
   isDisabled: boolean;
 };
 
-export const RestaurantListEntry: ParentComponent<Props> = (props) => {
+export const RestaurantListItem: ParentComponent<Props> = (props) => {
   const tags: Tag[] = [
     { label: `Erstellt: ${formatDate(props.restaurant.created)}` },
   ];

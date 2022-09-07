@@ -52,7 +52,7 @@ export const OrderDetails: Component<Props> = (props) => {
           isJustified
           tags={[
             {
-              label: props.order.status === "active" ? "Aktiv" : "Inaktiv",
+              label: props.order.status === "active" ? "aktiv" : "inaktiv",
               kind: props.order.status === "active" ? "success" : "danger",
             },
             { label: `Erstellt: ${createdDate()}` },

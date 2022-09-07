@@ -82,7 +82,11 @@ export const OrderDetails: Component<Props> = (props) => {
               || <strong>Hinweis Bestellung</strong>{" "}
               <em>{props.order.comment}</em>
             </Show>{" "}
-            || <strong>{entries.active().length} Einträge</strong>
+            ||{" "}
+            <strong>
+              {entries.active().length}{" "}
+              {entries.active().length === 1 ? "Eintrag" : "Einträge"}
+            </strong>
           </p>
         </Notification>
       </div>

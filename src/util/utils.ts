@@ -25,10 +25,18 @@ export const hasProp = <K extends PropertyKey>(
 export const formatDate = (date: DateTime): string =>
   date.setLocale("ch").toLocaleString(DateTime.DATETIME_MED) + " Uhr";
 
+type TimeDelta = { hours: number; minutes: number; seconds: number };
+
+export const getDelta = (first: DateTime, second: DateTime): TimeDelta => {
+  return first
+    .diff(second, ["hours", "minutes", "seconds"])
+    .toObject() as TimeDelta;
+};
+
 export const hasBeenUpdated = (o: {
   created: DateTime;
   updated: DateTime;
 }): boolean => {
-  const delta = o.updated.diff(o.created, "seconds").toObject().seconds;
-  return typeof delta !== "undefined" && delta > 0;
+  const delta = getDelta(o.updated, o.created).seconds;
+  return delta > 0;
 };

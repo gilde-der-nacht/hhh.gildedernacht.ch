@@ -1,3 +1,4 @@
+import { CUT_OFF_TIME_HOURS } from "@api/aggregate";
 import { OrderGrid } from "@components/order/OrderGrid";
 import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/Icon";
@@ -70,7 +71,7 @@ export const OrderOverview: Component<Props> = (props) => {
               Abgeschlossene Bestellungen
             </h3>
             <p class="has-text-centered is-italic">
-              die Bestellungen der letzten 24 Stunden
+              die Bestellungen der letzten {CUT_OFF_TIME_HOURS} Stunden
             </p>
           </div>
           <Show
@@ -78,8 +79,8 @@ export const OrderOverview: Component<Props> = (props) => {
             fallback={
               <Notification kind="info">
                 <em>
-                  Keine abgeschlossenen Bestellungen der letzten 24 Stunden
-                  gefunden.
+                  Keine abgeschlossenen Bestellungen der letzten{" "}
+                  {CUT_OFF_TIME_HOURS} Stunden gefunden.
                 </em>
               </Notification>
             }

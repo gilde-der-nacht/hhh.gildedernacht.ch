@@ -6,7 +6,6 @@ import { Notification } from "@components/static/Notification";
 import { Tags } from "@components/static/Tags";
 import { AppState, OrderState } from "@util/StateTypes";
 import { formatDate } from "@util/utils";
-import { DateTime } from "luxon";
 import { Component, Show } from "solid-js";
 
 type Props = {

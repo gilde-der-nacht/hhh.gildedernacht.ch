@@ -1,11 +1,15 @@
 import { EntryGet, OrderGet, RestaurantGet } from "@api/ApiTypes";
 import {
   AppState,
+  DerivedOrderStatus,
   EntryState,
   OrderState,
   RestaurantState,
 } from "@util/StateTypes";
+import { getDelta } from "@util/utils";
 import { DateTime } from "luxon";
+
+export const CUT_OFF_TIME_HOURS = 24;
 
 export const aggragateData = (
   data: (RestaurantGet | OrderGet | EntryGet)[],
@@ -13,13 +17,7 @@ export const aggragateData = (
 ): AppState => {
   const allRestaurants = data
     .filter((d): d is RestaurantGet => d.kind === "restaurant")
-    .map((r) => {
-      if (r.status === "deleted") {
-        return null;
-      }
-      return { ...r, status: r.status } as RestaurantState;
-    })
-    .filter((r): r is RestaurantState => r !== null);
+    .filter((r): r is RestaurantState => r.status !== "deleted");
   const restaurants = {
     active: allRestaurants.filter((r) => r.status === "active"),
     inactive: allRestaurants.filter((r) => r.status === "inactive"),
@@ -27,30 +25,20 @@ export const aggragateData = (
 
   const allOrders = data
     .filter((d): d is OrderGet => d.kind === "order")
-    .map((o) => {
-      if (o.status === "deleted") {
-        return null;
-      }
-      const delta = o.created
-        .plus({ minutes: o.timeWindow })
-        .diff(now, ["hours", "minutes"])
-        .toObject() as {
-        hours: number;
-        minutes: number;
-      };
-      if (delta.hours > 24) {
-        return null;
-      }
-      if (!restaurants.active.map((r) => r.id).includes(o.restaurantId)) {
-        return null;
-      }
-      if (o.status === "auto") {
-        const status = delta.minutes >= 0 ? "active" : "inactive";
-        return { ...o, status } as OrderState;
-      }
-      return { ...o, status: o.status } as OrderState;
+    .filter((o) => o.status !== "deleted")
+    .filter((o) => {
+      const delta = getDelta(o.created.plus({ minutes: o.timeWindow }), now);
+      return delta.hours <= CUT_OFF_TIME_HOURS;
     })
-    .filter((o): o is OrderState => o !== null);
+    .filter((o) => restaurants.active.map((r) => r.id).includes(o.restaurantId))
+    .map((o): OrderState => {
+      if (o.status === "auto") {
+        const delta = getDelta(o.created.plus({ minutes: o.timeWindow }), now);
+        const status = delta.minutes >= 0 ? "active" : "inactive";
+        return { ...o, status };
+      }
+      return { ...o, status: o.status as DerivedOrderStatus };
+    });
 
   const orders = {
     active: allOrders.filter((o) => o.status === "active"),
@@ -59,16 +47,8 @@ export const aggragateData = (
 
   const allEntries = data
     .filter((d): d is EntryGet => d.kind === "entry")
-    .map((e) => {
-      if (e.status === "deleted") {
-        return null;
-      }
-      if (!orders.active.map((o) => o.id).includes(e.orderId)) {
-        return null;
-      }
-      return { ...e, status: e.status } as EntryState;
-    })
-    .filter((e): e is EntryState => e !== null);
+    .filter((e): e is EntryState => e.status !== "deleted")
+    .filter((e) => orders.active.map((o) => o.id).includes(e.orderId));
 
   const entries = {
     active: allEntries.filter((e) => e.status === "active"),

@@ -59,5 +59,6 @@ export const aggragateData = (
     restaurants,
     orders,
     entries,
+    now,
   };
 };

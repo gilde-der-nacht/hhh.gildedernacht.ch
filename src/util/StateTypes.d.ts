@@ -1,6 +1,7 @@
 import { ToastOptions } from "@components/static/Toast";
 import { PageType } from "@pages/util/Router";
 import { EntryBase, OrderBase, RestaurantBase } from "@util/BasicTypes";
+import { DateTime } from "luxon";
 
 export type DerivedRestaurantStatus = "active" | "inactive";
 export type DerivedOrderStatus = "active" | "inactive";
@@ -25,6 +26,7 @@ export type AppData = {
   };
   orders: { active: readonly OrderState[]; inactive: readonly OrderState[] };
   entries: { active: readonly EntryState[]; inactive: readonly EntryState[] };
+  now: DateTime;
 };
 
 export type AppState = {

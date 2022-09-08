@@ -4,10 +4,11 @@ import { Progress } from "@components/static/Progress";
 import { Layout } from "@layout/Layout";
 import { Router } from "@pages/util/Router";
 import { AppState } from "@util/StateTypes";
-import { formatDate, setToast } from "@util/utils";
+import { setToast } from "@util/utils";
 import { DateTime } from "luxon";
 import {
   Component,
+  createEffect,
   createResource,
   createSignal,
   Match,
@@ -25,6 +26,12 @@ const App: Component = () => {
     showRestaurantList: false,
     showOrderList: false,
     showEntryList: false,
+  });
+
+  createEffect(() => {
+    setInterval(() => {
+      setNow(DateTime.now());
+    }, 60_000);
   });
 
   return (

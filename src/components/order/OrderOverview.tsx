@@ -92,6 +92,7 @@ export const OrderOverview: Component<Props> = (props) => {
               deactivateOrder={props.deactivateOrder}
               reactivateOrder={props.reactivateOrder}
               removeOrder={props.removeOrder}
+              isDisabled={true}
             />
           </Show>
         </div>

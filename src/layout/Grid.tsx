@@ -1,19 +1,28 @@
+import { Tag, Tags } from "@components/static/Tags";
 import { For, JSX, mergeProps, ParentComponent, Show } from "solid-js";
 
 type GridProps<T> = {
   each: readonly T[];
   footer?: (item: T) => GridElementFooter[];
+  tags?: (item: T) => Tag[];
   children: (item: T) => JSX.Element;
+  isDisabled: boolean;
+  showStatusTag: boolean;
 };
 
 export const Grid = <T,>(props: GridProps<T>): JSX.Element => {
-  const merged = mergeProps({ footer: () => [] }, props);
+  const merged = mergeProps({ footer: () => [], tags: () => [] }, props);
 
   return (
     <div class="hhh-grid">
       <For each={merged.each}>
         {(item) => (
-          <GridElement footer={merged.footer(item)}>
+          <GridElement
+            footer={merged.footer(item)}
+            tags={merged.tags(item)}
+            isDisabled={merged.isDisabled}
+            showStatusTag={merged.showStatusTag}
+          >
             {merged.children(item)}
           </GridElement>
         )}
@@ -29,18 +38,30 @@ export type GridElementFooter = {
 };
 
 type GridElementProps = {
-  footer?: GridElementFooter[];
+  footer: GridElementFooter[];
+  tags: Tag[];
+  isDisabled: boolean;
+  showStatusTag: boolean;
 };
 
 const GridElement: ParentComponent<GridElementProps> = (props) => {
-  const merged = mergeProps({ footer: [] }, props);
-
+  const tags: Tag[] = [];
+  if (props.showStatusTag) {
+    tags.push({
+      label: props.isDisabled ? "inaktiv" : "aktiv",
+      kind: props.isDisabled ? "danger" : "success",
+    });
+  }
+  tags.push(...props.tags);
   return (
     <div class="card hhh-card">
-      <div class="card-content">{merged.children}</div>
-      <Show when={merged.footer.length > 0}>
+      <div class="card-content">
+        {props.children}
+        <Tags tags={tags} />
+      </div>
+      <Show when={props.footer.length > 0}>
         <footer class="card-footer hhh-card-footer">
-          <For each={merged.footer}>
+          <For each={props.footer}>
             {(entry) => (
               <a
                 class="card-footer-item"

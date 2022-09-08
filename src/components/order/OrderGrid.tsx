@@ -1,7 +1,9 @@
 import { Icon } from "@components/static/icons/Icon";
+import { Tag } from "@components/static/Tags";
 import { Grid, GridElementFooter } from "@layout/Grid";
 import { OrderState, RestaurantState } from "@util/StateTypes";
-import { Component } from "solid-js";
+import { formatDate, hasBeenUpdated } from "@util/utils";
+import { Component, mergeProps } from "solid-js";
 
 type Props = {
   orders: readonly OrderState[];
@@ -10,42 +12,65 @@ type Props = {
   deactivateOrder: (order: OrderState) => void;
   reactivateOrder: (order: OrderState) => void;
   removeOrder: (order: OrderState) => void;
+  isDisabled?: boolean;
+  showStatusTag?: boolean;
 };
 
 export const OrderGrid: Component<Props> = (props) => {
+  const merged = mergeProps({ isDisabled: false, showStatusTag: true }, props);
+
   const footer = (item: OrderState): GridElementFooter[] => {
     const footerElements: GridElementFooter[] = [
       {
         label: <>Bestellung anzeigen</>,
-        onClick: () => props.openOrder(item),
+        onClick: () => merged.openOrder(item),
       },
     ];
 
     if (item.status === "active") {
       footerElements.push({
         label: <Icon icon="circle-stop"></Icon>,
-        onClick: () => props.deactivateOrder(item),
+        onClick: () => merged.deactivateOrder(item),
         kind: "danger",
       });
     } else {
       footerElements.push({
         label: <Icon icon="circle-play"></Icon>,
-        onClick: () => props.reactivateOrder(item),
+        onClick: () => merged.reactivateOrder(item),
         kind: "success",
       });
       footerElements.push({
         label: <Icon icon="trash"></Icon>,
-        onClick: () => props.removeOrder(item),
+        onClick: () => merged.removeOrder(item),
         kind: "danger",
       });
     }
     return footerElements;
   };
 
+  const tags = (item: OrderState): Tag[] => {
+    const tags: Tag[] = [{ label: `Erstellt: ${formatDate(item.created)}` }];
+    if (hasBeenUpdated(item)) {
+      tags.push({ label: `Bearbeitet: ${formatDate(item.updated)}` });
+    }
+    tags.push({
+      label: `Deadline: ${formatDate(
+        item.created.plus({ minutes: item.timeWindow })
+      )}`,
+    });
+    return tags;
+  };
+
   return (
-    <Grid each={props.orders} footer={footer}>
+    <Grid
+      each={merged.orders}
+      footer={footer}
+      tags={tags}
+      isDisabled={merged.isDisabled}
+      showStatusTag={merged.showStatusTag}
+    >
       {(item) => {
-        const restaurant = props.activeRestaurants.find(
+        const restaurant = merged.activeRestaurants.find(
           (r) => r.id === item.restaurantId
         );
         if (typeof restaurant === "undefined") {

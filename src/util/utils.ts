@@ -27,7 +27,7 @@ export const hasProp = <K extends PropertyKey>(
 };
 
 export const formatDate = (date: DateTime): string =>
-  date.setLocale("ch").toLocaleString(DateTime.DATETIME_MED) + " Uhr";
+  date.toLocal().toLocaleString(DateTime.DATETIME_MED) + " Uhr";
 
 type TimeDelta = { hours: number; minutes: number; seconds: number };
 

@@ -115,14 +115,14 @@ export const safeParse = (raw: RawServerData): OlympResponse | null => {
     if (hasProp(parsed, "created") && typeof parsed.created === "string") {
       return {
         ...parsed,
-        created: DateTime.fromISO(parsed.created),
-        updated: DateTime.fromISO(raw.timestamp),
+        created: DateTime.fromISO(parsed.created, { zone: "Europe/Zurich" }),
+        updated: DateTime.fromISO(raw.timestamp, { zone: "Europe/Zurich" }),
       };
     }
     return {
       ...parsed,
-      created: DateTime.fromISO(raw.timestamp),
-      updated: DateTime.fromISO(raw.timestamp),
+      created: DateTime.fromISO(raw.timestamp, { zone: "Europe/Zurich" }),
+      updated: DateTime.fromISO(raw.timestamp, { zone: "Europe/Zurich" }),
     };
   }
   return null;

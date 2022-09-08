@@ -4,14 +4,14 @@ import { Progress } from "@components/static/Progress";
 import { Layout } from "@layout/Layout";
 import { Router } from "@pages/util/Router";
 import { AppState } from "@util/StateTypes";
-import { setToast } from "@util/utils";
+import { formatDate, setToast } from "@util/utils";
 import { DateTime } from "luxon";
 import {
   Component,
   createResource,
   createSignal,
   Match,
-  Switch
+  Switch,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 

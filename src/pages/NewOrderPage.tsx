@@ -59,6 +59,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
       <Form>
         <RestaurantDropdown
           activeRestaurants={activeRestaurants()}
+          restaurantId={restaurantId()}
           error={{
             status: activeValidation() && isEmpty(restaurantId()),
             text: "Pflichtfeld",

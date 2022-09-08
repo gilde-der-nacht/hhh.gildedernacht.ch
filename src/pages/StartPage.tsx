@@ -10,6 +10,7 @@ export const StartPage: Component<PageProps> = (props) => {
   const Overview = () => (
     <OrderOverview
       data={props.data}
+      stateSignal={props.stateSignal}
       setPage={link(setState)}
       openOrder={setActiveOrder(setState)}
       deactivateOrder={props.API.order.deactivate}

@@ -4,11 +4,13 @@ import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { PageType } from "@pages/util/Router";
-import { AppData, OrderState } from "@util/StateTypes";
-import { Component, createSignal, Show } from "solid-js";
+import { AppData, AppState, OrderState } from "@util/StateTypes";
+import { setShowOrderList } from "@util/utils";
+import { Accessor, Component, Setter, Show } from "solid-js";
 
 type Props = {
   data: AppData;
+  stateSignal: [Accessor<AppState>, Setter<AppState>];
   setPage: (page: PageType) => void;
   openOrder: (order: OrderState) => void;
   deactivateOrder: (order: OrderState) => void;
@@ -17,7 +19,7 @@ type Props = {
 };
 
 export const OrderOverview: Component<Props> = (props) => {
-  const [showDeactivated, setShowDeactivated] = createSignal(false);
+  const [state, setState] = props.stateSignal;
 
   return (
     <>
@@ -58,9 +60,9 @@ export const OrderOverview: Component<Props> = (props) => {
       </div>
       <hr />
       <Show
-        when={showDeactivated()}
+        when={state().showOrderList}
         fallback={
-          <Button onClick={() => setShowDeactivated(true)}>
+          <Button onClick={() => setShowOrderList(setState)(true)}>
             Zeige abgeschlossene Bestellungen
           </Button>
         }

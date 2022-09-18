@@ -48,24 +48,10 @@ export const OrderGrid: Component<Props> = (props) => {
     return footerElements;
   };
 
-  const tags = (item: OrderState): Tag[] => {
-    const tags: Tag[] = [{ label: `Erstellt: ${formatDate(item.created)}` }];
-    if (hasBeenUpdated(item)) {
-      tags.push({ label: `Bearbeitet: ${formatDate(item.updated)}` });
-    }
-    tags.push({
-      label: `Deadline: ${formatDate(
-        item.created.plus({ minutes: item.timeWindow })
-      )}`,
-    });
-    return tags;
-  };
-
   return (
     <Grid
       each={merged.orders}
       footer={footer}
-      tags={tags}
       isDisabled={merged.isDisabled}
       showStatusTag={merged.showStatusTag}
     >

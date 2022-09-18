@@ -48,7 +48,7 @@ export const aggragateData = (
   const allEntries = data
     .filter((d): d is EntryGet => d.kind === "entry")
     .filter((e): e is EntryState => e.status !== "deleted")
-    .filter((e) => orders.active.map((o) => o.id).includes(e.orderId));
+    .filter((e) => allOrders.map((o) => o.id).includes(e.orderId));
 
   const entries = {
     active: allEntries.filter((e) => e.status === "active"),

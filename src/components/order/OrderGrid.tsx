@@ -1,7 +1,9 @@
 import { Icon } from "@components/static/icons/Icon";
+import { Tag } from "@components/static/Tags";
 import { Grid, GridElementFooter } from "@layout/Grid";
 import { EntryState, OrderState, RestaurantState } from "@util/StateTypes";
-import { Component, mergeProps } from "solid-js";
+import { formatDate, hasBeenUpdated } from "@util/utils";
+import { Component, mergeProps, Show } from "solid-js";
 
 type Props = {
   orders: readonly OrderState[];
@@ -50,12 +52,25 @@ export const OrderGrid: Component<Props> = (props) => {
     return footerElements;
   };
 
+  const tags = (item: OrderState) => {
+    const list: Tag[] = [];
+    if (!hasBeenUpdated(item) && !merged.isDisabled) {
+      list.push({
+        label: `Deadline: ${formatDate(
+          item.created.plus({ minutes: item.timeWindow })
+        )}`,
+      });
+    }
+    return list;
+  };
+
   return (
     <Grid
       each={merged.orders}
       footer={footer}
       isDisabled={merged.isDisabled}
       showStatusTag={merged.showStatusTag}
+      tags={tags}
     >
       {(item) => {
         const restaurant = merged.activeRestaurants.find(
@@ -74,9 +89,11 @@ export const OrderGrid: Component<Props> = (props) => {
               <span class="pl-2 has-text-info">({entries.length})</span>
             </h4>
             <p>{item.orderer}</p>
-            <p>
-              <em>{item.comment}</em>
-            </p>
+            <Show when={item.comment.length > 0}>
+              <p>
+                <em>{item.comment}</em>
+              </p>
+            </Show>
           </div>
         );
       }}

@@ -51,6 +51,7 @@ export const OrderOverview: Component<Props> = (props) => {
           <OrderGrid
             orders={props.data.orders.active}
             activeRestaurants={props.data.restaurants.active}
+            activeEntries={props.data.entries.active}
             openOrder={props.openOrder}
             deactivateOrder={props.deactivateOrder}
             reactivateOrder={props.reactivateOrder}
@@ -90,6 +91,7 @@ export const OrderOverview: Component<Props> = (props) => {
             <OrderGrid
               orders={props.data.orders.inactive}
               activeRestaurants={props.data.restaurants.active}
+              activeEntries={props.data.entries.active}
               openOrder={props.openOrder}
               deactivateOrder={props.deactivateOrder}
               reactivateOrder={props.reactivateOrder}

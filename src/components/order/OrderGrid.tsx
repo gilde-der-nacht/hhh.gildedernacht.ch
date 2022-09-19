@@ -1,12 +1,11 @@
 import { Icon } from "@components/static/icons/Icon";
-import { Tag } from "@components/static/Tags";
 import { Grid, GridElementFooter } from "@layout/Grid";
-import { OrderState, RestaurantState } from "@util/StateTypes";
-import { formatDate, hasBeenUpdated } from "@util/utils";
+import { EntryState, OrderState, RestaurantState } from "@util/StateTypes";
 import { Component, mergeProps } from "solid-js";
 
 type Props = {
   orders: readonly OrderState[];
+  activeEntries: readonly EntryState[];
   activeRestaurants: readonly RestaurantState[];
   openOrder: (order: OrderState) => void;
   deactivateOrder: (order: OrderState) => void;
@@ -59,12 +58,18 @@ export const OrderGrid: Component<Props> = (props) => {
         const restaurant = merged.activeRestaurants.find(
           (r) => r.id === item.restaurantId
         );
+        const entries = merged.activeEntries.filter(
+          (e) => e.orderId === item.id
+        );
         if (typeof restaurant === "undefined") {
           throw new Error("This should not be able to happen!");
         }
         return (
           <div class="content">
-            <h4 class="title is-4 m-0">{restaurant.label}</h4>
+            <h4 class="title is-4 m-0">
+              {restaurant.label}{" "}
+              <span class="pl-2 has-text-info">({entries.length})</span>
+            </h4>
             <p>{item.orderer}</p>
             <p>
               <em>{item.comment}</em>

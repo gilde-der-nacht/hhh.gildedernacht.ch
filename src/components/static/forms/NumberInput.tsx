@@ -10,18 +10,25 @@ type Props = {
 
 export const NumberInput: Component<Props> = (props) => {
   const merged = mergeProps(
-    { error: { status: false, text: "" }, setter: () => {} },
+    {
+      error: { status: false, text: "" },
+      setter: () => {},
+      id: `id-${Math.floor(Math.random() * 100)}`,
+    },
     props
   );
 
   return (
     <div class="field">
-      <label class="label">{merged.label}</label>
+      <label class="label" for={merged.id}>
+        {merged.label}
+      </label>
       <div
         class="control"
         classList={{ "has-icons-right": merged.error.status }}
       >
         <input
+          id={merged.id}
           class="input"
           classList={{ "is-danger": merged.error.status }}
           type="number"

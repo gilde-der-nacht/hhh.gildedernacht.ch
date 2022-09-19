@@ -31,6 +31,7 @@ export const StartPage: Component<PageProps> = (props) => {
             deactivateEntry={props.API.entry.deactivate}
             reactivateEntry={props.API.entry.reactivate}
             removeEntry={props.API.entry.remove}
+            stateSignal={props.stateSignal}
           />
         )}
       </Show>

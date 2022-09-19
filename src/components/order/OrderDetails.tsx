@@ -4,9 +4,9 @@ import { NewEntryForm } from "@components/entry/NewEntryForm";
 import { IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { Tag, Tags } from "@components/static/Tags";
-import { AppData, EntryState, OrderState } from "@util/StateTypes";
+import { AppData, AppState, EntryState, OrderState } from "@util/StateTypes";
 import { formatDate, hasBeenUpdated } from "@util/utils";
-import { Component, Show } from "solid-js";
+import { Accessor, Component, Setter, Show } from "solid-js";
 
 type Props = {
   order: OrderState;
@@ -21,6 +21,7 @@ type Props = {
   deactivateEntry: (entry: EntryState) => void;
   reactivateEntry: (entry: EntryState) => void;
   removeEntry: (entry: EntryState) => void;
+  stateSignal: [Accessor<AppState>, Setter<AppState>];
 };
 
 export const OrderDetails: Component<Props> = (props) => {
@@ -100,6 +101,7 @@ export const OrderDetails: Component<Props> = (props) => {
         deactivateEntry={props.deactivateEntry}
         reactivateEntry={props.reactivateEntry}
         removeEntry={props.removeEntry}
+        stateSignal={props.stateSignal}
       />
     </>
   );

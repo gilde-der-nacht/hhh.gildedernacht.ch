@@ -37,6 +37,7 @@ export const EntryList: Component<Props> = (props) => {
             {(entry) => (
               <EntryListItem isDisabled={false} entry={entry}>
                 <Button
+                  title="Eintrag deaktivieren"
                   color="danger"
                   onClick={() => props.deactivateEntry(entry)}
                 >
@@ -61,12 +62,14 @@ export const EntryList: Component<Props> = (props) => {
               <EntryListItem isDisabled={true} entry={entry}>
                 <div class="buttons has-addons">
                   <Button
+                    title="Eintrag reaktivieren"
                     color="success"
                     onClick={() => props.reactivateEntry(entry)}
                   >
                     <Icon icon="circle-play" />
                   </Button>
                   <Button
+                    title="Eintrag löschen"
                     color="danger"
                     onClick={() => props.removeEntry(entry)}
                   >

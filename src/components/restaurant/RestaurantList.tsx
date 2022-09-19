@@ -42,6 +42,7 @@ export const RestaurantList: Component<Props> = (props) => {
             {(restaurant) => (
               <RestaurantListItem isDisabled={false} restaurant={restaurant}>
                 <Button
+                  title="Restaurant deaktivieren"
                   color="danger"
                   onClick={() => props.deactivateRestaurant(restaurant)}
                 >
@@ -55,12 +56,14 @@ export const RestaurantList: Component<Props> = (props) => {
               <RestaurantListItem isDisabled={true} restaurant={restaurant}>
                 <div class="buttons has-addons">
                   <Button
+                    title="Restaurant reaktivieren"
                     color="success"
                     onClick={() => props.reactivateRestaurant(restaurant)}
                   >
                     <Icon icon="circle-play" />
                   </Button>
                   <Button
+                    title="Restaurant löschen"
                     color="danger"
                     onClick={() => props.removeRestaurant(restaurant)}
                   >

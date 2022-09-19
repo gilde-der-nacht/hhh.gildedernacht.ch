@@ -28,17 +28,20 @@ export const OrderGrid: Component<Props> = (props) => {
 
     if (item.status === "active") {
       footerElements.push({
+        title: "Bestellung stoppen",
         label: <Icon icon="circle-stop"></Icon>,
         onClick: () => merged.deactivateOrder(item),
         kind: "danger",
       });
     } else {
       footerElements.push({
+        title: "Bestellung fortsetzen",
         label: <Icon icon="circle-play"></Icon>,
         onClick: () => merged.reactivateOrder(item),
         kind: "success",
       });
       footerElements.push({
+        title: "Bestellung löschen",
         label: <Icon icon="trash"></Icon>,
         onClick: () => merged.removeOrder(item),
         kind: "danger",

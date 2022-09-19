@@ -32,6 +32,7 @@ export const Grid = <T,>(props: GridProps<T>): JSX.Element => {
 };
 
 export type GridElementFooter = {
+  title?: string;
   label: JSX.Element;
   onClick: () => void;
   kind?: "danger" | "success";
@@ -64,6 +65,7 @@ const GridElement: ParentComponent<GridElementProps> = (props) => {
           <For each={props.footer}>
             {(entry) => (
               <a
+                title={entry.title}
                 class="card-footer-item"
                 classList={{
                   [`has-text-${entry.kind}`]: typeof entry.kind === "string",

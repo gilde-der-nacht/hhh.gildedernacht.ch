@@ -9,6 +9,7 @@ import { Component, createSignal } from "solid-js";
 
 type Props = {
   orderId: string;
+  menuLink: string;
   createEntry: (
     entry: Omit<EntryUpdatePost, "status" | "id" | "kind" | "created">
   ) => Promise<Response>;
@@ -42,6 +43,9 @@ export const NewEntryForm: Component<Props> = (props) => {
   return (
     <Card showStatusTag={false}>
       <h4 class="title is-4 has-text-centered">Neuer Eintrag</h4>
+      <p>
+        Suche dir unter <a href={props.menuLink} target="_blank">{props.menuLink}</a> ein Menü aus, dass du gerne bestellen möchtest.
+      </p>
       <Form>
         <Input
           label="Besteller"

@@ -1,8 +1,7 @@
 import { EntryUpdatePost } from "@api/ApiTypes";
 import { EntryList } from "@components/entry/EntryList";
 import { NewEntryForm } from "@components/entry/NewEntryForm";
-import { Button } from "@components/static/Button";
-import { Icon, IconLeft } from "@components/static/icons/Icon";
+import { IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { Tag, Tags } from "@components/static/Tags";
 import { AppData, OrderState } from "@util/StateTypes";
@@ -88,6 +87,7 @@ export const OrderDetails: Component<Props> = (props) => {
       <Show when={props.order.status === "active"}>
         <NewEntryForm
           orderId={props.order.id}
+          menuLink={restaurant().menuLink}
           createEntry={props.createEntry}
         />
       </Show>

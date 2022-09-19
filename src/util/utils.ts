@@ -29,11 +29,16 @@ export const hasProp = <K extends PropertyKey>(
 export const formatDate = (date: DateTime): string =>
   date.toLocal().toLocaleString(DateTime.DATETIME_MED) + " Uhr";
 
-type TimeDelta = { hours: number; minutes: number; seconds: number };
+type TimeDelta = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
 
 export const getDelta = (first: DateTime, second: DateTime): TimeDelta => {
   return first
-    .diff(second, ["hours", "minutes", "seconds"])
+    .diff(second, ["days", "hours", "minutes", "seconds"])
     .toObject() as TimeDelta;
 };
 

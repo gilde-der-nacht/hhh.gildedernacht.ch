@@ -27,8 +27,8 @@ export const aggragateData = (
     .filter((d): d is OrderGet => d.kind === "order")
     .filter((o) => o.status !== "deleted")
     .filter((o) => {
-      const delta = getDelta(o.created.plus({ minutes: o.timeWindow }), now);
-      return delta.hours <= CUT_OFF_TIME_HOURS;
+      const delta = getDelta(now, o.created.plus({ minutes: o.timeWindow }));
+      return delta.days === 0 && delta.hours <= CUT_OFF_TIME_HOURS;
     })
     .filter((o) => restaurants.active.map((r) => r.id).includes(o.restaurantId))
     .map((o): OrderState => {

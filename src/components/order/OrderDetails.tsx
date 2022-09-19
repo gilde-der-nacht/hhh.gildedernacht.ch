@@ -48,47 +48,42 @@ export const OrderDetails: Component<Props> = (props) => {
   ];
   if (hasBeenUpdated(props.order)) {
     tags.push({ label: `Bearbeitet: ${formatDate(props.order.updated)}` });
+  } else {
+    tags.push({
+      label: `Deadline: ${formatDate(
+        props.order.created.plus({ minutes: props.order.timeWindow })
+      )}`,
+    });
   }
-  tags.push({
-    label: `Deadline: ${formatDate(
-      props.order.created.plus({ minutes: props.order.timeWindow })
-    )}`,
-  });
 
   return (
     <>
       <div>
         <h3 class="title is-3 has-text-centered">
-          <div class="is-pulled-right">
-            <Button onClick={props.goBack}>
-              <Icon icon="xmark-large" />
-            </Button>
-          </div>
           <IconLeft icon="table-list">
             <span class="pl-2">{restaurant().label}</span>
+            <span class="pl-2 has-text-info">({entries.active().length})</span>
+            <small class="is-size-7 has-text-weight-normal ml-2">
+              von {props.order.orderer}
+            </small>
           </IconLeft>
         </h3>
         <Tags isJustified tags={tags} />
-        <Notification kind="info">
-          <p>
-            <strong>Besteller</strong> <em>{props.order.orderer}</em>
-            <Show when={restaurant().comment}>
-              {" "}
-              || <strong>Hinweis Restaurant</strong>{" "}
+        <Show when={restaurant().comment}>
+          <Notification kind="info">
+            <p>
+              <strong>Hinweis Restaurant</strong>{" "}
               <em>{restaurant().comment}</em>
-            </Show>
-            <Show when={props.order.comment}>
-              {" "}
-              || <strong>Hinweis Bestellung</strong>{" "}
-              <em>{props.order.comment}</em>
-            </Show>{" "}
-            ||{" "}
-            <strong>
-              {entries.active().length}{" "}
-              {entries.active().length === 1 ? "Eintrag" : "Einträge"}
-            </strong>
-          </p>
-        </Notification>
+            </p>
+          </Notification>
+        </Show>
+        <Show when={props.order.comment}>
+          <Notification kind="info">
+            <p>
+              <strong>Hinweis Bestellung</strong> <em>{props.order.comment}</em>
+            </p>
+          </Notification>
+        </Show>
       </div>
       <Show when={props.order.status === "active"}>
         <NewEntryForm

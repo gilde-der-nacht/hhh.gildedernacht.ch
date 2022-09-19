@@ -28,6 +28,9 @@ export const StartPage: Component<PageProps> = (props) => {
             data={props.data}
             goBack={() => setActiveOrder(setState)(null)}
             createEntry={props.API.entry.create}
+            deactivateEntry={props.API.entry.deactivate}
+            reactivateEntry={props.API.entry.reactivate}
+            removeEntry={props.API.entry.remove}
           />
         )}
       </Show>

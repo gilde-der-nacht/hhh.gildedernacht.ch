@@ -4,7 +4,7 @@ import { NewEntryForm } from "@components/entry/NewEntryForm";
 import { IconLeft } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { Tag, Tags } from "@components/static/Tags";
-import { AppData, OrderState } from "@util/StateTypes";
+import { AppData, EntryState, OrderState } from "@util/StateTypes";
 import { formatDate, hasBeenUpdated } from "@util/utils";
 import { Component, Show } from "solid-js";
 
@@ -18,6 +18,9 @@ type Props = {
       "status" | "id" | "kind" | "created" | "updated"
     >
   ) => Promise<Response>;
+  deactivateEntry: (entry: EntryState) => void;
+  reactivateEntry: (entry: EntryState) => void;
+  removeEntry: (entry: EntryState) => void;
 };
 
 export const OrderDetails: Component<Props> = (props) => {
@@ -94,6 +97,9 @@ export const OrderDetails: Component<Props> = (props) => {
       <EntryList
         activeEntries={entries.active()}
         inactiveEntries={entries.inactive()}
+        deactivateEntry={props.deactivateEntry}
+        reactivateEntry={props.reactivateEntry}
+        removeEntry={props.removeEntry}
       />
     </>
   );

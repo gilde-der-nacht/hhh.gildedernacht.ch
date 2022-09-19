@@ -2,7 +2,7 @@ import { Icon } from "@components/static/icons/Icon";
 import { Tag } from "@components/static/Tags";
 import { Grid, GridElementFooter } from "@layout/Grid";
 import { EntryState, OrderState, RestaurantState } from "@util/StateTypes";
-import { formatDate, hasBeenUpdated } from "@util/utils";
+import { formatDateForHumans, hasBeenUpdated } from "@util/utils";
 import { Component, mergeProps, Show } from "solid-js";
 
 type Props = {
@@ -56,7 +56,7 @@ export const OrderGrid: Component<Props> = (props) => {
     const list: Tag[] = [];
     if (!hasBeenUpdated(item) && !merged.isDisabled) {
       list.push({
-        label: `Deadline: ${formatDate(
+        label: `Deadline: ${formatDateForHumans(
           item.created.plus({ minutes: item.timeWindow })
         )}`,
       });

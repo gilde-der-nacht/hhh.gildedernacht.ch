@@ -34,7 +34,7 @@ export const aggragateData = (
     .map((o): OrderState => {
       if (o.status === "auto") {
         const delta = getDelta(o.created.plus({ minutes: o.timeWindow }), now);
-        const status = delta.minutes >= 0 ? "active" : "inactive";
+        const status = delta.minutes > 0 ? "active" : "inactive";
         return { ...o, status };
       }
       return { ...o, status: o.status as DerivedOrderStatus };

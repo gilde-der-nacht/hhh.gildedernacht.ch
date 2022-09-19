@@ -1,8 +1,8 @@
 import { ToastOptions } from "@components/static/Toast";
 import { PageType } from "@pages/util/Router";
+import { AppState, OrderState } from "@util/StateTypes";
 import { DateTime } from "luxon";
 import { Setter } from "solid-js";
-import { AppState, OrderState } from "@util/StateTypes";
 
 export const isEmpty = (s: string): boolean => {
   return s.trim().length === 0;
@@ -28,6 +28,9 @@ export const hasProp = <K extends PropertyKey>(
 
 export const formatDate = (date: DateTime): string =>
   date.toLocal().toLocaleString(DateTime.DATETIME_MED) + " Uhr";
+
+export const formatDateForHumans = (date: DateTime): string =>
+  date.toLocal().toRelative({ locale: "de" }) ?? formatDate(date);
 
 type TimeDelta = {
   days: number;

@@ -48,7 +48,7 @@ export const NewEntryForm: Component<Props> = (props) => {
       </p>
       <Form>
         <Input
-          label="Besteller"
+          label="Hungrige | Hungriger"
           placeholder="Dein Name"
           helpText="Damit wir wissen, wer was bestellt hat."
           error={{

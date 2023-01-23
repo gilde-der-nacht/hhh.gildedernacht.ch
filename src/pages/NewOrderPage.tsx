@@ -75,7 +75,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           </Button>
         </RestaurantDropdown>
         <Input
-          label="Besteller"
+          label="Bestellerin | Besteller"
           placeholder="Dein Name"
           helpText="Damit alle wissen, wer diese Bestellung organisiert."
           error={{

@@ -28,12 +28,6 @@ const App: Component = () => {
     showEntryList: false,
   });
 
-  createEffect(() => {
-    setInterval(() => {
-      setNow(DateTime.now());
-    }, 60_000);
-  });
-
   return (
     <Layout stateSignal={[state, setState]}>
       <div>

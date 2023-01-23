@@ -2,7 +2,7 @@ import { Icon } from "@components/static/icons/Icon";
 import { Tag } from "@components/static/Tags";
 import { Grid, GridElementFooter } from "@layout/Grid";
 import { EntryState, OrderState, RestaurantState } from "@util/StateTypes";
-import { formatDateForHumans, hasBeenUpdated } from "@util/utils";
+import { formatDate, formatDateForHumans, hasBeenUpdated } from "@util/utils";
 import { Component, mergeProps, Show } from "solid-js";
 
 type Props = {
@@ -59,6 +59,7 @@ export const OrderGrid: Component<Props> = (props) => {
         label: `Deadline: ${formatDateForHumans(
           item.created.plus({ minutes: item.timeWindow })
         )}`,
+        title: formatDate(item.created.plus({ minutes: item.timeWindow })),
       });
     }
     return list;

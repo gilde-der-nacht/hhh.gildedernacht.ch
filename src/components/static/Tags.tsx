@@ -4,6 +4,7 @@ export type Tag = {
   label: string;
   kind?: "success" | "danger";
   link?: string;
+  title?: string;
 };
 
 type Props = {
@@ -21,7 +22,7 @@ export const Tags: Component<Props> = (props) => {
     >
       <For each={merged.tags}>
         {(tag) => (
-          <span class={`tag is-${tag.kind ?? ""}`}>
+          <span class={`tag is-${tag.kind ?? ""}`} title={tag.title}>
             <Show when={tag.link?.length} fallback={tag.label}>
               <a href={tag.link}>{tag.label}</a>
             </Show>

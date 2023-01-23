@@ -41,7 +41,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
     }
   };
 
-  const isValidTimeWindow = (time: number) => !isNaN(time) && time >= 0;
+  const isValidTimeWindow = (time: number) => !isNaN(time) && time >= 0 && time < 720;
 
   onMount(() =>
     setRestaurantId(
@@ -90,7 +90,7 @@ export const NewOrderPage: Component<PageProps> = (props) => {
           helptext="Wie lange haben die anderen Personen Zeit ihre Bestellung einzugeben."
           error={{
             status: activeValidation() && !isValidTimeWindow(timeWindow()),
-            text: "Zeit darf nicht negativ sein.",
+            text: "Zeit darf nicht negativ sein oder länger als 12 Stunden (720 Minuten).",
           }}
           value={timeWindow()}
           setter={setTimeWindow}

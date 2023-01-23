@@ -64,7 +64,9 @@ export const OrderDetails: Component<Props> = (props) => {
       <div>
         <h3 class="title is-3 has-text-centered">
           <IconLeft icon="table-list">
-            <span class="pl-2">{restaurant().label}</span>
+            <a href={restaurant().menuLink} target="_blank" class="has-text-dark">
+              <span class="pl-2">{restaurant().label}</span>
+            </a>
             <span class="pl-2 has-text-info">({entries.active().length})</span>
             <small class="is-size-7 has-text-weight-normal ml-2">
               von {props.order.orderer}

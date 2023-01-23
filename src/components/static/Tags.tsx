@@ -24,7 +24,7 @@ export const Tags: Component<Props> = (props) => {
         {(tag) => (
           <span class={`tag is-${tag.kind ?? ""}`} title={tag.title}>
             <Show when={tag.link?.length} fallback={tag.label}>
-              <a href={tag.link}>{tag.label}</a>
+              <a href={tag.link} target="_blank">{tag.label}</a>
             </Show>
           </span>
         )}

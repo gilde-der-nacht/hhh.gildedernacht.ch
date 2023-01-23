@@ -24,7 +24,7 @@ export const RestaurantListItem: ParentComponent<Props> = (props) => {
         <div>
           <h5 class="m-0">{props.restaurant.label}</h5>
           <p class="is-italic">
-            <a href={props.restaurant.menuLink}>{props.restaurant.menuLink}</a>
+            <a href={props.restaurant.menuLink} target="_blank">{props.restaurant.menuLink}</a>
           </p>
           <Show when={props.restaurant.comment.trim().length > 0}>
             <p class="is-italic">{props.restaurant.comment}</p>

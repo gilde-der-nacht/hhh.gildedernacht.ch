@@ -84,7 +84,11 @@ export const OrderGrid: Component<Props> = (props) => {
           throw new Error("This should not be able to happen!");
         }
         return (
-          <div class="content">
+          <div
+            class="content"
+            onClick={() => merged.openOrder(item)}
+            style="cursor: pointer;"
+          >
             <h4 class="title is-4 m-0">
               {restaurant.label}{" "}
               <span class="pl-2 has-text-info">({entries.length})</span>

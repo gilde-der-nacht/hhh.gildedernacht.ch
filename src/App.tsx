@@ -6,17 +6,10 @@ import { Router } from "@pages/util/Router";
 import { AppState } from "@util/StateTypes";
 import { setToast } from "@util/utils";
 import { DateTime } from "luxon";
-import {
-  Component,
-  createEffect,
-  createResource,
-  createSignal,
-  Match,
-  Switch,
-} from "solid-js";
+import { createResource, createSignal, JSX, Match, Switch } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
-const App: Component = () => {
+const App = (): JSX.Element => {
   const [now, setNow] = createSignal(DateTime.now());
   const [data, { refetch }] = createResource(now, loadServerResource);
   const [state, setState] = createSignal<AppState>({

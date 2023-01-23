@@ -1,16 +1,17 @@
 import { Dropdown } from "@components/static/forms/Dropdown";
 import { Tag, Tags } from "@components/static/Tags";
 import { RestaurantState } from "@util/StateTypes";
-import { mergeProps, ParentComponent, Show } from "solid-js";
+import { JSX, mergeProps, Show } from "solid-js";
 
 type Props = {
   activeRestaurants: readonly RestaurantState[];
   restaurantId: string;
   setter: (id: string) => void;
   error?: { status: boolean; text?: string };
+  children: JSX.Element;
 };
 
-export const RestaurantDropdown: ParentComponent<Props> = (props) => {
+export const RestaurantDropdown = (props: Props): JSX.Element => {
   const merged = mergeProps({ error: { status: false, text: "" } }, props);
 
   const selectedRestaurant = () =>

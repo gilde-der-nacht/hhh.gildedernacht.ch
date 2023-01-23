@@ -1,13 +1,14 @@
-import { mergeProps, ParentComponent } from "solid-js";
+import { JSX, mergeProps } from "solid-js";
 
 export type NotificationKind = "success" | "danger" | "info";
 
 type Props = {
   kind?: NotificationKind;
   isLight?: boolean;
+  children: JSX.Element;
 };
 
-export const Notification: ParentComponent<Props> = (props) => {
+export const Notification = (props: Props): JSX.Element => {
   const merged = mergeProps({ type: "info", isLight: true }, props);
 
   return (

@@ -1,4 +1,4 @@
-import { Component, For, mergeProps } from "solid-js";
+import { JSX, For, mergeProps } from "solid-js";
 
 type Props = {
   hasErrors?: boolean;
@@ -6,7 +6,7 @@ type Props = {
   updateValue: (value: string) => void;
 };
 
-export const Dropdown: Component<Props> = (props) => {
+export const Dropdown = (props: Props): JSX.Element => {
   const merged = mergeProps({ hasErrors: false }, props);
 
   const onChange = (e: Event) =>

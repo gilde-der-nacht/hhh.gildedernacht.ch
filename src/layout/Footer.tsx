@@ -1,6 +1,6 @@
-import { Component } from "solid-js";
+import { JSX } from "solid-js";
 
-export const Footer: Component = () => {
+export const Footer = (): JSX.Element => {
   return (
     <footer class="footer has-background-dark">
       <div class="content has-text-centered">

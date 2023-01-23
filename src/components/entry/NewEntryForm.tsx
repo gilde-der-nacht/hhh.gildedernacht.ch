@@ -5,7 +5,7 @@ import { Form } from "@components/static/forms/Form";
 import { Input } from "@components/static/forms/Input";
 import { IconLeft } from "@components/static/icons/Icon";
 import { isEmpty } from "@util/utils";
-import { Component, createSignal } from "solid-js";
+import { createSignal, JSX } from "solid-js";
 
 type Props = {
   orderId: string;
@@ -15,7 +15,7 @@ type Props = {
   ) => Promise<Response>;
 };
 
-export const NewEntryForm: Component<Props> = (props) => {
+export const NewEntryForm = (props: Props): JSX.Element => {
   const [eater, setEater] = createSignal("");
   const [menuItem, setMenuItem] = createSignal("");
   const [comment, setComment] = createSignal("");
@@ -44,7 +44,11 @@ export const NewEntryForm: Component<Props> = (props) => {
     <Card showStatusTag={false}>
       <h4 class="title is-4 has-text-centered">Neuer Eintrag</h4>
       <p>
-        Suche dir unter <a href={props.menuLink} target="_blank">{props.menuLink}</a> ein Menü aus, dass du gerne bestellen möchtest.
+        Suche dir unter{" "}
+        <a href={props.menuLink} target="_blank">
+          {props.menuLink}
+        </a>{" "}
+        ein Menü aus, dass du gerne bestellen möchtest.
       </p>
       <Form>
         <Input

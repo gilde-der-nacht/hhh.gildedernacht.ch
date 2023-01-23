@@ -3,7 +3,7 @@ import { Button } from "@components/static/Button";
 import { Icon } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { RestaurantState } from "@util/StateTypes";
-import { Component, For, Show } from "solid-js";
+import { For, JSX, Show } from "solid-js";
 
 type Props = {
   activeRestaurants: readonly RestaurantState[];
@@ -15,7 +15,7 @@ type Props = {
   setShowList: (b: boolean) => void;
 };
 
-export const RestaurantList: Component<Props> = (props) => {
+export const RestaurantList = (props: Props): JSX.Element => {
   return (
     <Show
       when={props.showList}

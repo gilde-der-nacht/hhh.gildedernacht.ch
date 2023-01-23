@@ -6,7 +6,7 @@ import { Notification } from "@components/static/Notification";
 import { Tag, Tags } from "@components/static/Tags";
 import { AppData, AppState, EntryState, OrderState } from "@util/StateTypes";
 import { formatDate, hasBeenUpdated } from "@util/utils";
-import { Accessor, Component, Setter, Show } from "solid-js";
+import { Accessor, JSX, Setter, Show } from "solid-js";
 
 type Props = {
   order: OrderState;
@@ -24,7 +24,7 @@ type Props = {
   stateSignal: [Accessor<AppState>, Setter<AppState>];
 };
 
-export const OrderDetails: Component<Props> = (props) => {
+export const OrderDetails = (props: Props): JSX.Element => {
   const restaurant = () => {
     const restaurant = props.data.restaurants.active.find(
       (r) => r.id === props.order.restaurantId
@@ -64,7 +64,11 @@ export const OrderDetails: Component<Props> = (props) => {
       <div>
         <h3 class="title is-3 has-text-centered">
           <IconLeft icon="table-list">
-            <a href={restaurant().menuLink} target="_blank" class="has-text-dark">
+            <a
+              href={restaurant().menuLink}
+              target="_blank"
+              class="has-text-dark"
+            >
               <span class="pl-2">{restaurant().label}</span>
             </a>
             <span class="pl-2 has-text-info">({entries.active().length})</span>

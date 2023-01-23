@@ -1,5 +1,5 @@
-import { ParentComponent } from "solid-js";
+import { JSX } from "solid-js";
 
-export const Form: ParentComponent = (props) => {
+export const Form = (props: { children: JSX.Element }): JSX.Element => {
   return <form action="">{props.children}</form>;
 };

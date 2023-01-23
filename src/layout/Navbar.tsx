@@ -1,11 +1,11 @@
 import { Button } from "@components/static/Button";
 import { IconLeft } from "@components/static/icons/Icon";
 import { PageType } from "@pages/util/Router";
-import { Component } from "solid-js";
+import { JSX } from "solid-js";
 
 type Props = { link: (page: PageType) => void };
 
-export const Navbar: Component<Props> = (props) => {
+export const Navbar = (props: Props): JSX.Element => {
   return (
     <nav class="navbar is-light is-flex is-justify-content-center">
       <div class="buttons has-addons is-justify-content-center">

@@ -1,4 +1,4 @@
-import { mergeProps, ParentComponent } from "solid-js";
+import { JSX, mergeProps } from "solid-js";
 
 type Props = {
   title?: string;
@@ -7,9 +7,10 @@ type Props = {
   isLarge?: boolean;
   isSubmit?: boolean;
   onClick: (e: Event) => void;
+  children: JSX.Element;
 };
 
-export const Button: ParentComponent<Props> = (props) => {
+export const Button = (props: Props): JSX.Element => {
   const merged = mergeProps(
     { color: "primary", isOutlined: false, isLarge: false, isSubmit: false },
     props

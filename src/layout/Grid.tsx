@@ -1,5 +1,5 @@
 import { Tag, Tags } from "@components/static/Tags";
-import { For, JSX, mergeProps, ParentComponent, Show } from "solid-js";
+import { For, JSX, mergeProps, Show } from "solid-js";
 
 type GridProps<T> = {
   each: readonly T[];
@@ -43,9 +43,10 @@ type GridElementProps = {
   tags: Tag[];
   isDisabled: boolean;
   showStatusTag: boolean;
+  children: JSX.Element;
 };
 
-const GridElement: ParentComponent<GridElementProps> = (props) => {
+const GridElement = (props: GridElementProps): JSX.Element => {
   const tags: Tag[] = [];
   if (props.showStatusTag) {
     tags.push({

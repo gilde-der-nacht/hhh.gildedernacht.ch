@@ -1,4 +1,4 @@
-import { Component, For, mergeProps, Show } from "solid-js";
+import { For, JSX, mergeProps, Show } from "solid-js";
 
 export type Tag = {
   label: string;
@@ -12,7 +12,7 @@ type Props = {
   tags: Tag[];
 };
 
-export const Tags: Component<Props> = (props) => {
+export const Tags = (props: Props): JSX.Element => {
   const merged = mergeProps({ isJustified: false }, props);
 
   return (
@@ -24,7 +24,9 @@ export const Tags: Component<Props> = (props) => {
         {(tag) => (
           <span class={`tag is-${tag.kind ?? ""}`} title={tag.title}>
             <Show when={tag.link?.length} fallback={tag.label}>
-              <a href={tag.link} target="_blank">{tag.label}</a>
+              <a href={tag.link} target="_blank">
+                {tag.label}
+              </a>
             </Show>
           </span>
         )}

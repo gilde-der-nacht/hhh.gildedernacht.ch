@@ -3,7 +3,7 @@ import { Tag } from "@components/static/Tags";
 import { Grid, GridElementFooter } from "@layout/Grid";
 import { EntryState, OrderState, RestaurantState } from "@util/StateTypes";
 import { formatDate, formatDateForHumans, hasBeenUpdated } from "@util/utils";
-import { Component, mergeProps, Show } from "solid-js";
+import { JSX, mergeProps, Show } from "solid-js";
 
 type Props = {
   orders: readonly OrderState[];
@@ -17,7 +17,7 @@ type Props = {
   showStatusTag?: boolean;
 };
 
-export const OrderGrid: Component<Props> = (props) => {
+export const OrderGrid = (props: Props): JSX.Element => {
   const merged = mergeProps({ isDisabled: false, showStatusTag: true }, props);
 
   const footer = (item: OrderState): GridElementFooter[] => {

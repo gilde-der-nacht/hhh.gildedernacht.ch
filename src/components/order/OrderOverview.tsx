@@ -6,7 +6,7 @@ import { Notification } from "@components/static/Notification";
 import { PageType } from "@pages/util/Router";
 import { AppData, AppState, OrderState } from "@util/StateTypes";
 import { setShowOrderList } from "@util/utils";
-import { Accessor, Component, Setter, Show } from "solid-js";
+import { Accessor, JSX, Setter, Show } from "solid-js";
 
 type Props = {
   data: AppData;
@@ -18,7 +18,7 @@ type Props = {
   removeOrder: (order: OrderState) => void;
 };
 
-export const OrderOverview: Component<Props> = (props) => {
+export const OrderOverview = (props: Props): JSX.Element => {
   const [state, setState] = props.stateSignal;
 
   return (

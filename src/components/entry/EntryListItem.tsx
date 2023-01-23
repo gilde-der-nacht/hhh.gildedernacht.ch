@@ -2,14 +2,15 @@ import { Card } from "@components/static/Card";
 import { Tag } from "@components/static/Tags";
 import { EntryState } from "@util/StateTypes";
 import { formatDate, hasBeenUpdated } from "@util/utils";
-import { ParentComponent, Show } from "solid-js";
+import { JSX, Show } from "solid-js";
 
 type Props = {
   entry: EntryState;
   isDisabled: boolean;
+  children: JSX.Element;
 };
 
-export const EntryListItem: ParentComponent<Props> = (props) => {
+export const EntryListItem = (props: Props): JSX.Element => {
   const tags: Tag[] = [
     { label: `Erstellt: ${formatDate(props.entry.created)}` },
   ];

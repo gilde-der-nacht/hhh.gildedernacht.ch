@@ -6,9 +6,9 @@ import { NumberInput } from "@components/static/forms/NumberInput";
 import { IconLeft } from "@components/static/icons/Icon";
 import { PageProps } from "@pages/util/Router";
 import { isEmpty, link } from "@util/utils";
-import { Component, createSignal, onMount } from "solid-js";
+import { createSignal, JSX, onMount } from "solid-js";
 
-export const NewOrderPage: Component<PageProps> = (props) => {
+export const NewOrderPage = (props: PageProps): JSX.Element => {
   const [restaurantId, setRestaurantId] = createSignal("");
   const [orderer, setOrderer] = createSignal("");
   const [comment, setComment] = createSignal("");
@@ -41,7 +41,8 @@ export const NewOrderPage: Component<PageProps> = (props) => {
     }
   };
 
-  const isValidTimeWindow = (time: number) => !isNaN(time) && time >= 0 && time < 720;
+  const isValidTimeWindow = (time: number) =>
+    !isNaN(time) && time >= 0 && time < 720;
 
   onMount(() =>
     setRestaurantId(

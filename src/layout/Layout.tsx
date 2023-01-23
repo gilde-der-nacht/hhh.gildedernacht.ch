@@ -4,13 +4,14 @@ import { Header } from "@layout/Header";
 import { Navbar } from "@layout/Navbar";
 import { AppState } from "@util/StateTypes";
 import { hideToast, link, setToast } from "@util/utils";
-import { Accessor, ParentComponent, Setter } from "solid-js";
+import { Accessor, JSX, Setter } from "solid-js";
 
 type Props = {
   stateSignal: [Accessor<AppState>, Setter<AppState>];
+  children: JSX.Element;
 };
 
-export const Layout: ParentComponent<Props> = (props) => {
+export const Layout = (props: Props): JSX.Element => {
   const [state, setState] = props.stateSignal;
 
   return (

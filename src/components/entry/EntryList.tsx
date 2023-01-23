@@ -4,7 +4,7 @@ import { Icon } from "@components/static/icons/Icon";
 import { Notification } from "@components/static/Notification";
 import { AppState, EntryState } from "@util/StateTypes";
 import { setShowEntryList } from "@util/utils";
-import { Accessor, Component, For, Setter, Show } from "solid-js";
+import { Accessor, For, JSX, Setter, Show } from "solid-js";
 
 type Props = {
   activeEntries: readonly EntryState[];
@@ -15,7 +15,7 @@ type Props = {
   stateSignal: [Accessor<AppState>, Setter<AppState>];
 };
 
-export const EntryList: Component<Props> = (props) => {
+export const EntryList = (props: Props): JSX.Element => {
   const [state, setState] = props.stateSignal;
 
   return (

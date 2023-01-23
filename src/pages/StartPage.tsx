@@ -2,9 +2,9 @@ import { OrderDetails } from "@components/order/OrderDetails";
 import { OrderOverview } from "@components/order/OrderOverview";
 import { PageProps } from "@pages/util/Router";
 import { link, setActiveOrder } from "@util/utils";
-import { Component, Show } from "solid-js";
+import { JSX, Show } from "solid-js";
 
-export const StartPage: Component<PageProps> = (props) => {
+export const StartPage = (props: PageProps): JSX.Element => {
   const [state, setState] = props.stateSignal;
 
   const Overview = () => (

@@ -5,9 +5,9 @@ import { Input } from "@components/static/forms/Input";
 import { IconLeft } from "@components/static/icons/Icon";
 import { PageProps } from "@pages/util/Router";
 import { isEmpty, isValidUrl, setShowRestaurantList } from "@util/utils";
-import { Component, createSignal } from "solid-js";
+import { createSignal, JSX } from "solid-js";
 
-export const NewRestaurantPage: Component<PageProps> = (props) => {
+export const NewRestaurantPage = (props: PageProps): JSX.Element => {
   const [restaurant, setRestaurant] = createSignal("");
   const [menulink, setMenulink] = createSignal("");
   const [comment, setComment] = createSignal("");

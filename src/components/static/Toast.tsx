@@ -1,10 +1,10 @@
 import { IconLeft, IconType } from "@components/static/icons/Icon";
 import {
   Notification,
-  NotificationKind,
+  NotificationKind
 } from "@components/static/Notification";
 import { isPromise } from "@util/utils";
-import { Component, createEffect, mergeProps } from "solid-js";
+import { createEffect, JSX, mergeProps } from "solid-js";
 
 export type ToastOptions = {
   isVisible?: boolean;
@@ -24,7 +24,7 @@ type Props = {
   hideToast: () => void;
 };
 
-export const Toast: Component<ToastOptions & Props> = (props) => {
+export const Toast = (props: ToastOptions & Props): JSX.Element => {
   const merged = mergeProps({ isVisible: false, waitFor: 5_000 }, props);
 
   createEffect(() => {

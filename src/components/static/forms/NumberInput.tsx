@@ -1,4 +1,4 @@
-import { Component, mergeProps, Show } from "solid-js";
+import { JSX, mergeProps, Show } from "solid-js";
 
 type Props = {
   label: string;
@@ -8,7 +8,7 @@ type Props = {
   setter?: (content: number) => void;
 };
 
-export const NumberInput: Component<Props> = (props) => {
+export const NumberInput = (props: Props): JSX.Element => {
   const merged = mergeProps(
     {
       error: { status: false, text: "" },

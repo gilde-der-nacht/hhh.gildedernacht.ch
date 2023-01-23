@@ -1,11 +1,11 @@
 import { PageType } from "@pages/util/Router";
-import { Component } from "solid-js";
+import { JSX } from "solid-js";
 
-type HeaderProps = {
+type Props = {
   link: (page: PageType) => void;
 };
 
-export const Header: Component<HeaderProps> = (props) => {
+export const Header = (props: Props): JSX.Element => {
   return (
     <header class="hero is-info is-small">
       <a onClick={() => props.link("start")}>

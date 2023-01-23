@@ -1,13 +1,14 @@
 import { Tag, Tags } from "@components/static/Tags";
-import { mergeProps, ParentComponent } from "solid-js";
+import { JSX, mergeProps } from "solid-js";
 
 type Props = {
   isDisabled?: boolean;
   showStatusTag?: boolean;
   tags?: Tag[];
+  children: JSX.Element;
 };
 
-export const Card: ParentComponent<Props> = (props) => {
+export const Card = (props: Props): JSX.Element => {
   const merged = mergeProps(
     { isDisabled: false, showStatusTag: true, tags: [] },
     props

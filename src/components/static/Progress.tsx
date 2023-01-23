@@ -1,6 +1,6 @@
-import { Component } from "solid-js";
+import { JSX } from "solid-js";
 
-export const Progress: Component = () => (
+export const Progress = (): JSX.Element => (
   <progress class="progress is-dark" max="100">
     loading
   </progress>
